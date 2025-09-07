@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -175,6 +175,28 @@ button {
     width: 100%;
   }
 }
+.certificates {
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:2rem;width:100%;margin-top:2rem;
+    }
+    .certificate-card {
+      background:rgba(255,255,255,0.05);
+      padding:1rem;border-radius:16px;text-align:center;
+      transition:transform 0.3s, box-shadow 0.3s;
+    }
+    .certificate-card:hover {
+      transform:translateY(-8px) scale(1.05);
+      box-shadow:0 0 20px #0ff;
+    }
+    .certificate-card img {
+      width:100%;max-width:350px;border-radius:12px;margin-top:1rem;
+      transition:transform 0.3s, box-shadow 0.3s;
+    }
+    .certificate-card img:hover {
+      transform:scale(1.05);
+      box-shadow:0 0 20px #0ff;
+    }
   </style>
 </head>
 <body>
@@ -306,47 +328,19 @@ button {
     </div>
   </section>
   <br>
-  <section id="certificates">
+    <section id="certificates">
     <a href="#certificates" class="btn">Certificates and Licenses</a>
-    <br>
-    <br>
-    <br>
-    <div class="skill-badge">Python Basics</div>
-    <a href="https://www.hackerrank.com/certificates/iframe/fdfde6ce8f38"><p> View Certificate</p></a>
-    <br>
-    <br>
-    <div class="skill-badge">Python Developer</div>
-    <a href="https://api2.sololearn.com/v2/certificates/CC-R4VQ5PI6/image/png?t=638920842734683620"><p> View Certificate</p></a>
-    <br>
-    <br>
-    <div class="skill-badge">Java Programming</div>
-    <a href="https://api2.sololearn.com/v2/certificates/CC-DYP79S7Y/image/png?t=638920848384491620">View Certificate</a>
-    <br>
-    <br>
-    <div class="skill-badge">C Programming</div>
-    <a href="https://api2.sololearn.com/v2/certificates/CC-HJMWCHDC/image/png?t=638918151443452580"><p> View Certificate</p></a>
-    <br>
-    <br>
-    <div class="skill-badge">C++ Programming</div>
-    <a href="https://api2.sololearn.com/v2/certificates/CC-HJMWCHDC/image/png?t=638918151443452580"><p> View Certificate</p></a>
-    <br>
-    <br>
-    <div class="skill-badge">Web Developement(Front-End)</div>
-    <a href="https://api2.sololearn.com/v2/certificates/CC-C9SBDV2M/image/png?t=638920857480546690"><p> View Certificate</p></a>
-    <br>
-    <br>
-    <div class="skill-badge">Cascading Style Sheets(CSS)</div>
-    <a href="https://www.hackerrank.com/certificates/iframe/fdfde6ce8f38"><p> View Certificate</p></a>
-    <br>
-    <br>
-    <div class="skill-badge">Prompt-Engineering</div>
-    <a href="https://api2.sololearn.com/v2/certificates/CC-GMPOMSYE/image/png?t=638920712096345970"><p> View Certificate</p></a>
-    <br>
-    <br>
-    <div class="skill-badge">Vibe-Coding(GenAI)</div>
-    <a href="https://api2.sololearn.com/v2/certificates/CC-HEMIMITB/image/png?t=638921644607266540"><p> View Certificate</p></a>
-
-
+    <div class="certificates">
+      <div class="certificate-card"><h3>Python Basics</h3><a href="pythonbasic.png" target="_blank"><img src="pythonbasic.png"></a></div>
+      <div class="certificate-card"><h3>Python Developer</h3><a href="https://api2.sololearn.com/v2/certificates/CC-R4VQ5PI6/image/png?t=638920842734683620" target="_blank"><img src="https://api2.sololearn.com/v2/certificates/CC-R4VQ5PI6/image/png?t=638920842734683620"></a></div>
+      <div class="certificate-card"><h3>Java Programming</h3><a href="https://api2.sololearn.com/v2/certificates/CC-DYP79S7Y/image/png?t=638920848384491620" target="_blank"><img src="https://api2.sololearn.com/v2/certificates/CC-DYP79S7Y/image/png?t=638920848384491620"></a></div>
+      <div class="certificate-card"><h3>C Programming</h3><a href="https://api2.sololearn.com/v2/certificates/CC-HJMWCHDC/image/png?t=638918151443452580" target="_blank"><img src="https://api2.sololearn.com/v2/certificates/CC-HJMWCHDC/image/png?t=638918151443452580"></a></div>
+      <div class="certificate-card"><h3>C++ Programming</h3><a href="https://api2.sololearn.com/v2/certificates/CC-HJMWCHDC/image/png?t=638918151443452580" target="_blank"><img src="https://api2.sololearn.com/v2/certificates/CC-HJMWCHDC/image/png?t=638918151443452580"></a></div>
+      <div class="certificate-card"><h3>Web Development</h3><a href="https://api2.sololearn.com/v2/certificates/CC-C9SBDV2M/image/png?t=638920857480546690" target="_blank"><img src="https://api2.sololearn.com/v2/certificates/CC-C9SBDV2M/image/png?t=638920857480546690"></a></div>
+      <div class="certificate-card"><h3>CSS</h3><a href="cssbasic.png" target="_blank"><img src="cssbasic.png"></a></div>
+      <div class="certificate-card"><h3>Prompt Engineering</h3><a href="https://api2.sololearn.com/v2/certificates/CC-GMPOMSYE/image/png?t=638920712096345970" target="_blank"><img src="https://api2.sololearn.com/v2/certificates/CC-GMPOMSYE/image/png?t=638920712096345970"></a></div>
+      <div class="certificate-card"><h3>Vibe-Coding (GenAI)</h3><a href="https://api2.sololearn.com/v2/certificates/CC-HEMIMITB/image/png?t=638921644607266540" target="_blank"><img src="https://api2.sololearn.com/v2/certificates/CC-HEMIMITB/image/png?t=638921644607266540"></a></div>
+    </div>
   </section>
 
   
@@ -460,5 +454,4 @@ button {
 });
   </script>
 </body>
-
 </html>

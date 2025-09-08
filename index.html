@@ -20,7 +20,7 @@
     h2::after {content:"";display:block;width:60px;height:4px;background:#0ff;margin:0.5rem auto;border-radius:2px;}
 
     header {
-      position:fixed;top:0;left:0;width:100%;padding:1rem 6%;
+      position:relative;top:0;left:0;width:100%;padding:1rem 6%;
       display:flex;justify-content:space-between;align-items:center;z-index:1000;
       background:rgba(0,0,0,0.4);backdrop-filter:blur(10px);
     }
@@ -93,9 +93,19 @@
     }
     button{
         background-color: aqua;
-        width: 100px;
-        padding: 10px;
+        text-align: center;
+        width: 50px;
+        height: 50px;
+        padding: 20px;
+        border-radius: 50px;
+      
+     
+        text-align: center;
+        display: block;
+
+
     }
+    button:hover {transform:scale(1.05);box-shadow:0 0 25px #0ff;}
     /* Make inputs responsive */
 input {
   width: 100%; /* instead of fixed 1000px */
@@ -203,7 +213,7 @@ button {
 
   
   <header>
-    <h2>Amit's Portfolio🚀</h2>
+    <h2>Amit.Portfolio Web🌐</h2>
     <nav>
       <ul>
         <li><a href="#home" class="active">About Me</a></li>
@@ -230,12 +240,9 @@ button {
     <br>
     <br>
     <br>
-   <br>
-   <br>
-   <br>
 
     <h1>Hi, I’m Amit M 👋</h1>
-    <p>Computer Science Student | GATE Aspirant 🎯 | Future Developer </p>
+    <p>Computer Science Student 👨‍🎓 | GATE Aspirant 🎯 | Future Developer 👩‍💻 </p>
     <br>
     <br>
     <br>
@@ -243,11 +250,11 @@ button {
     <a href="#am" class="btn">About Me</a>
     <br>
     <br>
-    <p><em>Hi, I’m<strong><h2> Amit Mavinakatti</h2> </strong>  a Computer Science student who is passionate about coding, web development, and technology. I enjoy learning new skills, exploring creative ideas, and building projects that help me grow as a developer.On the other hand I am a GATE Aspirtant so preparing with focused mind . This portfolio is a collection of my work, where I share the projects I’ve created and the progress I’m making in my journey as a learner and future professional.</em></p>
+    <p><em>Hi, I’m<strong><h2> Amit Mavinakatti</h2> </strong>  a Computer Science student who is passionate about coding, web development, and technology. I enjoy learning new skills, exploring creative ideas, and building projects that help me grow as a developer. This portfolio is a collection of my work, where I share the projects I’ve created and the progress I’m making in my journey as a learner and future professional.</em></p>
     <br>
     <br>
     <br>
-    <p>Here is My Portfolio .Let's Go!</p>
+    <p>Here is My Portfolio 🌐 .Let's Go!</p>
     <br>
     <br>
     <a href="#projects" class="btn">Explore My Work</a>
@@ -272,10 +279,10 @@ button {
     <br>
     <br>
     <div class="projects">
-      <div class="card"><h3>FACTory! App</h3><p>500+ facts for awareness</p></div>
+      <div class="card"><h3>FACTory! App</h3><p>500+ facts for awareness . Developed by using Python , KivyMD etc which has responsive UI/UX. </p></div>
       <div class="card"><h3>Expense Tracker With AI</h3><p>Ai Integrated Python Console based project using OpenAI API</p></div>
-      <div class="card"><h3>Amazon.com UI Clone</h3><p>E-commerce responsive UI</p></div>
-      <div class="card"><h3>Personal Portfolio </h3><p>This Portfolio site</p></div>
+      <div class="card"><h3>Amazon.com UI Clone</h3><p>A homePage clone of amazon.com , Designed by using HTML and CSS.</p></div>
+      <div class="card"><h3>Personal Portfolio </h3><p>This Portfolio site (Web Technologies : HTML , CSS , JavaScript)</p></div>
     </div>
   </section>
 
@@ -308,7 +315,7 @@ button {
     </div>
     <br>
     <div class="skills-category">
-        <h3>⚡ Artificial Intellegence </h3>
+        <h3>🤖 Artificial Intellegence </h3>
         <div class="skills">
             <div class="skill-badge">OpenAI API Integration</div>
             <div class="skill-badge">Prompt Engieering</div>
@@ -334,6 +341,7 @@ button {
     <section id="certificates">
     <a href="#certificates" class="btn">Certificates and Licenses</a>
     <div class="certificates">
+      <div class="certificate-card"><h3>Python Programming</h3><a href="pythonlearntube.jpg" target="_blank"><img src="pythonlearntube.jpg"></a></div>  
       <div class="certificate-card"><h3>Python Basics</h3><a href="pythonbasic.png" target="_blank"><img src="pythonbasic.png"></a></div>
       <div class="certificate-card"><h3>Python Developer</h3><a href="https://api2.sololearn.com/v2/certificates/CC-R4VQ5PI6/image/png?t=638920842734683620" target="_blank"><img src="https://api2.sololearn.com/v2/certificates/CC-R4VQ5PI6/image/png?t=638920842734683620"></a></div>
       <div class="certificate-card"><h3>Java Programming</h3><a href="https://api2.sololearn.com/v2/certificates/CC-DYP79S7Y/image/png?t=638920848384491620" target="_blank"><img src="https://api2.sololearn.com/v2/certificates/CC-DYP79S7Y/image/png?t=638920848384491620"></a></div>
@@ -381,17 +389,21 @@ button {
     <h2>Fill The Following </h2>
     <br>
     <div id="name">
-        <input type="text" placeholder="Enter Your Name:">
+        <form action="https://formspree.io/f/xyzdlobq" method="post" id="contact-form">
+          <input type="text" name="name" placeholder="Enter Your Name:" required>
         <br>
-        <input type="email" placeholder="Enter Your Email:">
+        <input type="email" name="_replyto" placeholder="Enter Your Email:" required>
         <br>
     
-        <input type="number" placeholder="Enter Your Phone Number:">
+        <input type="tel" name="Phone" placeholder="Enter Your Phone Number:">
+
         <br>
+        
+        <button type="submit">Submit Details</button>
+        </form>
     </div>
     <br>
 
-    <div class="skill-badge"><button>Submit</button></div>
     <br>
     <br>
     <br>
@@ -458,7 +470,3 @@ button {
   </script>
 </body>
 </html>
-
-
-
-

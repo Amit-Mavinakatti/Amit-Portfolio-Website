@@ -6,44 +6,107 @@
   <title>Copyright & Disclaimer - Amit M D</title>
   <style>
     body {
-      font-family: "Poppins", Arial, sans-serif;
-      line-height: 1.6;
+      font-family: 'Poppins', sans-serif;
+      background: #0a0a0a;
+      color: white;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
       margin: 0;
-      padding: 40px;
-      background: #f9f9f9;
-      color: #333;
+      padding: 0;
     }
+
     h2 {
-      color: #222;
-      margin-top: 30px;
+      color: white;
+      font-size: 2rem;
+      margin-bottom: 1rem;
+      position: relative;
+      text-align: center;
     }
-    section {
-      margin-bottom: 30px;
+    h2::after {
+      content: "";
+      display: block;
+      width: 60%;
+      max-width: 300px;
+      height: 4px;
+      background: #0ff;
+      margin: 0.5rem auto;
+      border-radius: 2px;
+    }
+
+    #button {
+      background-color: aqua;
+      text-align: center;
+      margin: 50px auto;
       padding: 20px;
-      background: #fff;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      border: #0a0a0a 2px solid;
+      border-radius: 50px;
+      width: fit-content;
+      transition: all 0.3s ease;
     }
+    #button h1 {
+      font-size: 2rem;
+      margin: 0;
+    }
+    #button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #0ff;
+    }
+
+    section {
+      margin: 20px auto;
+      max-width: 900px;
+      border: 2px dotted white;
+      padding: 20px;
+      background: black;
+      border-radius: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
+      animation: fadeIn 1s ease;
+    }
+    section:hover {
+      border-color: #0ff;
+    }
+
+    p {
+      color: #ddd;
+      line-height: 1.6;
+    }
+
     ul {
       margin: 10px 0 10px 20px;
+      color: #ddd;
+      line-height: 1.6;
     }
+
+    a {
+      color: #0ff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+
     footer {
       text-align: center;
-      margin-top: 40px;
+      margin: 40px 0 20px;
       font-size: 14px;
-      color: #555;
+      color: #aaa;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
 
-  <h1>📜 Copyright & Disclaimer</h1>
+  <div id="button"><h1>📜 Copyright & Disclaimer</h1></div>
 
   <section>
     <h2>© 2025 Amit D Mavinakatti. All Rights Reserved.</h2>
     <p>
-      This website, including its design, content, code, graphics, and media, is the intellectual property of 
-      <strong>Amit M D</strong> unless otherwise stated. Unauthorized use, reproduction, distribution, or modification of 
+      This website, including its design, content, code, graphics, and media, is the intellectual property of
+      <strong>Amit Mavinakatti</strong> unless otherwise stated. Unauthorized use, reproduction, distribution, or modification of
       any material without prior written permission is strictly prohibited.
     </p>
   </section>
@@ -77,7 +140,7 @@
   <section>
     <h2>📩 Contact for Permissions</h2>
     <p>
-      For permissions, collaborations, or usage rights, please contact:  
+      For permissions, collaborations, or usage rights, please contact:<br>
       <strong>Email:</strong> <a href="mailto:amitmavinakatti1@gmail.com">amitmavinakatti1@gmail.com</a>
     </p>
   </section>

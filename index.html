@@ -435,25 +435,11 @@ button {
       });
     });
     document.querySelector("button").addEventListener("click", function () {
-  let inputs = document.querySelectorAll("input");
-  let allFilled = true;
 
-  inputs.forEach(input => {
-    if (input.value.trim() === "") {
-      allFilled = false;
-    }
-  });
-
-  if (allFilled) {
-    alert("Details Submitted Successfully ✅");
-   alert("This Will redirect you to external page")
-  } else {
-    alert("Please fill all fields ⚠");
-  }
-});
   </script>
 </body>
 </html>
+
 
 
 

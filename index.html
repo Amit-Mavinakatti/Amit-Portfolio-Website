@@ -219,9 +219,102 @@ button {
   height: 900px;     /* Adjust height as needed */
   border: none;
 }
+    a {
+      color: #0ff;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    /* Social Section */
+.socials {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1.2rem;
+  margin-top: 2rem;
+  width: 100%;
+  max-width: 900px;
+}
+
+.socials a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 12px 20px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid #0ff;
+  color: #0ff;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: 0.3s;
+  text-align: center;
+}
+
+.socials a i {
+  font-size: 1.5rem;
+}
+
+.socials a:hover {
+  background: linear-gradient(45deg, #0ff, #09f);
+  color: #000;
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 0 20px #0ff;
+}/* Intro full screen overlay */
+#intro {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+/* Cyan bubble */
+#bubble {
+  width: 200px;
+  height: 200px;
+  background: #0ff;
+  border-radius: 50%;
+  box-shadow: 0 0 40px #0ff;
+}
+
+/* Skip Button */
+#skipBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(0, 255, 255, 0.2);
+  color: #0ff;
+  border: 1px solid #0ff;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.3s;
+}
+#skipBtn:hover {
+  background: rgba(0, 255, 255, 0.4);
+}
+
+#particles {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
   </style>
 </head>
 <body>
+    
+    
 
 
   <header>
@@ -392,8 +485,9 @@ I enjoy learning new skills, exploring creative ideas, and building projects tha
 <section id="contact">
   <a href="#contact" class="btn">Contact Me</a>
   <br><br><br>
-
-  <p>Email Me @: <a href="mailto:amitmavinakatti1@gmail.com">amitmavinakatti1@gmail.com</a></p>
+  <strong>Email:</strong> 
+  <a href="mailto:amitmavinakatti1@gmail.com">amitmavinakatti1@gmail.com</a>
+  
   <br>
   <h2> OR </h2>
   <br>
@@ -457,6 +551,84 @@ I enjoy learning new skills, exploring creative ideas, and building projects tha
         if(a.getAttribute("href")==="#"+current) a.classList.add("active");
       });
     });
+    const intro = document.getElementById("intro");
+const bubble = document.getElementById("bubble");
+const canvas = document.getElementById("particles");
+const ctx = canvas.getContext("2d");
+const skipBtn = document.getElementById("skipBtn");
+let particles = [];
+let exploded = false;
+
+// Resize canvas
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+class Particle {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.size = Math.random() * 3 + 1;
+    this.speedX = (Math.random() - 0.5) * 8;
+    this.speedY = (Math.random() - 0.5) * 8;
+    this.alpha = 1;
+  }
+  update() {
+    this.x += this.speedX;
+    this.y += this.speedY;
+    this.alpha -= 0.01;
+  }
+  draw() {
+    ctx.fillStyle = `rgba(0,255,255,${this.alpha})`;
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fill();
+  }
+}
+
+function handleParticles() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach((p, i) => {
+    p.update();
+    p.draw();
+    if (p.alpha <= 0) particles.splice(i, 1);
+  });
+}
+
+// Animate explosion
+function explode() {
+  if (exploded) return;
+  exploded = true;
+  const rect = bubble.getBoundingClientRect();
+  const centerX = rect.left + rect.width / 2;
+  const centerY = rect.top + rect.height / 2;
+  for (let i = 0; i < 200; i++) {
+    particles.push(new Particle(centerX, centerY));
+  }
+  bubble.style.display = "none";
+  animate();
+}
+
+function animate() {
+  handleParticles();
+  if (particles.length > 0) {
+    requestAnimationFrame(animate);
+  } else {
+    endIntro();
+  }
+}
+
+function endIntro() {
+  intro.style.display = "none";
+}
+
+// Auto explode after delay
+setTimeout(explode, 1500);
+
+// Skip button → instantly show UI
+skipBtn.addEventListener("click", () => {
+  particles = [];
+  endIntro();
+});
   </script>
 </body>
 </html>

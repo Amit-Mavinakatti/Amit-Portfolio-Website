@@ -329,6 +329,35 @@ button {
   height: 100%;
   display: block;
 }
+    /* 🚀 Projects Section Enhancements */
+
+/* Hover Glow + Initial hidden state for scroll fade */
+.projects .card {
+  transition: 0.3s ease;
+  opacity: 0; /* hidden before scroll */
+  transform: translateY(30px);
+}
+
+/* Glow on hover */
+.projects .card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #0ff, 0 0 40px #09f;
+}
+
+/* Gradient titles */
+.projects .card h3 {
+  background: linear-gradient(45deg, #0ff, #09f);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Visible when scrolled into view */
+.projects .card.visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition: all 0.6s ease;
+}
+
 
   </style>
 </head>
@@ -662,85 +691,16 @@ I enjoy learning new skills, exploring creative ideas, and building projects tha
     });
   });
 
-  /* ================= INTRO BUBBLE EXPLOSION ================= */
-  const intro = document.getElementById("intro");
-  const bubble = document.getElementById("bubble");
-  const particleCanvas = document.getElementById("particles");
-  const pCtx = particleCanvas.getContext("2d");
-  const skipBtn = document.getElementById("skipBtn");
-  let particles = [];
-  let exploded = false;
-
-  // Resize canvas
-  particleCanvas.width = window.innerWidth;
-  particleCanvas.height = window.innerHeight;
-
-  class Particle {
-    constructor(x, y) {
-      this.x = x;
-      this.y = y;
-      this.size = Math.random() * 3 + 1;
-      this.speedX = (Math.random() - 0.5) * 8;
-      this.speedY = (Math.random() - 0.5) * 8;
-      this.alpha = 1;
+  // 🚀 Scroll fade-in for project cards
+window.addEventListener('scroll', () => {
+  document.querySelectorAll('.projects .card').forEach(card => {
+    if (card.getBoundingClientRect().top < window.innerHeight - 50) {
+      card.classList.add('visible');
     }
-    update() {
-      this.x += this.speedX;
-      this.y += this.speedY;
-      this.alpha -= 0.01;
-    }
-    draw() {
-      pCtx.fillStyle = rgba(0,255,255,${this.alpha});
-      pCtx.beginPath();
-      pCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-      pCtx.fill();
-    }
-  }
-
-  function handleParticles() {
-    pCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
-    particles.forEach((p, i) => {
-      p.update();
-      p.draw();
-      if (p.alpha <= 0) particles.splice(i, 1);
-    });
-  }
-
-  // Animate explosion
-  function explode() {
-    if (exploded) return;
-    exploded = true;
-    const rect = bubble.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    for (let i = 0; i < 200; i++) {
-      particles.push(new Particle(centerX, centerY));
-    }
-    bubble.style.display = "none";
-    animateExplosion();
-  }
-
-  function animateExplosion() {
-    handleParticles();
-    if (particles.length > 0) {
-      requestAnimationFrame(animateExplosion);
-    } else {
-      endIntro();
-    }
-  }
-
-  function endIntro() {
-    intro.style.display = "none";
-  }
-
-  // Auto explode after delay
-  setTimeout(explode, 1500);
-
-  // Skip button → instantly show UI
-  skipBtn.addEventListener("click", () => {
-    particles = [];
-    endIntro();
   });
+});
+
+
 </script>
 
 </body>

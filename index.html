@@ -576,113 +576,134 @@ I enjoy learning new skills, exploring creative ideas, and building projects tha
   </footer>
 
 
-  <script>
+<script>
+  /* ================= STARFIELD BACKGROUND ================= */
+  const bgCanvas = document.getElementById("bgCanvas");
+  const bgCtx = bgCanvas.getContext("2d");
+  bgCanvas.width = innerWidth;
+  bgCanvas.height = innerHeight;
 
-    const canvas=document.getElementById("bgCanvas");
-    const ctx=canvas.getContext("2d");
-    canvas.width=innerWidth;canvas.height=innerHeight;
-    const stars=Array.from({length:100},()=>({x:Math.random()*canvas.width,y:Math.random()*canvas.height,r:Math.random()*2}));
-    function animate(){
-      ctx.clearRect(0,0,canvas.width,canvas.height);
-      stars.forEach(s=>{
-        ctx.beginPath();ctx.arc(s.x,s.y,s.r,0,Math.PI*2);ctx.fillStyle="#0ff";ctx.fill();
-        s.y+=0.3;if(s.y>canvas.height) s.y=0;
-      });
-      requestAnimationFrame(animate);
-    } animate();
+  const stars = Array.from({ length: 100 }, () => ({
+    x: Math.random() * bgCanvas.width,
+    y: Math.random() * bgCanvas.height,
+    r: Math.random() * 2,
+  }));
 
-
-    const sections=document.querySelectorAll("section");
-    const navLinks=document.querySelectorAll("nav a");
-    window.addEventListener("scroll",()=>{
-      let current="";
-      sections.forEach(sec=>{
-        const top=scrollY,offset=sec.offsetTop-100,height=sec.offsetHeight;
-        if(top>=offset&&top<offset+height){current=sec.id;}
-      });
-      navLinks.forEach(a=>{
-        a.classList.remove("active");
-        if(a.getAttribute("href")==="#"+current) a.classList.add("active");
-      });
+  function animateStars() {
+    bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+    stars.forEach((s) => {
+      bgCtx.beginPath();
+      bgCtx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      bgCtx.fillStyle = "#0ff";
+      bgCtx.fill();
+      s.y += 0.3;
+      if (s.y > bgCanvas.height) s.y = 0;
     });
-    const intro = document.getElementById("intro");
-const bubble = document.getElementById("bubble");
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
-const skipBtn = document.getElementById("skipBtn");
-let particles = [];
-let exploded = false;
-
-// Resize canvas
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-class Particle {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-    this.size = Math.random() * 3 + 1;
-    this.speedX = (Math.random() - 0.5) * 8;
-    this.speedY = (Math.random() - 0.5) * 8;
-    this.alpha = 1;
+    requestAnimationFrame(animateStars);
   }
-  update() {
-    this.x += this.speedX;
-    this.y += this.speedY;
-    this.alpha -= 0.01;
-  }
-  draw() {
-    ctx.fillStyle = `rgba(0,255,255,${this.alpha})`;
-    ctx.beginPath();
-    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-    ctx.fill();
-  }
-}
+  animateStars();
 
-function handleParticles() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  particles.forEach((p, i) => {
-    p.update();
-    p.draw();
-    if (p.alpha <= 0) particles.splice(i, 1);
+  /* ================= ACTIVE NAV HIGHLIGHT ================= */
+  const sections = document.querySelectorAll("section");
+  const navLinks = document.querySelectorAll("nav a");
+  window.addEventListener("scroll", () => {
+    let current = "";
+    sections.forEach((sec) => {
+      const top = scrollY,
+        offset = sec.offsetTop - 100,
+        height = sec.offsetHeight;
+      if (top >= offset && top < offset + height) {
+        current = sec.id;
+      }
+    });
+    navLinks.forEach((a) => {
+      a.classList.remove("active");
+      if (a.getAttribute("href") === "#" + current) {
+        a.classList.add("active");
+      }
+    });
   });
-}
 
-// Animate explosion
-function explode() {
-  if (exploded) return;
-  exploded = true;
-  const rect = bubble.getBoundingClientRect();
-  const centerX = rect.left + rect.width / 2;
-  const centerY = rect.top + rect.height / 2;
-  for (let i = 0; i < 200; i++) {
-    particles.push(new Particle(centerX, centerY));
+  /* ================= INTRO BUBBLE EXPLOSION ================= */
+  const intro = document.getElementById("intro");
+  const bubble = document.getElementById("bubble");
+  const particleCanvas = document.getElementById("particles");
+  const pCtx = particleCanvas.getContext("2d");
+  const skipBtn = document.getElementById("skipBtn");
+  let particles = [];
+  let exploded = false;
+
+  // Resize canvas
+  particleCanvas.width = window.innerWidth;
+  particleCanvas.height = window.innerHeight;
+
+  class Particle {
+    constructor(x, y) {
+      this.x = x;
+      this.y = y;
+      this.size = Math.random() * 3 + 1;
+      this.speedX = (Math.random() - 0.5) * 8;
+      this.speedY = (Math.random() - 0.5) * 8;
+      this.alpha = 1;
+    }
+    update() {
+      this.x += this.speedX;
+      this.y += this.speedY;
+      this.alpha -= 0.01;
+    }
+    draw() {
+      pCtx.fillStyle = `rgba(0,255,255,${this.alpha})`;
+      pCtx.beginPath();
+      pCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+      pCtx.fill();
+    }
   }
-  bubble.style.display = "none";
-  animate();
-}
 
-function animate() {
-  handleParticles();
-  if (particles.length > 0) {
-    requestAnimationFrame(animate);
-  } else {
+  function handleParticles() {
+    pCtx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
+    particles.forEach((p, i) => {
+      p.update();
+      p.draw();
+      if (p.alpha <= 0) particles.splice(i, 1);
+    });
+  }
+
+  // Animate explosion
+  function explode() {
+    if (exploded) return;
+    exploded = true;
+    const rect = bubble.getBoundingClientRect();
+    const centerX = rect.left + rect.width / 2;
+    const centerY = rect.top + rect.height / 2;
+    for (let i = 0; i < 200; i++) {
+      particles.push(new Particle(centerX, centerY));
+    }
+    bubble.style.display = "none";
+    animateExplosion();
+  }
+
+  function animateExplosion() {
+    handleParticles();
+    if (particles.length > 0) {
+      requestAnimationFrame(animateExplosion);
+    } else {
+      endIntro();
+    }
+  }
+
+  function endIntro() {
+    intro.style.display = "none";
+  }
+
+  // Auto explode after delay
+  setTimeout(explode, 1500);
+
+  // Skip button → instantly show UI
+  skipBtn.addEventListener("click", () => {
+    particles = [];
     endIntro();
-  }
-}
+  });
+</script>
 
-function endIntro() {
-  intro.style.display = "none";
-}
-
-// Auto explode after delay
-setTimeout(explode, 1500);
-
-// Skip button → instantly show UI
-skipBtn.addEventListener("click", () => {
-  particles = [];
-  endIntro();
-});
-  </script>
 </body>
 </html>

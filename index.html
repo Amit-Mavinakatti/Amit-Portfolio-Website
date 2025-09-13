@@ -1,4 +1,4 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -7,6 +7,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <style>
+  
+.section-divider {
+  width: 100%;
+  height: 3px;
+  margin: 4rem auto;
+  border-radius: 2px;
+  background: linear-gradient(90deg, #0ff, #09f, #0ff);
+  box-shadow: 0 0 15px #0ff, 0 0 30px #09f;
+  animation: glowLine 2s infinite linear;
+}
+
+@keyframes glowLine {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.section-divider {
+  background-size: 200% 100%;
+}
 
     * {margin:0;padding:0;box-sizing:border-box;}
     body {
@@ -313,12 +333,13 @@ button {
   </style>
 </head>
 <body>
-    
-    
+
+
 
 
   <header>
     <h2>Portfolio Web🌐</h2>
+    
     <nav>
       <ul>
         <li><a href="#home" class="active">About Me</a></li>
@@ -329,8 +350,12 @@ button {
         <li><a href="#sc">Social Accounts</a></li>
       </ul>
     </nav>
+<a href="#projects" class="btn">Explore My Work</a>
   </header>
-
+  
+    <div class="section-divider"></div>
+    
+   
 
   <section id="home">
     <canvas id="bgCanvas"></canvas>
@@ -344,17 +369,22 @@ button {
     <br>
     <br>
     <br>
-    <br>
+    
 
     <h1>Hi, I’m Amit M 👋</h1>
+
     <p>Computer Science Student 👨‍🎓 | GATE Aspirant 🎯 | Future Developer 👩‍💻 </p>
     <br>
     <br>
     <br>
+<div class="section-divider"></div>
+     
 
     <a href="#am" class="btn">About Me</a>
     <br>
     <br>
+    
+   
     <p><em>Hi, I’m<strong><h2> Amit Mavinakatti</h2> </strong>  a <strong>Computer Science </strong >student who is passionate about coding, web development, and technology.On the other hand I am a <strong> GATE Aspirtant </strong> so chasing that dream with focused mind . 
 
 I enjoy learning new skills, exploring creative ideas, and building projects that help me grow as a developer. This portfolio is a collection of my work, where I share the projects I’ve created and the progress I’m making in my journey as a learner and future professional.</em></p>
@@ -364,8 +394,10 @@ I enjoy learning new skills, exploring creative ideas, and building projects tha
     <p>Here is My Portfolio 🌐 .Let's Go!</p>
     <br>
     <br>
-    <a href="#projects" class="btn">Explore My Work</a>
+<div class="section-divider"></div>
+    
   </section>
+  
 
   <section id="timeline">
     <a href="#timeline" class="btn">My Journey</a>
@@ -378,7 +410,9 @@ I enjoy learning new skills, exploring creative ideas, and building projects tha
       <div class="event"><h4>2026</h4><p>Chasing Dreams 🚀</p></div>
     </div>
   </section>
-
+  
+  
+<div class="section-divider"></div>
 
   <section id="projects">
     <a href="#projects" class="btn">Projects</a>
@@ -392,7 +426,9 @@ I enjoy learning new skills, exploring creative ideas, and building projects tha
       <div class="card"><h3>Personal Portfolio </h3><p>This Portfolio site (Web Technologies : HTML , CSS , JavaScript)</p></div>
     </div>
   </section>
-
+  
+  
+<div class="section-divider"></div>
 
   <section id="skills">
   <a href="#skills" class="btn">Technical Skills</a>
@@ -450,6 +486,7 @@ I enjoy learning new skills, exploring creative ideas, and building projects tha
     </div>
   </div>
 </section>
+<div class="section-divider"></div>
 
   <br>
     <section id="certificates">
@@ -530,7 +567,7 @@ I enjoy learning new skills, exploring creative ideas, and building projects tha
 
 
 
-
+<div class="section-divider"></div>
 
   <section id="sc">
      <a href="#sc" class="btn">Social Accounts</a>
@@ -550,6 +587,7 @@ I enjoy learning new skills, exploring creative ideas, and building projects tha
     </div>
   </section>
     <br>
+    <div class="section-divider"></div>
 <section id="contact">
   <a href="#contact" class="btn">Contact Me</a>
   <br><br><br>
@@ -559,8 +597,8 @@ I enjoy learning new skills, exploring creative ideas, and building projects tha
  <br>
  <br>
  <br>
-  
-  
+
+
 
     <h2>Thank You! Visit Again</h2>
 
@@ -652,7 +690,7 @@ I enjoy learning new skills, exploring creative ideas, and building projects tha
       this.alpha -= 0.01;
     }
     draw() {
-      pCtx.fillStyle = `rgba(0,255,255,${this.alpha})`;
+      pCtx.fillStyle = rgba(0,255,255,${this.alpha});
       pCtx.beginPath();
       pCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
       pCtx.fill();

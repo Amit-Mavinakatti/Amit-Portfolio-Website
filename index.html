@@ -127,20 +127,20 @@
 
     }
     button:hover {transform:scale(1.05);box-shadow:0 0 25px #0ff;}
-    /* Make inputs responsive */
+  
 input {
   width: 100%; /* instead of fixed 1000px */
   max-width: 100%;
 }
 
-/* Make buttons responsive */
+
 button {
   width: auto;
   max-width: 100%;
 }
 
 
-/* Adjust sections for small screens */
+
 @media (max-width: 768px) {
   section {
     padding: 2rem;
@@ -235,9 +235,9 @@ button {
   padding: 0 1rem;
 }
 #googleForm iframe {
-  width: 100%;       /* Full width of container */
-  max-width: 700px;  /* Optional: limit max width */
-  height: 900px;     /* Adjust height as needed */
+  width: 100%;      
+  max-width: 700px;  
+  height: 900px;     
   border: none;
 }
     a {
@@ -247,7 +247,7 @@ button {
     a:hover {
       text-decoration: underline;
     }
-    /* Social Section */
+    
 .socials {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -330,29 +330,27 @@ button {
   height: 100%;
   display: block;
 }
-    /* 🚀 Projects Section Enhancements */
-
-/* Hover Glow + Initial hidden state for scroll fade */
+ 
 .projects .card {
   transition: 0.3s ease;
   opacity: 0; /* hidden before scroll */
   transform: translateY(30px);
 }
 
-/* Glow on hover */
+
 .projects .card:hover {
   transform: scale(1.05);
   box-shadow: 0 0 20px #0ff, 0 0 40px #09f;
 }
 
-/* Gradient titles */
+
 .projects .card h3 {
   background: linear-gradient(45deg, #0ff, #09f);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Visible when scrolled into view */
+
 .projects .card.visible {
   opacity: 1;
   transform: translateY(0);

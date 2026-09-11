@@ -1781,6 +1781,253 @@ section {
 .journey-item:nth-child(6).journey-visible {
   transition-delay: .4s;
     }
+    .main-header {
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  max-width: 1400px;
+  padding: 14px 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  z-index: 1000;
+  background: rgba(5, 8, 12, 0.72);
+  border: 1px solid rgba(0, 255, 255, 0.14);
+  border-radius: 18px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  box-shadow: 0 10px 40px rgba(0,0,0,.35);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+}
+
+.brand-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border: 1px solid rgba(0,255,255,.35);
+  border-radius: 10px;
+  color: #0ff;
+  font-size: 15px;
+  font-weight: 700;
+  background: rgba(0,255,255,.06);
+  box-shadow: 0 0 18px rgba(0,255,255,.08);
+}
+
+.brand-text {
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: .5px;
+  color: #fff;
+}
+
+.brand-text span {
+  color: #0ff;
+}
+
+.main-nav {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.main-nav ul {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-nav .nav-link {
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 9px 11px;
+  color: rgba(255,255,255,.62);
+  font-size: .82rem;
+  font-weight: 500;
+  white-space: nowrap;
+  border-radius: 10px;
+  transition: .3s ease;
+}
+
+.main-nav .nav-link::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 3px;
+  width: 0;
+  height: 2px;
+  border-radius: 10px;
+  background: #0ff;
+  box-shadow: 0 0 10px #0ff;
+  transform: translateX(-50%);
+  transition: .3s ease;
+}
+
+.main-nav .nav-link:hover {
+  color: #fff;
+  background: rgba(255,255,255,.045);
+}
+
+.main-nav .nav-link:hover::after,
+.main-nav .nav-link.active::after {
+  width: 18px;
+}
+
+.main-nav .nav-link.active {
+  color: #0ff;
+}
+
+.nav-cta {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+  padding: 10px 15px;
+  border: 1px solid rgba(0,255,255,.3);
+  border-radius: 11px;
+  color: #0ff;
+  background: rgba(0,255,255,.055);
+  font-size: .8rem;
+  font-weight: 600;
+  transition: .3s ease;
+}
+
+.nav-cta i {
+  font-size: .72rem;
+  transition: .3s ease;
+}
+
+.nav-cta:hover {
+  color: #000;
+  background: #0ff;
+  box-shadow: 0 0 22px rgba(0,255,255,.3);
+  transform: translateY(-1px);
+}
+
+.nav-cta:hover i {
+  transform: translateX(3px);
+}
+
+.menu-toggle {
+  display: none;
+  width: 42px;
+  height: 42px;
+  padding: 9px;
+  border: 1px solid rgba(0,255,255,.2);
+  border-radius: 11px;
+  background: rgba(0,255,255,.05);
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 22px;
+  height: 2px;
+  margin: 4px auto;
+  border-radius: 5px;
+  background: #0ff;
+  transition: .3s ease;
+}
+
+@media (max-width: 1150px) {
+  .main-nav .nav-link {
+    padding: 8px 7px;
+    font-size: .76rem;
+  }
+
+  .main-header {
+    gap: 10px;
+  }
+}
+
+@media (max-width: 950px) {
+  .main-header {
+    width: calc(100% - 24px);
+  }
+
+  .main-nav {
+    display: none;
+  }
+
+  .nav-cta {
+    margin-left: auto;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .main-nav.menu-open {
+    display: block;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 0;
+    width: 100%;
+    padding: 12px;
+    background: rgba(5,8,12,.94);
+    border: 1px solid rgba(0,255,255,.14);
+    border-radius: 16px;
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 15px 40px rgba(0,0,0,.45);
+  }
+
+  .main-nav.menu-open ul {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+  }
+
+  .main-nav.menu-open .nav-link {
+    justify-content: center;
+    padding: 12px;
+  }
+
+  .main-nav.menu-open .nav-link::after {
+    bottom: 5px;
+  }
+}
+
+@media (max-width: 600px) {
+  .main-header {
+    top: 10px;
+    width: calc(100% - 20px);
+    padding: 11px 13px;
+    border-radius: 15px;
+  }
+
+  .brand-text {
+    font-size: 1.2rem;
+  }
+
+  .brand-icon {
+    width: 31px;
+    height: 31px;
+  }
+
+  .nav-cta {
+    padding: 9px 11px;
+  }
+
+  .nav-cta span {
+    display: none;
+  }
+    }
   </style>
   <script src="https://counterapi.com/c.js" async></script>
 </head>
@@ -1788,23 +2035,39 @@ section {
 
 
 
+<header class="main-header">
 
-  <header>
-    <h2>Portfolio Web🌐</h2>
-    
-    <nav>
-      <ul>
-        <li><a href="#home" class="active">About Me</a></li>
-        <li><a href="#timeline">My Journey</a></li>
-        <li><a href="#projects">Projects</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#certificates">Certificates</a></li>
-        <li><a href="#sc">Social Accounts</a></li>
-      </ul>
-    </nav>
-<a href="#projects" class="btn">Explore My Work</a>
-  </header>
-  
+  <a href="#home" class="brand">
+    <span class="brand-icon">&lt;/&gt;</span>
+    <span class="brand-text">Amit<span>.</span></span>
+  </a>
+
+  <nav class="main-nav">
+    <ul>
+      <li><a href="#home" class="nav-link active">About Me</a></li>
+      <li><a href="#timeline" class="nav-link">My Journey</a></li>
+      <li><a href="#projects" class="nav-link">Projects</a></li>
+      <li><a href="#skills" class="nav-link">Skills</a></li>
+      <li><a href="#certificates" class="nav-link">Certificates</a></li>
+      <li><a href="#achievements" class="nav-link">Achievements</a></li>
+      <li><a href="#badges" class="nav-link">Badges</a></li>
+      <li><a href="#resume" class="nav-link">Resume</a></li>
+      <li><a href="#sc" class="nav-link">Social</a></li>
+    </ul>
+  </nav>
+
+  <a href="#projects" class="nav-cta">
+    <span>Explore</span>
+    <i class="fas fa-arrow-right"></i>
+  </a>
+
+  <button class="menu-toggle" aria-label="Open menu">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
+</header>
     <div class="section-divider"></div>
     
    

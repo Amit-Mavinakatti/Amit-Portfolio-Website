@@ -1140,7 +1140,173 @@ button {
     font-size: 0.9rem;
   }
   }
+    /* =========================================================
+   PORTFOLIO 2.0 — GLOBAL DESIGN SYSTEM
+   ========================================================= */
 
+:root {
+  --accent: #00ffff;
+  --accent-blue: #0099ff;
+  --bg-primary: #050608;
+  --bg-secondary: #0a0d12;
+
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255,255,255,0.70);
+  --text-muted: rgba(255,255,255,0.45);
+
+  --glass-bg: rgba(255,255,255,0.045);
+  --glass-border: rgba(0,255,255,0.18);
+
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 28px;
+
+  --shadow-glow:
+    0 0 30px rgba(0,255,255,0.08);
+
+  --transition-fast: 0.25s ease;
+  --transition-smooth: 0.4s cubic-bezier(0.2,0.8,0.2,1);
+    }/* ---------- Global Premium Foundation ---------- */
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(
+      circle at 50% -20%,
+      rgba(0,255,255,0.06),
+      transparent 45%
+    ),
+    var(--bg-primary);
+  color: var(--text-primary);
+}
+
+/* Selection */
+
+::selection {
+  background: rgba(0,255,255,0.25);
+  color: #fff;
+}
+
+/* Scrollbar */
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #050608;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    var(--accent),
+    var(--accent-blue)
+  );
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* Global links */
+
+a {
+  transition: var(--transition-fast);
+}
+
+/* Global focus */
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+/* Better section spacing */
+
+section {
+  position: relative;
+}
+
+/* Premium divider */
+
+.section-divider {
+  opacity: 0.5;
+}
+.home-intro-card {
+  position: relative;
+}
+
+.home-intro-card::before {
+  content: "";
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  left: var(--mouse-x, 50%);
+  top: var(--mouse-y, 50%);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    circle,
+    rgba(0,255,255,0.12),
+    transparent 70%
+  );
+  pointer-events: none;
+  transition: left 0.15s ease, top 0.15s ease;
+  z-index: 0;
+}
+
+.home-intro-content,
+.home-intro-visual {
+  position: relative;
+  z-index: 1;
+  .home-btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.home-btn::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 80%;
+  height: 100%;
+  background: linear-gradient(
+    110deg,
+    transparent,
+    rgba(255,255,255,0.35),
+    transparent
+  );
+  transform: skewX(-20deg);
+  transition: left 0.6s ease;
+  z-index: -1;
+}
+
+.home-btn:hover::before {
+  left: 140%;
+}
+
+.home-btn-primary {
+  box-shadow:
+    0 0 20px rgba(0,255,255,0.15);
+}
+
+.home-btn-primary:hover {
+  transform: translateY(-4px) scale(1.02);
+  box-shadow:
+    0 0 25px rgba(0,255,255,0.35),
+    0 0 50px rgba(0,153,255,0.15);
+}
+
+.home-btn-secondary:hover {
+  transform: translateY(-4px);
+}
+                         }
   </style>
   <script src="https://counterapi.com/c.js" async></script>
 </head>
@@ -1801,6 +1967,25 @@ window.addEventListener('scroll', () => {
     if (card.getBoundingClientRect().top < window.innerHeight - 50) {
       card.classList.add('visible');
     }
+  });
+});
+  document.addEventListener("DOMContentLoaded", () => {
+  const hero = document.querySelector(".home-intro-card");
+
+  if (!hero) return;
+
+  hero.addEventListener("mousemove", (e) => {
+    const rect = hero.getBoundingClientRect();
+
+    hero.style.setProperty(
+      "--mouse-x",
+      `${e.clientX - rect.left}px`
+    );
+
+    hero.style.setProperty(
+      "--mouse-y",
+      `${e.clientY - rect.top}px`
+    );
   });
 });
 

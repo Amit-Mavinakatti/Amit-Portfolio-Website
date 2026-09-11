@@ -240,12 +240,18 @@
   margin-bottom: 15px;
 }
 
-.resume-preview iframe {
+.resume-preview img {
   width: 100%;
   height: 100%;
-  border: none;
+  object-fit: cover;
+  object-position: top;
+  display: block;
+  transition: 0.4s ease;
 }
 
+.resume-preview img:hover {
+  transform: scale(1.03);
+}
 /* Download button */
 .resume-download {
   display: inline-flex;
@@ -714,10 +720,12 @@ I enjoy learning new skills, exploring creative ideas, and building projects tha
     <div class="resume-card">
 
       <div class="resume-preview">
-        <iframe
-          src="Amit-Resume.pdf#page=1"
-          title="Amit Mavinakatti Resume">
-        </iframe>
+  <a href="Amit-Resume.pdf" target="_blank">
+    <img
+      src="resume-thumbnail.png"
+      alt="Amit Mavinakatti Resume Preview"
+    >
+  </a>
       </div>
 
       <a

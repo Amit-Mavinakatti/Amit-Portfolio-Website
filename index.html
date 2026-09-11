@@ -683,7 +683,220 @@ button {
   transform: translateY(0);
   transition: all 0.6s ease;
 }
+/* =====================================================
+   PREMIUM HOME INTRO
+   ===================================================== */
 
+.home-intro-card {
+  max-width: 1100px;
+  margin: 30px auto;
+  padding: 45px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 40px;
+
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(0, 255, 255, 0.25);
+  border-radius: 30px;
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+
+  box-shadow:
+    0 0 30px rgba(0, 255, 255, 0.08),
+    inset 0 0 30px rgba(0, 255, 255, 0.02);
+
+  overflow: hidden;
+}
+
+
+/* LEFT SIDE */
+
+.home-intro-content {
+  flex: 1;
+  text-align: left;
+}
+
+.home-greeting {
+  color: #0ff;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.home-name {
+  margin: 0;
+  font-size: clamp(2.8rem, 6vw, 4.5rem);
+  color: white;
+  line-height: 1.05;
+}
+
+.home-role {
+  margin: 15px 0;
+  color: #0ff;
+  font-size: 1.35rem;
+}
+
+.home-description {
+  max-width: 650px;
+  color: rgba(255,255,255,0.7);
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+
+/* STATUS */
+
+.home-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 7px 14px;
+  margin-bottom: 20px;
+
+  border: 1px solid rgba(0,255,255,0.25);
+  border-radius: 30px;
+
+  background: rgba(0,255,255,0.05);
+
+  color: rgba(255,255,255,0.7);
+  font-size: 0.8rem;
+}
+
+.home-status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+
+  background: #0f6;
+
+  box-shadow:
+    0 0 8px #0f6,
+    0 0 16px #0f6;
+}
+
+
+/* BUTTONS */
+
+.home-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin: 25px 0;
+}
+
+.home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 12px 22px;
+
+  border-radius: 30px;
+
+  text-decoration: none;
+  font-weight: 600;
+
+  transition: 0.3s ease;
+}
+
+.home-btn-primary {
+  background: linear-gradient(45deg, #0ff, #09f);
+  color: #000;
+}
+
+.home-btn-primary:hover {
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 0 20px #0ff,
+    0 0 40px #09f;
+}
+
+.home-btn-secondary {
+  color: #0ff;
+  border: 1px solid rgba(0,255,255,0.5);
+  background: rgba(0,255,255,0.04);
+}
+
+.home-btn-secondary:hover {
+  transform: translateY(-3px);
+  border-color: #0ff;
+
+  box-shadow:
+    0 0 20px rgba(0,255,255,0.3);
+}
+
+
+/* TECHNOLOGY TAGS */
+
+.home-tech {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.home-tech span {
+  padding: 6px 12px;
+
+  border-radius: 20px;
+
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+
+  color: rgba(255,255,255,0.6);
+  font-size: 0.75rem;
+}
+
+
+/* RIGHT SIDE */
+
+.home-intro-visual {
+  flex: 0 0 360px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+  .home-intro-card {
+    flex-direction: column;
+    padding: 35px 20px;
+    text-align: center;
+  }
+
+  .home-intro-content {
+    text-align: center;
+  }
+
+  .home-description {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .home-buttons {
+    justify-content: center;
+  }
+
+  .home-tech {
+    justify-content: center;
+  }
+
+  .home-intro-visual {
+    order: -1;
+    flex: none;
+  }
+  }
 
   </style>
 </head>
@@ -734,29 +947,81 @@ button {
 
     </div>
     
+<section class="home-intro-card">
 
-    <h1>Hi, I’m Amit M 👋</h1>
+  <!-- LEFT SIDE -->
+  <div class="home-intro-content">
 
-    <p>Computer Science Student 👨‍🎓 | Aspiring Software Engineer| Future Developer 👩‍💻 </p>
-    <br>
-    <br>
-    <br>
-<div class="section-divider"></div>
-     
+    <div class="home-status">
+      <span class="home-status-dot"></span>
+      Currently learning &amp; building
+    </div>
 
-    <a href="#am" class="btn">About Me</a>
-    <br>
-    <br>
-    
-   
-    <p><em>Hi, I’m<strong><h2> Amit  Mavinakatti</h2> </strong>  A <strong>Computer Science </strong >student who is passionate about coding, web development, and technology.
-I enjoy learning new skills, exploring creative ideas, and building projects that help me grow as a developer. This portfolio is a collection of my work, where I share the projects I’ve created and the progress I’m making in my journey as a learner and future professional.</em></p>
-    <br>
-    <br>
-    <br>
-    <p>Here is My Portfolio 🌐 .Let's Go!</p>
-    <br>
-    <br>
+    <div class="home-greeting">
+      Hello, I'm
+    </div>
+
+    <h1 class="home-name">
+      Amit Mavinakatti 👋
+    </h1>
+
+    <h2 class="home-role">
+      Computer Science Student
+      <br>
+      &amp; Aspiring Software Engineer
+    </h2>
+
+    <p class="home-description">
+      I’m passionate about coding, web development, and technology.
+      I enjoy turning ideas into projects, solving problems, and
+      continuously learning new skills along the way.
+    </p>
+
+    <div class="home-buttons">
+
+      <a href="#projects" class="home-btn home-btn-primary">
+        <i class="fas fa-code"></i>
+        Explore My Work
+      </a>
+
+      <a href="#resume" class="home-btn home-btn-secondary">
+        <i class="fas fa-file-alt"></i>
+        My Resume
+      </a>
+
+    </div>
+
+    <div class="home-tech">
+      <span>Java</span>
+      <span>DSA</span>
+      <span>Web Development</span>
+      <span>Problem Solving</span>
+    </div>
+
+  </div>
+
+
+  <!-- RIGHT SIDE -->
+  <div class="home-intro-visual">
+
+    <div class="profile-photo-container">
+
+      <div class="profile-orbit orbit-1"></div>
+      <div class="profile-orbit orbit-2"></div>
+
+      <div class="profile-glow"></div>
+
+      <img
+        src="amit-professional.jpg"
+        alt="Amit Mavinakatti"
+        class="profile-photo"
+      >
+
+    </div>
+
+  </div>
+
+</section>
 <div class="section-divider"></div>
     
   </section>

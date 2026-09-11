@@ -1307,6 +1307,480 @@ section {
   transform: translateY(-4px);
 }
                          }
+    #timeline.journey-section {
+  min-height: auto;
+  padding: 110px 5%;
+  position: relative;
+  overflow: hidden;
+}
+
+.journey-heading {
+  text-align: center;
+  max-width: 750px;
+  margin: 0 auto 90px;
+}
+
+.journey-eyebrow {
+  display: inline-block;
+  color: #0ff;
+  font-size: .75rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  margin-bottom: 12px;
+  text-shadow: 0 0 12px rgba(0,255,255,.5);
+}
+
+.journey-heading h2 {
+  margin-bottom: 18px;
+}
+
+.journey-heading p {
+  color: rgba(255,255,255,.58);
+  line-height: 1.8;
+  font-size: .95rem;
+}
+
+.journey-timeline {
+  position: relative;
+  max-width: 1150px;
+  margin: auto;
+  padding: 20px 0;
+}
+
+.journey-line {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  transform: translateX(-50%);
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(0,255,255,.35) 8%,
+    #0ff 50%,
+    rgba(0,255,255,.35) 92%,
+    transparent
+  );
+  box-shadow: 0 0 15px rgba(0,255,255,.35);
+}
+
+.journey-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 45%;
+  background: linear-gradient(to bottom,#0ff,rgba(0,255,255,0));
+  box-shadow: 0 0 18px #0ff;
+  animation: journeyLinePulse 3s ease-in-out infinite;
+}
+
+.journey-item {
+  position: relative;
+  width: 50%;
+  padding: 0 65px 80px 0;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.journey-item:nth-of-type(even) {
+  margin-left: 50%;
+  padding: 0 0 80px 65px;
+  justify-content: flex-start;
+}
+
+.journey-node {
+  position: absolute;
+  top: 20px;
+  right: -18px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #071414;
+  border: 2px solid #0ff;
+  color: #0ff;
+  box-shadow:
+    0 0 10px rgba(0,255,255,.8),
+    0 0 30px rgba(0,255,255,.3);
+  z-index: 3;
+  animation: journeyNodePulse 2.5s ease-in-out infinite;
+}
+
+.journey-item:nth-of-type(even) .journey-node {
+  left: -18px;
+  right: auto;
+}
+
+.journey-node.future {
+  border-color: #09f;
+  color: #09f;
+  box-shadow:
+    0 0 10px rgba(0,153,255,.7),
+    0 0 30px rgba(0,153,255,.25);
+}
+
+.journey-card {
+  width: 100%;
+  max-width: 500px;
+  padding: 30px;
+  border-radius: 24px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.07),
+      rgba(255,255,255,.025)
+    );
+  border: 1px solid rgba(0,255,255,.16);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  box-shadow:
+    0 15px 45px rgba(0,0,0,.35),
+    inset 0 0 25px rgba(0,255,255,.02);
+  transition: .45s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.journey-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 70%;
+  height: 1px;
+  background: linear-gradient(90deg,transparent,#0ff,transparent);
+  transition: .6s ease;
+}
+
+.journey-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0,255,255,.5);
+  box-shadow:
+    0 20px 55px rgba(0,0,0,.45),
+    0 0 30px rgba(0,255,255,.12);
+}
+
+.journey-card:hover::before {
+  left: 120%;
+}
+
+.journey-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 18px;
+}
+
+.journey-year {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #0ff;
+  text-shadow: 0 0 12px rgba(0,255,255,.45);
+}
+
+.journey-status {
+  padding: 6px 11px;
+  border-radius: 20px;
+  border: 1px solid rgba(0,255,255,.2);
+  background: rgba(0,255,255,.05);
+  color: rgba(255,255,255,.55);
+  font-size: .62rem;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+}
+
+.journey-status.active {
+  color: #0f6;
+  border-color: rgba(0,255,102,.35);
+  background: rgba(0,255,102,.06);
+  box-shadow: 0 0 15px rgba(0,255,102,.1);
+}
+
+.journey-card h3 {
+  font-size: 1.35rem;
+  margin-bottom: 12px;
+  color: #fff;
+}
+
+.journey-card p {
+  color: rgba(255,255,255,.6);
+  line-height: 1.75;
+  font-size: .9rem;
+}
+
+.journey-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.journey-tags span {
+  padding: 6px 11px;
+  border-radius: 18px;
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.09);
+  color: rgba(255,255,255,.55);
+  font-size: .68rem;
+  transition: .3s ease;
+}
+
+.journey-tags span:hover {
+  color: #0ff;
+  border-color: rgba(0,255,255,.35);
+  background: rgba(0,255,255,.05);
+}
+
+.journey-highlight {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.journey-highlight div {
+  padding: 15px 8px;
+  text-align: center;
+  border-radius: 14px;
+  background: rgba(255,255,255,.035);
+  border: 1px solid rgba(255,255,255,.08);
+}
+
+.journey-highlight strong {
+  display: block;
+  color: #0ff;
+  font-size: 1.1rem;
+  margin-bottom: 4px;
+}
+
+.journey-highlight span {
+  color: rgba(255,255,255,.45);
+  font-size: .65rem;
+}
+
+.journey-focus {
+  display: grid;
+  grid-template-columns: repeat(2,1fr);
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.journey-focus div {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 13px;
+  background: rgba(0,255,255,.035);
+  border: 1px solid rgba(0,255,255,.1);
+}
+
+.journey-focus i {
+  color: #0ff;
+  font-size: .9rem;
+}
+
+.journey-focus span {
+  color: rgba(255,255,255,.65);
+  font-size: .72rem;
+}
+
+.journey-current {
+  border-color: rgba(0,255,255,.4);
+  box-shadow:
+    0 0 35px rgba(0,255,255,.08),
+    inset 0 0 30px rgba(0,255,255,.025);
+  animation: journeyCurrentGlow 3s ease-in-out infinite;
+}
+
+.journey-future {
+  border-color: rgba(0,153,255,.18);
+}
+
+.journey-footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  max-width: 700px;
+  margin: 30px auto 0;
+}
+
+.journey-footer span {
+  height: 1px;
+  flex: 1;
+  background: linear-gradient(90deg,transparent,rgba(0,255,255,.25));
+}
+
+.journey-footer span:last-child {
+  background: linear-gradient(90deg,rgba(0,255,255,.25),transparent);
+}
+
+.journey-footer p {
+  color: rgba(255,255,255,.35);
+  font-size: .75rem;
+  white-space: nowrap;
+  letter-spacing: 1px;
+}
+
+@keyframes journeyLinePulse {
+  0%,100% { opacity:.55; }
+  50% { opacity:1; }
+}
+
+@keyframes journeyNodePulse {
+  0%,100% {
+    transform: scale(1);
+    box-shadow: 0 0 10px rgba(0,255,255,.7),0 0 25px rgba(0,255,255,.2);
+  }
+  50% {
+    transform: scale(1.08);
+    box-shadow: 0 0 15px rgba(0,255,255,1),0 0 35px rgba(0,255,255,.35);
+  }
+}
+
+@keyframes journeyCurrentGlow {
+  0%,100% {
+    box-shadow:
+      0 0 25px rgba(0,255,255,.06),
+      inset 0 0 25px rgba(0,255,255,.02);
+  }
+  50% {
+    box-shadow:
+      0 0 40px rgba(0,255,255,.13),
+      inset 0 0 30px rgba(0,255,255,.04);
+  }
+}
+
+@media (max-width:800px) {
+  #timeline.journey-section {
+    padding: 80px 20px;
+  }
+
+  .journey-heading {
+    margin-bottom: 60px;
+  }
+
+  .journey-line {
+    left: 18px;
+    transform: none;
+  }
+
+  .journey-item,
+  .journey-item:nth-of-type(even) {
+    width: 100%;
+    margin-left: 0;
+    padding: 0 0 55px 55px;
+    justify-content: flex-start;
+  }
+
+  .journey-node,
+  .journey-item:nth-of-type(even) .journey-node {
+    left: 0;
+    right: auto;
+    width: 36px;
+    height: 36px;
+  }
+
+  .journey-card {
+    max-width: none;
+    padding: 24px 20px;
+  }
+
+  .journey-card h3 {
+    font-size: 1.15rem;
+  }
+
+  .journey-highlight {
+    grid-template-columns: repeat(3,1fr);
+  }
+
+  .journey-focus {
+    grid-template-columns: 1fr;
+  }
+
+  .journey-footer {
+    gap: 10px;
+  }
+
+  .journey-footer p {
+    font-size: .65rem;
+  }
+}
+
+@media (max-width:480px) {
+  .journey-heading h2 {
+    font-size: 2rem;
+  }
+
+  .journey-card-top {
+    align-items: flex-start;
+  }
+
+  .journey-year {
+    font-size: 1.2rem;
+  }
+
+  .journey-status {
+    font-size: .55rem;
+    padding: 5px 8px;
+  }
+
+  .journey-highlight {
+    gap: 6px;
+  }
+
+  .journey-highlight div {
+    padding: 12px 4px;
+  }
+
+  .journey-highlight strong {
+    font-size: .9rem;
+  }
+
+  .journey-highlight span {
+    font-size: .55rem;
+  }
+    }
+    .journey-item {
+  opacity: 0;
+  transform: translateY(45px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+
+.journey-item:nth-child(even) {
+  transform: translateY(45px);
+}
+
+.journey-item.journey-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.journey-item:nth-child(2).journey-visible {
+  transition-delay: .08s;
+}
+
+.journey-item:nth-child(3).journey-visible {
+  transition-delay: .16s;
+}
+
+.journey-item:nth-child(4).journey-visible {
+  transition-delay: .24s;
+}
+
+.journey-item:nth-child(5).journey-visible {
+  transition-delay: .32s;
+}
+
+.journey-item:nth-child(6).journey-visible {
+  transition-delay: .4s;
+    }
   </style>
   <script src="https://counterapi.com/c.js" async></script>
 </head>
@@ -1454,19 +1928,198 @@ section {
 
   </section>
   
+<section id="timeline" class="journey-section">
+  <div class="journey-heading">
+    <span class="journey-eyebrow">MY STORY</span>
+    <h2>My Journey</h2>
+    <p>A continuous journey of learning, building, experimenting, and growing.</p>
+  </div>
 
-  <section id="timeline">
-    <a href="#timeline" class="btn">My Journey</a>
-    <br>
-    <br>
-    <br>
-    <div class="timeline">
-      <div class="event"><h4>2024</h4><p>Started Computer Science Engineering 🎓</p></div>
-      <div class="event"><h4>2025</h4><p>Exploring CSE📱</p></div>
-      <div class="event"><h4>2026</h4><p>Chasing Dreams with work 🚀</p></div>
+  <div class="journey-timeline">
+
+    <div class="journey-line">
+      <div class="journey-progress"></div>
     </div>
-    <div class="section-divider"></div>
-  </section>
+
+    <div class="journey-item">
+      <div class="journey-node">
+        <i class="fas fa-graduation-cap"></i>
+      </div>
+
+      <div class="journey-card">
+        <div class="journey-card-top">
+          <span class="journey-year">2024</span>
+          <span class="journey-status">FOUNDATION</span>
+        </div>
+
+        <h3>Started My CSE Journey</h3>
+
+        <p>
+          Began my Computer Science Engineering journey and stepped into
+          the world of programming, technology, and problem solving.
+        </p>
+
+        <div class="journey-tags">
+          <span>CSE</span>
+          <span>Programming</span>
+          <span>Fundamentals</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="journey-item journey-item-right">
+      <div class="journey-node">
+        <i class="fas fa-code"></i>
+      </div>
+
+      <div class="journey-card">
+        <div class="journey-card-top">
+          <span class="journey-year">2025</span>
+          <span class="journey-status">EXPLORATION</span>
+        </div>
+
+        <h3>Exploring Technology</h3>
+
+        <p>
+          Started exploring different areas of software development,
+          programming languages, web development, projects, certifications,
+          and competitive problem solving.
+        </p>
+
+        <div class="journey-tags">
+          <span>Python</span>
+          <span>Java</span>
+          <span>Web Development</span>
+          <span>GitHub</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="journey-item">
+      <div class="journey-node">
+        <i class="fas fa-rocket"></i>
+      </div>
+
+      <div class="journey-card">
+        <div class="journey-card-top">
+          <span class="journey-year">2026</span>
+          <span class="journey-status">BUILDING</span>
+        </div>
+
+        <h3>Building &amp; Proving Myself</h3>
+
+        <p>
+          Started turning my learning into real outcomes through projects,
+          hackathons, problem solving, credentials, and community activities.
+        </p>
+
+        <div class="journey-highlight">
+          <div>
+            <strong>7th</strong>
+            <span>HackArena</span>
+          </div>
+
+          <div>
+            <strong>3 kyu</strong>
+            <span>Codewars</span>
+          </div>
+
+          <div>
+            <strong>Microsoft</strong>
+            <span>Applied Skills</span>
+          </div>
+        </div>
+
+        <div class="journey-tags">
+          <span>Hackathons</span>
+          <span>DSA</span>
+          <span>Projects</span>
+          <span>Community</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="journey-item journey-item-right">
+      <div class="journey-node">
+        <i class="fas fa-laptop-code"></i>
+      </div>
+
+      <div class="journey-card journey-current">
+        <div class="journey-card-top">
+          <span class="journey-year">NOW</span>
+          <span class="journey-status active">IN PROGRESS</span>
+        </div>
+
+        <h3>Focused on Becoming a Software Engineer</h3>
+
+        <p>
+          Currently strengthening Java, Data Structures &amp; Algorithms,
+          web development, problem solving, and practical project building
+          while preparing for internships and placements.
+        </p>
+
+        <div class="journey-focus">
+          <div>
+            <i class="fab fa-java"></i>
+            <span>Java</span>
+          </div>
+
+          <div>
+            <i class="fas fa-sitemap"></i>
+            <span>DSA</span>
+          </div>
+
+          <div>
+            <i class="fas fa-globe"></i>
+            <span>Web</span>
+          </div>
+
+          <div>
+            <i class="fas fa-brain"></i>
+            <span>Problem Solving</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="journey-item">
+      <div class="journey-node future">
+        <i class="fas fa-bullseye"></i>
+      </div>
+
+      <div class="journey-card journey-future">
+        <div class="journey-card-top">
+          <span class="journey-year">NEXT</span>
+          <span class="journey-status">THE GOAL</span>
+        </div>
+
+        <h3>From Learning to Impact</h3>
+
+        <p>
+          Keep building meaningful software, gain industry experience,
+          contribute to real teams, and grow into a strong software
+          engineer capable of solving real-world problems.
+        </p>
+
+        <div class="journey-tags">
+          <span>Internships</span>
+          <span>Placements</span>
+          <span>Real-World Projects</span>
+          <span>Continuous Growth</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="journey-footer">
+    <span></span>
+    <p>The journey is still being written.</p>
+    <span></span>
+  </div>
+
+  <div class="section-divider"></div>
+</section>
 <section id="projects"> 
   <a href="#projects" class="btn">Projects</a> 
   <br><br><br>
@@ -1987,6 +2640,21 @@ window.addEventListener('scroll', () => {
       `${e.clientY - rect.top}px`
     );
   });
+});
+  const journeyItems = document.querySelectorAll('.journey-item');
+
+const journeyObserver = new IntersectionObserver((entries) => {
+  entries.forEach((entry) => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('journey-visible');
+    }
+  });
+}, {
+  threshold: 0.2
+});
+
+journeyItems.forEach((item) => {
+  journeyObserver.observe(item);
 });
 
 

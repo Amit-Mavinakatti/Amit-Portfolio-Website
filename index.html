@@ -897,6 +897,110 @@ button {
     flex: none;
   }
   }
+    /* ================================
+   ACHIEVEMENTS SECTION
+================================ */
+
+#achievements {
+  min-height: 100vh;
+  padding: 5rem 2rem;
+}
+
+.achievements-container {
+  width: 100%;
+  max-width: 1100px;
+  margin: 2rem auto 0;
+
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+.achievement-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+
+  padding: 25px;
+
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+  border-radius: 22px;
+
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+
+  box-shadow:
+    0 0 25px rgba(0, 255, 255, 0.05),
+    inset 0 0 20px rgba(0, 255, 255, 0.02);
+
+  transition: 0.35s ease;
+}
+
+.achievement-card:hover {
+  transform: translateY(-7px);
+  border-color: rgba(0, 255, 255, 0.6);
+
+  box-shadow:
+    0 0 25px rgba(0, 255, 255, 0.15),
+    0 0 50px rgba(0, 153, 255, 0.08);
+}
+
+.achievement-icon {
+  min-width: 55px;
+  height: 55px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 15px;
+
+  background: rgba(0, 255, 255, 0.08);
+  border: 1px solid rgba(0, 255, 255, 0.25);
+
+  color: #0ff;
+  font-size: 1.4rem;
+
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.12);
+}
+
+.achievement-content h3 {
+  margin-bottom: 8px;
+  color: #fff;
+  font-size: 1.2rem;
+}
+
+.achievement-content p {
+  color: rgba(255, 255, 255, 0.65);
+  line-height: 1.6;
+  font-size: 0.9rem;
+}
+
+.achievement-tag {
+  display: inline-block;
+  margin-top: 12px;
+  padding: 5px 11px;
+
+  border-radius: 20px;
+
+  background: rgba(0, 255, 255, 0.06);
+  border: 1px solid rgba(0, 255, 255, 0.2);
+
+  color: #0ff;
+  font-size: 0.7rem;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  .achievements-container {
+    grid-template-columns: 1fr;
+  }
+
+  .achievement-card {
+    padding: 20px;
+  }
+  }
 
   </style>
 </head>
@@ -1325,9 +1429,70 @@ button {
   </div>
 </section>
 
-
-
 <div class="section-divider"></div>
+  
+  <section id="achievements">
+  <h2>Achievements, Badges & Awards</h2>
+
+  <div class="achievements-container">
+
+    <!-- Achievement 1 -->
+    <div class="achievement-card">
+      <div class="achievement-icon">
+        <i class="fas fa-trophy"></i>
+      </div>
+
+      <div class="achievement-content">
+        <h3>HackArena 2K26</h3>
+        <p>
+          Team Leader of Alpha Hackers at HackArena 2K26.
+          Selected for the offline hackathon and secured 7th place.
+        </p>
+        <span class="achievement-tag">Hackathon</span>
+      </div>
+    </div>
+
+    <!-- Badge 1 -->
+    <div class="achievement-card">
+      <div class="achievement-icon">
+        <i class="fas fa-medal"></i>
+      </div>
+
+      <div class="achievement-content">
+        <h3>Codewars — 3 kyu</h3>
+        <p>
+          Reached 3 kyu on Codewars through consistent problem solving
+          and programming practice.
+        </p>
+        <span class="achievement-tag">Problem Solving</span>
+      </div>
+    </div>
+
+    <!-- Credential 1 -->
+    <div class="achievement-card">
+      <div class="achievement-icon">
+        <i class="fas fa-certificate"></i>
+      </div>
+
+      <div class="achievement-content">
+        <h3>Microsoft Applied Skills</h3>
+        <p>
+          Earned the Microsoft Applied Skills credential
+          "Streamline business workflows with AI chat".
+        </p>
+        <span class="achievement-tag">Microsoft</span>
+      </div>
+    </div>
+
+    <!-- Add more cards here -->
+
+  </div>
+  </section>
+  
+<div class="section-divider"></div>
+
+
+
 
   <section id="sc">
      <a href="#sc" class="btn">Social Accounts</a>

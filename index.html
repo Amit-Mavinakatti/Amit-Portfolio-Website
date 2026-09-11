@@ -2064,6 +2064,16 @@ section {
     max-width: 88vw;
   }
     }
+  .main-header {
+  transition: transform .4s cubic-bezier(.2,.8,.2,1), opacity .3s ease;
+}
+
+.main-header.header-hidden {
+  transform: translate(-50%, -140%);
+  opacity: 0;
+  pointer-events: none;
+}
+  
   </style>
   <script src="https://counterapi.com/c.js" async></script>
 </head>
@@ -2957,12 +2967,17 @@ journeyItems.forEach((item) => {
 });
 const menuToggle = document.querySelector(".menu-toggle");
 const mainNav = document.querySelector(".main-nav");
+const mainHeader = document.querySelector(".main-header");
 const mainNavLinks = document.querySelectorAll(".main-nav .nav-link");
+
+let lastScrollY = window.scrollY;
 
 menuToggle.addEventListener("click", () => {
   const isOpen = mainNav.classList.toggle("menu-open");
 
   menuToggle.classList.toggle("active", isOpen);
+
+  mainHeader.classList.remove("header-hidden");
 
   menuToggle.setAttribute(
     "aria-label",
@@ -2974,6 +2989,7 @@ mainNavLinks.forEach((link) => {
   link.addEventListener("click", () => {
     mainNav.classList.remove("menu-open");
     menuToggle.classList.remove("active");
+    mainHeader.classList.remove("header-hidden");
     menuToggle.setAttribute("aria-label", "Open menu");
   });
 });
@@ -2990,6 +3006,19 @@ document.addEventListener("click", (e) => {
   }
 });
 
+window.addEventListener("scroll", () => {
+  if (mainNav.classList.contains("menu-open")) return;
+
+  const currentScrollY = window.scrollY;
+
+  if (currentScrollY > lastScrollY && currentScrollY > 100) {
+    mainHeader.classList.add("header-hidden");
+  } else {
+    mainHeader.classList.remove("header-hidden");
+  }
+
+  lastScrollY = currentScrollY;
+});
 
 </script>
 

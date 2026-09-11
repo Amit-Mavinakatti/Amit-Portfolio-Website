@@ -1956,12 +1956,71 @@ section {
 }
 
 @media (max-width: 950px) {
+@media (max-width: 950px) {
   .main-header {
     width: calc(100% - 24px);
   }
 
   .main-nav {
-    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 320px;
+    max-width: 85vw;
+    height: 100vh;
+    padding: 100px 25px 30px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    background: rgba(5,8,12,.97);
+    border-left: 1px solid rgba(0,255,255,.18);
+    box-shadow: -15px 0 50px rgba(0,0,0,.55);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    transform: translateX(100%);
+    visibility: hidden;
+    opacity: 0;
+    transition: transform .4s cubic-bezier(.2,.8,.2,1), opacity .3s ease, visibility .4s;
+    z-index: 1100;
+  }
+
+  .main-nav.menu-open {
+    transform: translateX(0);
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .main-nav ul {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 6px;
+  }
+
+  .main-nav .nav-link {
+    width: 100%;
+    justify-content: flex-start;
+    padding: 14px 16px;
+    font-size: .9rem;
+    border-radius: 12px;
+  }
+
+  .main-nav .nav-link:hover {
+    background: rgba(0,255,255,.07);
+  }
+
+  .main-nav .nav-link::after {
+    left: 0;
+    bottom: 50%;
+    width: 3px;
+    height: 0;
+    transform: translateY(50%);
+  }
+
+  .main-nav .nav-link:hover::after,
+  .main-nav .nav-link.active::after {
+    width: 3px;
+    height: 22px;
   }
 
   .nav-cta {
@@ -1970,36 +2029,8 @@ section {
 
   .menu-toggle {
     display: block;
-  }
-
-  .main-nav.menu-open {
-    display: block;
-    position: absolute;
-    top: calc(100% + 10px);
-    left: 0;
-    width: 100%;
-    padding: 12px;
-    background: rgba(5,8,12,.94);
-    border: 1px solid rgba(0,255,255,.14);
-    border-radius: 16px;
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 15px 40px rgba(0,0,0,.45);
-  }
-
-  .main-nav.menu-open ul {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 4px;
-  }
-
-  .main-nav.menu-open .nav-link {
-    justify-content: center;
-    padding: 12px;
-  }
-
-  .main-nav.menu-open .nav-link::after {
-    bottom: 5px;
+    position: relative;
+    z-index: 1200;
   }
 }
 
@@ -2026,6 +2057,11 @@ section {
 
   .nav-cta span {
     display: none;
+  }
+
+  .main-nav {
+    width: 300px;
+    max-width: 88vw;
   }
     }
   </style>
@@ -2919,18 +2955,18 @@ const journeyObserver = new IntersectionObserver((entries) => {
 journeyItems.forEach((item) => {
   journeyObserver.observe(item);
 });
-
-  const menuToggle = document.querySelector(".menu-toggle");
+const menuToggle = document.querySelector(".menu-toggle");
 const mainNav = document.querySelector(".main-nav");
 const mainNavLinks = document.querySelectorAll(".main-nav .nav-link");
 
 menuToggle.addEventListener("click", () => {
-  mainNav.classList.toggle("menu-open");
-  menuToggle.classList.toggle("active");
+  const isOpen = mainNav.classList.toggle("menu-open");
+
+  menuToggle.classList.toggle("active", isOpen);
 
   menuToggle.setAttribute(
     "aria-label",
-    mainNav.classList.contains("menu-open") ? "Close menu" : "Open menu"
+    isOpen ? "Close menu" : "Open menu"
   );
 });
 
@@ -2944,8 +2980,9 @@ mainNavLinks.forEach((link) => {
 
 document.addEventListener("click", (e) => {
   if (
-    !e.target.closest(".main-header") &&
-    mainNav.classList.contains("menu-open")
+    mainNav.classList.contains("menu-open") &&
+    !mainNav.contains(e.target) &&
+    !menuToggle.contains(e.target)
   ) {
     mainNav.classList.remove("menu-open");
     menuToggle.classList.remove("active");

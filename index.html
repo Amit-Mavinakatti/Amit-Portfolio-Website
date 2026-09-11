@@ -1008,8 +1008,42 @@ button {
   font-size: 0.9rem;
   font-style: italic;
     }
+    .visitor-counter {
+  position: absolute;
+  top: 90px;
+  right: 30px;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  padding: 8px 15px;
+
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(0, 255, 255, 0.25);
+  border-radius: 20px;
+
+  color: #0ff;
+  font-size: 0.8rem;
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.08);
+}
+
+.visitor-counter i {
+  font-size: 0.9rem;
+  text-shadow: 0 0 8px #0ff;
+}
+
+.visitor-counter .counterapi {
+  font-weight: 600;
+  color: #fff;
+      }
 
   </style>
+  <script src="https://counterapi.com/c.js" async></script>
 </head>
 <body>
 
@@ -1038,6 +1072,10 @@ button {
 
   <section id="home">
     <canvas id="bgCanvas"></canvas>
+    <div class="visitor-counter">
+  <i class="fas fa-eye"></i>
+  <span>Visitors: <span class="counterapi"></span></span>
+    </div>
     
 <div class="home-intro-card">
 

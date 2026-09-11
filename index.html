@@ -195,6 +195,93 @@
     height: 280px;
   }
     }
+    /* =====================================================
+   PREMIUM RESUME CARD
+   ===================================================== */
+
+.resume-section {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 1rem;
+}
+
+.resume-card {
+  width: 320px;
+  padding: 15px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(0, 255, 255, 0.5);
+  backdrop-filter: blur(15px);
+  box-shadow:
+    0 0 20px rgba(0, 255, 255, 0.15),
+    inset 0 0 20px rgba(0, 255, 255, 0.03);
+  transition: 0.4s ease;
+  text-align: center;
+}
+
+.resume-card:hover {
+  transform: translateY(-10px) scale(1.03);
+  border-color: #0ff;
+  box-shadow:
+    0 0 25px #0ff,
+    0 0 60px rgba(0, 153, 255, 0.5);
+}
+
+/* PDF thumbnail */
+.resume-preview {
+  width: 100%;
+  height: 390px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #111;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  margin-bottom: 15px;
+}
+
+.resume-preview iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* Download button */
+.resume-download {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  padding: 13px 20px;
+  border-radius: 30px;
+  background: linear-gradient(45deg, #0ff, #09f);
+  color: #000;
+  font-weight: 600;
+  transition: 0.3s ease;
+}
+
+.resume-download:hover {
+  transform: scale(1.04);
+  text-decoration: none;
+  box-shadow:
+    0 0 20px #0ff,
+    0 0 40px #09f;
+}
+
+.resume-download i {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 480px) {
+  .resume-card {
+    width: 290px;
+  }
+
+  .resume-preview {
+    height: 350px;
+  }
+}
 .section-divider {
   width: 100%;
   height: 3px;
@@ -617,6 +704,36 @@ I enjoy learning new skills, exploring creative ideas, and building projects tha
     <br>
 <div class="section-divider"></div>
     
+  </section>
+  <section id="resume">
+
+  <a href="#resume" class="btn">My Resume</a>
+
+  <div class="resume-section">
+
+    <div class="resume-card">
+
+      <div class="resume-preview">
+        <iframe
+          src="Amit-Resume.pdf#page=1"
+          title="Amit Mavinakatti Resume">
+        </iframe>
+      </div>
+
+      <a
+        href="Amit-Resume.pdf"
+        download="Amit-Mavinakatti-Resume.pdf"
+        class="resume-download">
+
+        <i class="fas fa-download"></i>
+        Download Resume
+
+      </a>
+
+    </div>
+
+  </div>
+
   </section>
   
 

@@ -2920,6 +2920,39 @@ journeyItems.forEach((item) => {
   journeyObserver.observe(item);
 });
 
+  const menuToggle = document.querySelector(".menu-toggle");
+const mainNav = document.querySelector(".main-nav");
+const mainNavLinks = document.querySelectorAll(".main-nav .nav-link");
+
+menuToggle.addEventListener("click", () => {
+  mainNav.classList.toggle("menu-open");
+  menuToggle.classList.toggle("active");
+
+  menuToggle.setAttribute(
+    "aria-label",
+    mainNav.classList.contains("menu-open") ? "Close menu" : "Open menu"
+  );
+});
+
+mainNavLinks.forEach((link) => {
+  link.addEventListener("click", () => {
+    mainNav.classList.remove("menu-open");
+    menuToggle.classList.remove("active");
+    menuToggle.setAttribute("aria-label", "Open menu");
+  });
+});
+
+document.addEventListener("click", (e) => {
+  if (
+    !e.target.closest(".main-header") &&
+    mainNav.classList.contains("menu-open")
+  ) {
+    mainNav.classList.remove("menu-open");
+    menuToggle.classList.remove("active");
+    menuToggle.setAttribute("aria-label", "Open menu");
+  }
+});
+
 
 </script>
 

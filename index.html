@@ -240,14 +240,63 @@
   margin-bottom: 15px;
 }
 
+/* =====================================================
+   BLURRED RESUME PREVIEW
+   ===================================================== */
+
+.resume-preview {
+  position: relative;
+  width: 100%;
+  height: 390px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: #111;
+  border: 1px solid rgba(0, 255, 255, 0.3);
+  margin-bottom: 15px;
+}
+
+/* Resume thumbnail */
 .resume-preview img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: top;
+
   display: block;
-  transition: 0.4s ease;
+
+  /* Main blur */
+  filter: blur(7px);
+
+  /* Slightly darkened for premium effect */
+  opacity: 0.65;
+
+  transform: scale(1.05);
 }
+
+/* Frosted glass surface */
+.resume-preview::after {
+  content: "RESUME PREVIEW";
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: rgba(10, 10, 10, 0.35);
+  backdrop-filter: blur(3px);
+
+  color: rgba(0, 255, 255, 0.9);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+
+  text-shadow:
+    0 0 10px #0ff,
+    0 0 20px #0ff;
+
+  pointer-events: none;
+  }
 
 .resume-preview img:hover {
   transform: scale(1.03);

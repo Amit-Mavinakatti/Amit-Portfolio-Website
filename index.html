@@ -8,6 +8,193 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <style>
+    /* =====================================================
+   AMIT PROFILE PHOTO - PREMIUM HOME DESIGN
+   ===================================================== */
+
+.profile-photo-container {
+  position: relative;
+  width: 290px;
+  height: 290px;
+  margin: 0 auto 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: profileFloat 5s ease-in-out infinite;
+}
+
+/* Main photograph */
+.profile-photo {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #0ff;
+  position: relative;
+  z-index: 5;
+
+  box-shadow:
+    0 0 15px #0ff,
+    0 0 35px rgba(0, 255, 255, 0.7),
+    0 0 70px rgba(0, 153, 255, 0.45);
+
+  transition: 0.5s ease;
+}
+
+/* Hover effect */
+.profile-photo:hover {
+  transform: scale(1.08);
+
+  box-shadow:
+    0 0 20px #0ff,
+    0 0 50px #0ff,
+    0 0 90px #09f;
+}
+
+/* Soft glow behind photograph */
+.profile-glow {
+  position: absolute;
+  width: 240px;
+  height: 240px;
+  border-radius: 50%;
+  background: #0ff;
+  filter: blur(45px);
+  opacity: 0.18;
+  z-index: 1;
+
+  animation: glowPulse 3s ease-in-out infinite;
+}
+
+/* Outer animated rings */
+.profile-orbit {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgba(0, 255, 255, 0.55);
+  z-index: 2;
+}
+
+/* First ring */
+.orbit-1 {
+  width: 255px;
+  height: 255px;
+  animation: orbitRotate 8s linear infinite;
+}
+
+/* Second ring */
+.orbit-2 {
+  width: 285px;
+  height: 285px;
+  border-color: rgba(0, 153, 255, 0.45);
+  animation: orbitRotateReverse 12s linear infinite;
+}
+
+/* Glowing points moving around the rings */
+.orbit-1::after,
+.orbit-2::after {
+  content: "";
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #0ff;
+
+  box-shadow:
+    0 0 12px #0ff,
+    0 0 25px #0ff;
+}
+
+.orbit-1::after {
+  top: 12px;
+  left: 50%;
+}
+
+.orbit-2::after {
+  bottom: 12px;
+  right: 18%;
+  background: #09f;
+
+  box-shadow:
+    0 0 12px #09f,
+    0 0 25px #09f;
+}
+
+/* Floating photograph */
+@keyframes profileFloat {
+  0%, 100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* Pulsing glow */
+@keyframes glowPulse {
+  0%, 100% {
+    opacity: 0.14;
+    transform: scale(0.95);
+  }
+
+  50% {
+    opacity: 0.30;
+    transform: scale(1.08);
+  }
+}
+
+/* Ring rotation */
+@keyframes orbitRotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbitRotateReverse {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+
+/* =====================================================
+   MOBILE RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 480px) {
+
+  .profile-photo-container {
+    width: 215px;
+    height: 215px;
+  }
+
+  .profile-photo {
+    width: 165px;
+    height: 165px;
+  }
+
+  .profile-glow {
+    width: 180px;
+    height: 180px;
+  }
+
+  .orbit-1 {
+    width: 195px;
+    height: 195px;
+  }
+
+  .orbit-2 {
+    width: 215px;
+    height: 215px;
+  }
+}
   
 .section-divider {
   width: 100%;
@@ -396,6 +583,20 @@ button {
     <br>
     <br>
     <br>
+    <div class="profile-photo-container">
+
+  <div class="profile-orbit orbit-1"></div>
+  <div class="profile-orbit orbit-2"></div>
+
+  <div class="profile-glow"></div>
+
+  <img
+    src="amit.jpg"
+    alt="Amit Mavinakatti"
+    class="profile-photo"
+  >
+
+    </div>
     
 
     <h1>Hi, I’m Amit M 👋</h1>

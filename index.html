@@ -6459,6 +6459,1029 @@ section {
   }
 
 }
+/* ============================================================
+   PREMIUM SOCIAL ACCOUNTS SECTION
+   ============================================================ */
+
+#social-accounts {
+    --social-accent: #00f6ff;
+    --social-accent-2: #2563eb;
+    --social-text: #f4fbff;
+    --social-muted: rgba(210, 230, 240, 0.68);
+    --social-border: rgba(0, 246, 255, 0.12);
+    --social-surface: rgba(255, 255, 255, 0.035);
+
+    position: relative;
+    min-height: auto;
+    padding: 8rem 5% 6rem;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+
+/* ============================================================
+   AMBIENT BACKGROUND
+   ============================================================ */
+
+#social-accounts::before,
+#social-accounts::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+    border-radius: 50%;
+    filter: blur(15px);
+}
+
+#social-accounts::before {
+    width: 520px;
+    height: 520px;
+    top: 2%;
+    left: -280px;
+    background: radial-gradient(
+        circle,
+        rgba(0, 246, 255, 0.10) 0%,
+        rgba(0, 246, 255, 0.035) 38%,
+        transparent 72%
+    );
+    animation: socialGlowLeft 10s ease-in-out infinite alternate;
+}
+
+#social-accounts::after {
+    width: 560px;
+    height: 560px;
+    right: -300px;
+    bottom: -220px;
+    background: radial-gradient(
+        circle,
+        rgba(37, 99, 235, 0.12) 0%,
+        rgba(37, 99, 235, 0.035) 40%,
+        transparent 72%
+    );
+    animation: socialGlowRight 12s ease-in-out infinite alternate;
+}
+
+@keyframes socialGlowLeft {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate3d(60px, 35px, 0) scale(1.12);
+    }
+}
+
+@keyframes socialGlowRight {
+    0% {
+        transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    100% {
+        transform: translate3d(-50px, -30px, 0) scale(1.1);
+    }
+}
+
+
+/* ============================================================
+   HEADING
+   ============================================================ */
+
+.social-accounts-heading {
+    max-width: 850px;
+    margin: 0 auto 3.5rem;
+    text-align: center;
+}
+
+.social-accounts-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 1rem;
+
+    color: var(--social-accent);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.social-accounts-eyebrow::before,
+.social-accounts-eyebrow::after {
+    content: "";
+    width: 22px;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--social-accent)
+    );
+}
+
+.social-accounts-eyebrow::after {
+    background: linear-gradient(
+        90deg,
+        var(--social-accent),
+        transparent
+    );
+}
+
+.social-accounts-heading h2 {
+    position: relative;
+    margin: 0;
+
+    font-size: clamp(2.3rem, 5vw, 4rem);
+    line-height: 1.08;
+    font-weight: 900;
+    letter-spacing: -1.8px;
+
+    background: linear-gradient(
+        110deg,
+        #ffffff 5%,
+        #dffcff 35%,
+        var(--social-accent) 60%,
+        #ffffff 90%
+    );
+
+    background-size: 220% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    animation: socialTitleFlow 7s linear infinite;
+}
+
+.social-accounts-heading h2::after {
+    content: "";
+    display: block;
+
+    width: 75px;
+    height: 3px;
+    margin: 1.2rem auto 1.3rem;
+
+    border-radius: 10px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        var(--social-accent),
+        var(--social-accent-2),
+        transparent
+    );
+
+    box-shadow:
+        0 0 14px rgba(0, 246, 255, 0.45);
+}
+
+.social-accounts-heading p {
+    max-width: 680px;
+    margin: 0 auto;
+
+    color: var(--social-muted);
+    font-size: 0.98rem;
+    line-height: 1.8;
+}
+
+@keyframes socialTitleFlow {
+    0% {
+        background-position: 0% center;
+    }
+
+    100% {
+        background-position: 220% center;
+    }
+}
+
+
+/* ============================================================
+   OVERVIEW CARDS
+   ============================================================ */
+
+.social-accounts-overview {
+    width: min(1100px, 100%);
+    margin: 0 auto 4rem;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.social-overview-card {
+    position: relative;
+
+    min-height: 105px;
+    padding: 1.2rem 1.25rem;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    border-radius: 20px;
+
+    background:
+        linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.045),
+            rgba(255, 255, 255, 0.018)
+        );
+
+    box-shadow:
+        0 15px 40px rgba(0, 0, 0, 0.16),
+        inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    overflow: hidden;
+
+    transition:
+        transform 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.social-overview-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            115deg,
+            transparent 30%,
+            rgba(0, 246, 255, 0.045),
+            transparent 70%
+        );
+
+    transform: translateX(-100%);
+    transition: transform 0.7s ease;
+}
+
+.social-overview-card:hover {
+    transform: translateY(-5px);
+
+    border-color: rgba(0, 246, 255, 0.25);
+
+    box-shadow:
+        0 20px 45px rgba(0, 0, 0, 0.2),
+        0 0 25px rgba(0, 246, 255, 0.055);
+}
+
+.social-overview-card:hover::before {
+    transform: translateX(100%);
+}
+
+.social-overview-icon {
+    position: relative;
+    z-index: 1;
+
+    width: 50px;
+    height: 50px;
+    flex: 0 0 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(0, 246, 255, 0.17);
+    border-radius: 15px;
+
+    background: rgba(0, 246, 255, 0.055);
+
+    color: var(--social-accent);
+    font-size: 1.1rem;
+
+    box-shadow:
+        inset 0 0 18px rgba(0, 246, 255, 0.035),
+        0 0 18px rgba(0, 246, 255, 0.04);
+
+    transition:
+        transform 0.35s ease,
+        border-color 0.35s ease,
+        background 0.35s ease;
+}
+
+.social-overview-card:hover .social-overview-icon {
+    transform: scale(1.08) rotate(-4deg);
+
+    border-color: rgba(0, 246, 255, 0.4);
+    background: rgba(0, 246, 255, 0.1);
+}
+
+.social-overview-card span {
+    display: block;
+    margin-bottom: 5px;
+
+    color: rgba(190, 215, 225, 0.55);
+    font-size: 0.64rem;
+    font-weight: 800;
+    letter-spacing: 1.8px;
+}
+
+.social-overview-card strong {
+    display: block;
+
+    color: var(--social-text);
+    font-size: 0.95rem;
+    font-weight: 800;
+}
+
+
+/* ============================================================
+   SECTION LABEL
+   ============================================================ */
+
+.social-accounts-label {
+    width: min(1100px, 100%);
+    margin: 0 auto 1.8rem;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.social-accounts-label span {
+    flex-shrink: 0;
+
+    color: rgba(230, 247, 255, 0.88);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+}
+
+.social-accounts-label div {
+    flex: 1;
+    height: 1px;
+
+    background: linear-gradient(
+        90deg,
+        rgba(0, 246, 255, 0.35),
+        rgba(255, 255, 255, 0.06),
+        transparent
+    );
+}
+
+.social-accounts-label small {
+    flex-shrink: 0;
+
+    color: rgba(180, 210, 220, 0.42);
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+}
+
+
+/* ============================================================
+   SOCIAL GRID
+   ============================================================ */
+
+.social-accounts-grid {
+    width: min(1100px, 100%);
+    margin: 0 auto;
+
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+}
+
+
+/* ============================================================
+   SOCIAL CARD
+   ============================================================ */
+
+.social-account-card {
+    position: relative;
+
+    min-height: 275px;
+    padding: 1.35rem;
+
+    display: flex;
+    flex-direction: column;
+
+    border: 1px solid rgba(255, 255, 255, 0.075);
+    border-radius: 22px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.052),
+            rgba(255, 255, 255, 0.018)
+        );
+
+    color: var(--social-text);
+    text-decoration: none;
+
+    overflow: hidden;
+
+    box-shadow:
+        0 14px 40px rgba(0, 0, 0, 0.17),
+        inset 0 1px 0 rgba(255, 255, 255, 0.035);
+
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    transition:
+        transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1),
+        border-color 0.35s ease,
+        box-shadow 0.4s ease,
+        background 0.35s ease;
+}
+
+.social-account-card::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: -120%;
+
+    width: 90%;
+    height: 1px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0, 246, 255, 0.8),
+        transparent
+    );
+
+    transition: left 0.75s ease;
+}
+
+.social-account-card::after {
+    content: "";
+
+    position: absolute;
+    width: 180px;
+    height: 180px;
+
+    right: -120px;
+    bottom: -120px;
+
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        rgba(0, 246, 255, 0.12),
+        transparent 68%
+    );
+
+    opacity: 0;
+    transform: scale(0.8);
+
+    transition:
+        opacity 0.4s ease,
+        transform 0.4s ease;
+}
+
+.social-account-card:hover {
+    transform: translateY(-8px);
+
+    border-color: rgba(0, 246, 255, 0.27);
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(0, 246, 255, 0.065),
+            rgba(37, 99, 235, 0.025)
+        );
+
+    box-shadow:
+        0 25px 55px rgba(0, 0, 0, 0.24),
+        0 0 30px rgba(0, 246, 255, 0.07),
+        inset 0 1px 0 rgba(255, 255, 255, 0.055);
+}
+
+.social-account-card:hover::before {
+    left: 130%;
+}
+
+.social-account-card:hover::after {
+    opacity: 1;
+    transform: scale(1.15);
+}
+
+
+/* ============================================================
+   CARD TOP
+   ============================================================ */
+
+.social-card-top {
+    position: relative;
+    z-index: 2;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    margin-bottom: 1.4rem;
+}
+
+.social-card-icon {
+    width: 48px;
+    height: 48px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(0, 246, 255, 0.16);
+    border-radius: 14px;
+
+    background: rgba(0, 246, 255, 0.05);
+
+    color: var(--social-accent);
+    font-size: 1.2rem;
+
+    box-shadow:
+        inset 0 0 15px rgba(0, 246, 255, 0.025);
+
+    transition:
+        transform 0.4s ease,
+        border-color 0.35s ease,
+        background 0.35s ease,
+        box-shadow 0.35s ease;
+}
+
+.social-account-card:hover .social-card-icon {
+    transform: rotate(-5deg) scale(1.08);
+
+    border-color: rgba(0, 246, 255, 0.42);
+    background: rgba(0, 246, 255, 0.1);
+
+    box-shadow:
+        0 0 22px rgba(0, 246, 255, 0.09);
+}
+
+.social-card-number {
+    color: rgba(180, 220, 230, 0.28);
+
+    font-family: monospace;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+
+    transition:
+        color 0.35s ease;
+}
+
+.social-account-card:hover .social-card-number {
+    color: rgba(0, 246, 255, 0.5);
+}
+
+
+/* ============================================================
+   CARD CONTENT
+   ============================================================ */
+
+.social-card-content {
+    position: relative;
+    z-index: 2;
+}
+
+.social-card-category {
+    display: inline-block;
+    margin-bottom: 0.55rem;
+
+    color: var(--social-accent);
+    font-size: 0.59rem;
+    font-weight: 800;
+    letter-spacing: 1.7px;
+}
+
+.social-card-content h3 {
+    margin: 0 0 0.65rem;
+
+    color: #ffffff;
+
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: -0.2px;
+
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.social-account-card:hover .social-card-content h3 {
+    color: var(--social-accent);
+    transform: translateX(2px);
+}
+
+.social-card-content p {
+    margin: 0;
+
+    color: rgba(205, 225, 235, 0.6);
+
+    font-size: 0.79rem;
+    line-height: 1.7;
+}
+
+
+/* ============================================================
+   CARD FOOTER
+   ============================================================ */
+
+.social-card-footer {
+    position: relative;
+    z-index: 2;
+
+    margin-top: auto;
+    padding-top: 1.2rem;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.055);
+}
+
+.social-card-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    color: rgba(190, 215, 225, 0.46);
+
+    font-size: 0.58rem;
+    font-weight: 800;
+    letter-spacing: 1.2px;
+}
+
+.social-card-status i {
+    color: #00e676;
+    font-size: 0.42rem;
+
+    filter: drop-shadow(
+        0 0 5px rgba(0, 230, 118, 0.65)
+    );
+
+    animation: socialStatusPulse 2s ease-in-out infinite;
+}
+
+@keyframes socialStatusPulse {
+    0%,
+    100% {
+        opacity: 0.65;
+        transform: scale(0.9);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.15);
+    }
+}
+
+.social-card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    color: rgba(220, 245, 250, 0.58);
+
+    font-size: 0.59rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+
+    transition:
+        color 0.3s ease,
+        transform 0.3s ease;
+}
+
+.social-card-link i {
+    font-size: 0.58rem;
+}
+
+.social-account-card:hover .social-card-link {
+    color: var(--social-accent);
+    transform: translateX(3px);
+}
+
+
+/* ============================================================
+   BRAND DETAILS
+   ============================================================ */
+
+.social-account-card:nth-child(1) .social-card-icon {
+    color: #ffffff;
+}
+
+.social-account-card:nth-child(2) .social-card-icon {
+    color: #0a9cf5;
+}
+
+.social-account-card:nth-child(3) .social-card-icon {
+    color: #00a4ef;
+}
+
+.social-account-card:nth-child(4) .social-card-icon {
+    color: #ff4fa3;
+}
+
+.social-account-card:nth-child(5) .social-card-icon {
+    color: #ffffff;
+}
+
+.social-account-card:nth-child(6) .social-card-icon {
+    color: #00ea64;
+}
+
+.social-account-card:nth-child(7) .social-card-icon,
+.social-account-card:nth-child(8) .social-card-icon,
+.social-account-card:nth-child(9) .social-card-icon {
+    color: var(--social-accent);
+}
+
+
+/* ============================================================
+   CARD REVEAL
+   ============================================================ */
+
+.social-account-card {
+    opacity: 0;
+    transform: translateY(25px);
+    animation: socialCardReveal 0.65s ease forwards;
+}
+
+.social-account-card:nth-child(1) {
+    animation-delay: 0.05s;
+}
+
+.social-account-card:nth-child(2) {
+    animation-delay: 0.10s;
+}
+
+.social-account-card:nth-child(3) {
+    animation-delay: 0.15s;
+}
+
+.social-account-card:nth-child(4) {
+    animation-delay: 0.20s;
+}
+
+.social-account-card:nth-child(5) {
+    animation-delay: 0.25s;
+}
+
+.social-account-card:nth-child(6) {
+    animation-delay: 0.30s;
+}
+
+.social-account-card:nth-child(7) {
+    animation-delay: 0.35s;
+}
+
+.social-account-card:nth-child(8) {
+    animation-delay: 0.40s;
+}
+
+.social-account-card:nth-child(9) {
+    animation-delay: 0.45s;
+}
+
+@keyframes socialCardReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ============================================================
+   FOOTER
+   ============================================================ */
+
+.social-accounts-footer {
+    width: min(1100px, 100%);
+    margin: 4rem auto 0;
+
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.social-accounts-footer-line {
+    flex: 1;
+    height: 1px;
+
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(0, 246, 255, 0.2)
+    );
+}
+
+.social-accounts-footer-line:last-child {
+    background: linear-gradient(
+        90deg,
+        rgba(0, 246, 255, 0.2),
+        transparent
+    );
+}
+
+.social-accounts-footer-content {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    white-space: nowrap;
+
+    color: rgba(190, 220, 230, 0.42);
+
+    font-size: 0.59rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.social-accounts-footer-content i {
+    color: var(--social-accent);
+    font-size: 0.72rem;
+
+    filter: drop-shadow(
+        0 0 7px rgba(0, 246, 255, 0.4)
+    );
+}
+
+
+/* ============================================================
+   RESPONSIVE — TABLET
+   ============================================================ */
+
+@media (max-width: 1000px) {
+
+    #social-accounts {
+        padding: 7rem 5% 5.5rem;
+    }
+
+    .social-accounts-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .social-accounts-overview {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+
+/* ============================================================
+   RESPONSIVE — SMALL TABLET
+   ============================================================ */
+
+@media (max-width: 720px) {
+
+    #social-accounts {
+        padding: 6rem 4% 5rem;
+    }
+
+    .social-accounts-heading {
+        margin-bottom: 2.8rem;
+    }
+
+    .social-accounts-overview {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+        margin-bottom: 3rem;
+    }
+
+    .social-overview-card {
+        min-height: 88px;
+    }
+
+    .social-accounts-label {
+        flex-wrap: wrap;
+        gap: 0.7rem;
+    }
+
+    .social-accounts-label div {
+        order: 3;
+        flex-basis: 100%;
+    }
+
+    .social-accounts-label small {
+        font-size: 0.52rem;
+    }
+
+    .social-accounts-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+}
+
+
+/* ============================================================
+   RESPONSIVE — MOBILE
+   ============================================================ */
+
+@media (max-width: 540px) {
+
+    #social-accounts {
+        padding: 5rem 4% 4rem;
+    }
+
+    .social-accounts-heading h2 {
+        font-size: 2.25rem;
+        letter-spacing: -1px;
+    }
+
+    .social-accounts-heading p {
+        font-size: 0.85rem;
+        line-height: 1.7;
+    }
+
+    .social-accounts-eyebrow {
+        font-size: 0.61rem;
+        letter-spacing: 2px;
+    }
+
+    .social-accounts-grid {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+    }
+
+    .social-account-card {
+        min-height: 245px;
+    }
+
+    .social-accounts-footer {
+        margin-top: 3rem;
+    }
+
+}
+
+
+/* ============================================================
+   RESPONSIVE — SMALL MOBILE
+   ============================================================ */
+
+@media (max-width: 400px) {
+
+    #social-accounts {
+        padding-left: 3.5%;
+        padding-right: 3.5%;
+    }
+
+    .social-accounts-heading h2 {
+        font-size: 2rem;
+    }
+
+    .social-accounts-label {
+        gap: 0.5rem;
+    }
+
+    .social-accounts-label span {
+        font-size: 0.62rem;
+    }
+
+    .social-accounts-label small {
+        width: 100%;
+    }
+
+    .social-account-card {
+        padding: 1.15rem;
+        border-radius: 19px;
+    }
+
+    .social-card-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 13px;
+    }
+
+    .social-card-content h3 {
+        font-size: 1.1rem;
+    }
+
+    .social-card-content p {
+        font-size: 0.76rem;
+    }
+
+    .social-accounts-footer-content {
+        font-size: 0.5rem;
+        letter-spacing: 1.4px;
+    }
+
+}
+
+
+/* ============================================================
+   REDUCED MOTION
+   ============================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    #social-accounts *,
+    #social-accounts::before,
+    #social-accounts::after {
+        animation: none !important;
+        transition: none !important;
+    }
+
+    .social-account-card {
+        opacity: 1;
+        transform: none;
+    }
+
+}
   
   </style>
   <script src="https://counterapi.com/c.js" async></script>
@@ -9406,27 +10429,556 @@ section {
 
 
 
+<!-- ================================
+     SOCIAL ACCOUNTS SECTION
+     ================================ -->
 
-  <section id="sc">
-     <a href="#sc" class="btn">Social Accounts</a>
-     <br>
-     <br>
-     <br>
-    <div class="socials">
+<section id="social-accounts" class="social-accounts-section">
 
-      <a href="https://github.com/Amit-Mavinakatti" target="_blank"><i class="fab fa-github"></i>GitHub</a>
-      <a href="http://www.linkedin.com/in/amitmd8" target="_blank"><i class="fab fa-linkedin"></i>LinkedIn</a>
-<a href="https://learn.microsoft.com/en-us/users/amitmavinakatti-9947" target="_blank"><i class="fab fa-microsoft"></i>Microsoft Learn</a>
+    <div class="social-accounts-heading">
+        <span class="social-accounts-eyebrow">CONNECT & EXPLORE</span>
 
-      <a href="https://www.instagram.com/amit__m_7" target="_blank"><i class="fab fa-instagram"></i>Instagram</a>
-      <a href="https://x.com/Amit_Mavinaktti" target="_blank"><i class="fab fa-twitter"></i> Twitter / X </a>
-      <a href="https://www.hackerrank.com/amitmavinakatti1" target="_blank"><i class="fab fa-hackerrank"></i>HackerRank</a>
-      <a href="https://leetcode.com/AmitMavinakatti" target="_blank"><i class="fas fa-code"></i>LeetCode</a>
-      <a href="https://www.codewars.com/users/AmitM8" target="_blank"><i class="fas fa-code"></i>CodeWars</a>
-      <a href="https://www.sololearn.com/profile/34787891/?ref=app" target="_blank"><i class="fas fa-code"></i>SoloLearn</a>
+        <h2>Social Accounts</h2>
+
+        <p>
+            Find me across the platforms where I build, learn, share,
+            solve problems, and connect with the developer community.
+        </p>
+    </div>
+
+
+    <div class="social-accounts-overview">
+
+        <div class="social-overview-card">
+            <div class="social-overview-icon">
+                <i class="fas fa-globe"></i>
+            </div>
+
+            <div>
+                <span>PLATFORMS</span>
+                <strong>09+</strong>
+            </div>
+        </div>
+
+
+        <div class="social-overview-card">
+            <div class="social-overview-icon">
+                <i class="fas fa-code"></i>
+            </div>
+
+            <div>
+                <span>FOCUS</span>
+                <strong>Build · Learn · Solve</strong>
+            </div>
+        </div>
+
+
+        <div class="social-overview-card">
+            <div class="social-overview-icon">
+                <i class="fas fa-link"></i>
+            </div>
+
+            <div>
+                <span>STATUS</span>
+                <strong>Open to Connect</strong>
+            </div>
+        </div>
 
     </div>
-  </section>
+
+
+    <!-- SOCIAL PLATFORM GRID -->
+
+    <div class="social-accounts-label">
+        <span>FIND ME ONLINE</span>
+        <div></div>
+        <small>DEVELOPMENT · COMMUNITY · LEARNING</small>
+    </div>
+
+
+    <div class="social-accounts-grid">
+
+
+        <!-- GitHub -->
+
+        <a
+            href="https://github.com/Amit-Mavinakatti"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-account-card"
+        >
+
+            <div class="social-card-top">
+
+                <div class="social-card-icon">
+                    <i class="fab fa-github"></i>
+                </div>
+
+                <span class="social-card-number">01</span>
+
+            </div>
+
+            <div class="social-card-content">
+
+                <span class="social-card-category">
+                    DEVELOPMENT
+                </span>
+
+                <h3>GitHub</h3>
+
+                <p>
+                    My coding projects, experiments, repositories,
+                    and development work.
+                </p>
+
+            </div>
+
+            <div class="social-card-footer">
+
+                <span class="social-card-status">
+                    <i class="fas fa-circle"></i>
+                    ACTIVE
+                </span>
+
+                <span class="social-card-link">
+                    VISIT
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- LinkedIn -->
+
+        <a
+            href="http://www.linkedin.com/in/amitmd8"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-account-card"
+        >
+
+            <div class="social-card-top">
+
+                <div class="social-card-icon">
+                    <i class="fab fa-linkedin"></i>
+                </div>
+
+                <span class="social-card-number">02</span>
+
+            </div>
+
+            <div class="social-card-content">
+
+                <span class="social-card-category">
+                    PROFESSIONAL
+                </span>
+
+                <h3>LinkedIn</h3>
+
+                <p>
+                    My professional journey, achievements,
+                    projects, learning, and career updates.
+                </p>
+
+            </div>
+
+            <div class="social-card-footer">
+
+                <span class="social-card-status">
+                    <i class="fas fa-circle"></i>
+                    ACTIVE
+                </span>
+
+                <span class="social-card-link">
+                    CONNECT
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- Microsoft Learn -->
+
+        <a
+            href="https://learn.microsoft.com/en-us/users/amitmavinakatti-9947"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-account-card"
+        >
+
+            <div class="social-card-top">
+
+                <div class="social-card-icon">
+                    <i class="fab fa-microsoft"></i>
+                </div>
+
+                <span class="social-card-number">03</span>
+
+            </div>
+
+            <div class="social-card-content">
+
+                <span class="social-card-category">
+                    LEARNING
+                </span>
+
+                <h3>Microsoft Learn</h3>
+
+                <p>
+                    My Microsoft learning activities, credentials,
+                    applied skills, and community journey.
+                </p>
+
+            </div>
+
+            <div class="social-card-footer">
+
+                <span class="social-card-status">
+                    <i class="fas fa-circle"></i>
+                    ACTIVE
+                </span>
+
+                <span class="social-card-link">
+                    EXPLORE
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- Instagram -->
+
+        <a
+            href="https://www.instagram.com/amit__m_7"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-account-card"
+        >
+
+            <div class="social-card-top">
+
+                <div class="social-card-icon">
+                    <i class="fab fa-instagram"></i>
+                </div>
+
+                <span class="social-card-number">04</span>
+
+            </div>
+
+            <div class="social-card-content">
+
+                <span class="social-card-category">
+                    SOCIAL
+                </span>
+
+                <h3>Instagram</h3>
+
+                <p>
+                    A more personal space for moments, interests,
+                    experiences, and updates.
+                </p>
+
+            </div>
+
+            <div class="social-card-footer">
+
+                <span class="social-card-status">
+                    <i class="fas fa-circle"></i>
+                    ACTIVE
+                </span>
+
+                <span class="social-card-link">
+                    FOLLOW
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- X / Twitter -->
+
+        <a
+            href="https://x.com/Amit_Mavinaktti"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-account-card"
+        >
+
+            <div class="social-card-top">
+
+                <div class="social-card-icon">
+                    <i class="fab fa-twitter"></i>
+                </div>
+
+                <span class="social-card-number">05</span>
+
+            </div>
+
+            <div class="social-card-content">
+
+                <span class="social-card-category">
+                    COMMUNITY
+                </span>
+
+                <h3>Twitter / X</h3>
+
+                <p>
+                    Thoughts, technology, learning updates,
+                    and conversations with the community.
+                </p>
+
+            </div>
+
+            <div class="social-card-footer">
+
+                <span class="social-card-status">
+                    <i class="fas fa-circle"></i>
+                    ACTIVE
+                </span>
+
+                <span class="social-card-link">
+                    FOLLOW
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- HackerRank -->
+
+        <a
+            href="https://www.hackerrank.com/amitmavinakatti1"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-account-card"
+        >
+
+            <div class="social-card-top">
+
+                <div class="social-card-icon">
+                    <i class="fab fa-hackerrank"></i>
+                </div>
+
+                <span class="social-card-number">06</span>
+
+            </div>
+
+            <div class="social-card-content">
+
+                <span class="social-card-category">
+                    PROBLEM SOLVING
+                </span>
+
+                <h3>HackerRank</h3>
+
+                <p>
+                    Programming practice, coding challenges,
+                    and problem-solving progress.
+                </p>
+
+            </div>
+
+            <div class="social-card-footer">
+
+                <span class="social-card-status">
+                    <i class="fas fa-circle"></i>
+                    ACTIVE
+                </span>
+
+                <span class="social-card-link">
+                    VIEW
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- LeetCode -->
+
+        <a
+            href="https://leetcode.com/AmitMavinakatti"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-account-card"
+        >
+
+            <div class="social-card-top">
+
+                <div class="social-card-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+
+                <span class="social-card-number">07</span>
+
+            </div>
+
+            <div class="social-card-content">
+
+                <span class="social-card-category">
+                    DSA
+                </span>
+
+                <h3>LeetCode</h3>
+
+                <p>
+                    Data structures, algorithms, coding problems,
+                    and interview preparation.
+                </p>
+
+            </div>
+
+            <div class="social-card-footer">
+
+                <span class="social-card-status">
+                    <i class="fas fa-circle"></i>
+                    ACTIVE
+                </span>
+
+                <span class="social-card-link">
+                    VIEW
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- CodeWars -->
+
+        <a
+            href="https://www.codewars.com/users/AmitM8"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-account-card"
+        >
+
+            <div class="social-card-top">
+
+                <div class="social-card-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+
+                <span class="social-card-number">08</span>
+
+            </div>
+
+            <div class="social-card-content">
+
+                <span class="social-card-category">
+                    CODE CHALLENGES
+                </span>
+
+                <h3>CodeWars</h3>
+
+                <p>
+                    Kata, algorithmic challenges, and continuous
+                    problem-solving practice.
+                </p>
+
+            </div>
+
+            <div class="social-card-footer">
+
+                <span class="social-card-status">
+                    <i class="fas fa-circle"></i>
+                    ACTIVE
+                </span>
+
+                <span class="social-card-link">
+                    VIEW
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                </span>
+
+            </div>
+
+        </a>
+
+
+        <!-- SoloLearn -->
+
+        <a
+            href="https://www.sololearn.com/profile/34787891/?ref=app"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="social-account-card"
+        >
+
+            <div class="social-card-top">
+
+                <div class="social-card-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+
+                <span class="social-card-number">09</span>
+
+            </div>
+
+            <div class="social-card-content">
+
+                <span class="social-card-category">
+                    LEARNING
+                </span>
+
+                <h3>SoloLearn</h3>
+
+                <p>
+                    Programming courses, coding practice,
+                    certificates, and learning progress.
+                </p>
+
+            </div>
+
+            <div class="social-card-footer">
+
+                <span class="social-card-status">
+                    <i class="fas fa-circle"></i>
+                    ACTIVE
+                </span>
+
+                <span class="social-card-link">
+                    VIEW
+                    <i class="fas fa-arrow-up-right-from-square"></i>
+                </span>
+
+            </div>
+
+        </a>
+
+    </div>
+
+
+    <!-- FOOTER -->
+
+    <div class="social-accounts-footer">
+
+        <div class="social-accounts-footer-line"></div>
+
+        <div class="social-accounts-footer-content">
+            <i class="fas fa-terminal"></i>
+            <span>CONNECT · LEARN · BUILD · GROW</span>
+        </div>
+
+        <div class="social-accounts-footer-line"></div>
+
+    </div>
+
+</section>
+
+<div class="section-divider"></div>
+  
     <br>
     <div class="section-divider"></div>
 <section id="contact">

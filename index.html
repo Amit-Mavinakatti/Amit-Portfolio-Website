@@ -14652,6 +14652,894 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(link) {
 
 }
 </style>
+  <!-- =========================
+     APS AI — STEP 2
+     Automated Portfolio Intelligence Interface
+     ========================= -->
+
+<div
+  id="aps-ai-panel"
+  style="
+    position:fixed;
+    left:28px;
+    bottom:98px;
+    z-index:9997;
+    width:380px;
+    max-width:calc(100vw - 32px);
+    height:560px;
+    max-height:calc(100vh - 125px);
+    display:flex;
+    flex-direction:column;
+    overflow:hidden;
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+    transform:translateY(25px) scale(.96);
+    transform-origin:bottom left;
+
+    border:1px solid rgba(85,247,210,.28);
+    border-radius:24px;
+
+    background:
+      linear-gradient(
+        145deg,
+        rgba(11,18,27,.97),
+        rgba(10,15,25,.96)
+      );
+
+    backdrop-filter:blur(25px);
+    -webkit-backdrop-filter:blur(25px);
+
+    box-shadow:
+      0 25px 80px rgba(0,0,0,.55),
+      0 0 50px rgba(85,247,210,.07);
+
+    transition:
+      opacity .4s ease,
+      visibility .4s ease,
+      transform .45s cubic-bezier(.16,1,.3,1);
+  "
+>
+
+  <!-- TOP HEADER -->
+  <div
+    style="
+      position:relative;
+      padding:20px 20px 17px;
+      border-bottom:1px solid rgba(255,255,255,.07);
+      background:
+        linear-gradient(
+          135deg,
+          rgba(85,247,210,.055),
+          rgba(77,163,255,.035),
+          transparent
+        );
+      flex-shrink:0;
+    "
+  >
+
+    <div
+      style="
+        display:flex;
+        align-items:center;
+        gap:12px;
+      "
+    >
+
+      <!-- SYSTEM ICON -->
+      <div
+        style="
+          position:relative;
+          width:42px;
+          height:42px;
+          flex-shrink:0;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+
+          border:1px solid rgba(85,247,210,.30);
+          border-radius:13px;
+
+          background:
+            linear-gradient(
+              145deg,
+              rgba(85,247,210,.12),
+              rgba(77,163,255,.08)
+            );
+
+          color:#55f7d2;
+
+          box-shadow:
+            inset 0 0 18px rgba(85,247,210,.04),
+            0 0 20px rgba(85,247,210,.05);
+        "
+      >
+
+        <i
+          class="fas fa-sparkles"
+          style="
+            font-size:16px;
+          "
+        ></i>
+
+        <span
+          style="
+            position:absolute;
+            width:6px;
+            height:6px;
+            top:5px;
+            right:5px;
+            border-radius:50%;
+            background:#55f7d2;
+            box-shadow:0 0 9px #55f7d2;
+            animation:apsAIStep2Pulse 1.8s ease-in-out infinite;
+          "
+        ></span>
+
+      </div>
+
+      <!-- TITLE -->
+      <div
+        style="
+          min-width:0;
+          flex:1;
+        "
+      >
+
+        <div
+          style="
+            display:flex;
+            align-items:center;
+            gap:7px;
+          "
+        >
+
+          <strong
+            style="
+              color:#fff;
+              font-size:14px;
+              font-weight:900;
+              letter-spacing:1.4px;
+            "
+          >
+            ASK APS
+          </strong>
+
+          <span
+            style="
+              padding:3px 7px;
+              border:1px solid rgba(85,247,210,.18);
+              border-radius:20px;
+              color:#55f7d2;
+              font-size:7px;
+              font-weight:800;
+              letter-spacing:1px;
+              white-space:nowrap;
+            "
+          >
+            SYSTEM ONLINE
+          </span>
+
+        </div>
+
+        <div
+          style="
+            margin-top:5px;
+            color:#7f8b9c;
+            font-size:9px;
+            font-weight:700;
+            letter-spacing:.55px;
+          "
+        >
+          AUTOMATED PORTFOLIO INTELLIGENCE SYSTEM
+        </div>
+
+      </div>
+
+      <!-- CLOSE -->
+      <button
+        id="aps-ai-close"
+        aria-label="Close APS"
+        style="
+          width:32px;
+          height:32px;
+          flex-shrink:0;
+          display:flex;
+          align-items:center;
+          justify-content:center;
+
+          border:1px solid rgba(255,255,255,.08);
+          border-radius:10px;
+
+          background:rgba(255,255,255,.035);
+
+          color:#8b96a6;
+          cursor:pointer;
+
+          transition:
+            color .25s ease,
+            background .25s ease,
+            border-color .25s ease,
+            transform .25s ease;
+        "
+      >
+        <i
+          class="fas fa-xmark"
+          style="font-size:12px;"
+        ></i>
+      </button>
+
+    </div>
+
+    <!-- DESCRIPTION -->
+
+    <p
+      style="
+        margin:13px 0 0;
+        color:#8994a4;
+        font-size:10px;
+        line-height:1.65;
+      "
+    >
+      A quick way to understand Amit's journey, skills,
+      projects and achievements without exploring the
+      entire portfolio.
+    </p>
+
+  </div>
+
+
+  <!-- CHAT AREA -->
+
+  <div
+    id="aps-ai-messages"
+    style="
+      flex:1;
+      overflow-y:auto;
+      padding:18px;
+
+      scrollbar-width:thin;
+      scrollbar-color:
+        rgba(85,247,210,.25)
+        transparent;
+    "
+  >
+
+    <!-- WELCOME MESSAGE -->
+
+    <div
+      style="
+        display:flex;
+        align-items:flex-start;
+        gap:9px;
+        margin-bottom:16px;
+      "
+    >
+
+      <div
+        style="
+          width:27px;
+          height:27px;
+          flex-shrink:0;
+
+          display:flex;
+          align-items:center;
+          justify-content:center;
+
+          border-radius:9px;
+
+          background:rgba(85,247,210,.08);
+          border:1px solid rgba(85,247,210,.18);
+
+          color:#55f7d2;
+          font-size:10px;
+        "
+      >
+        <i class="fas fa-sparkles"></i>
+      </div>
+
+      <div
+        style="
+          max-width:calc(100% - 36px);
+          padding:11px 13px;
+
+          border:1px solid rgba(255,255,255,.07);
+          border-radius:4px 14px 14px 14px;
+
+          background:rgba(255,255,255,.035);
+
+          color:#c8d0da;
+          font-size:11px;
+          line-height:1.65;
+        "
+      >
+
+        Hello 👋
+
+        <br><br>
+
+        I'm <strong style="color:#55f7d2;">ASK APS</strong> —
+        an automated system designed to give you the
+        quick version of Amit's journey.
+
+        <br><br>
+
+        Choose a topic below or ask your own question.
+
+      </div>
+
+    </div>
+
+
+    <!-- SUGGESTED QUESTIONS -->
+
+    <div
+      style="
+        margin:4px 0 8px;
+        color:#687586;
+        font-size:8px;
+        font-weight:800;
+        letter-spacing:1.3px;
+      "
+    >
+      QUICK QUESTIONS
+    </div>
+
+
+    <div
+      id="aps-ai-suggestions"
+      style="
+        display:flex;
+        flex-wrap:wrap;
+        gap:7px;
+      "
+    >
+
+      <button
+        onclick="apsAIStep2Demo('Who is Amit?')"
+        style="
+          padding:8px 10px;
+          border:1px solid rgba(85,247,210,.15);
+          border-radius:10px;
+          background:rgba(85,247,210,.035);
+          color:#aeb8c5;
+          font:700 9px inherit;
+          cursor:pointer;
+          transition:all .25s ease;
+        "
+      >
+        Who is Amit?
+      </button>
+
+
+      <button
+        onclick="apsAIStep2Demo('What are his skills?')"
+        style="
+          padding:8px 10px;
+          border:1px solid rgba(85,247,210,.15);
+          border-radius:10px;
+          background:rgba(85,247,210,.035);
+          color:#aeb8c5;
+          font:700 9px inherit;
+          cursor:pointer;
+          transition:all .25s ease;
+        "
+      >
+        Skills
+      </button>
+
+
+      <button
+        onclick="apsAIStep2Demo('What projects has he built?')"
+        style="
+          padding:8px 10px;
+          border:1px solid rgba(85,247,210,.15);
+          border-radius:10px;
+          background:rgba(85,247,210,.035);
+          color:#aeb8c5;
+          font:700 9px inherit;
+          cursor:pointer;
+          transition:all .25s ease;
+        "
+      >
+        Projects
+      </button>
+
+
+      <button
+        onclick="apsAIStep2Demo('What are his achievements?')"
+        style="
+          padding:8px 10px;
+          border:1px solid rgba(85,247,210,.15);
+          border-radius:10px;
+          background:rgba(85,247,210,.035);
+          color:#aeb8c5;
+          font:700 9px inherit;
+          cursor:pointer;
+          transition:all .25s ease;
+        "
+      >
+        Achievements
+      </button>
+
+
+      <button
+        onclick="apsAIStep2Demo('What is Amit doing currently?')"
+        style="
+          padding:8px 10px;
+          border:1px solid rgba(85,247,210,.15);
+          border-radius:10px;
+          background:rgba(85,247,210,.035);
+          color:#aeb8c5;
+          font:700 9px inherit;
+          cursor:pointer;
+          transition:all .25s ease;
+        "
+      >
+        Current journey
+      </button>
+
+
+      <button
+        onclick="apsAIStep2Demo('Give me a 30 second summary')"
+        style="
+          padding:8px 10px;
+          border:1px solid rgba(85,247,210,.15);
+          border-radius:10px;
+          background:rgba(85,247,210,.035);
+          color:#55f7d2;
+          font:800 9px inherit;
+          cursor:pointer;
+          transition:all .25s ease;
+        "
+      >
+        ⚡ 30-sec journey
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <!-- INPUT AREA -->
+
+  <div
+    style="
+      padding:12px;
+      border-top:1px solid rgba(255,255,255,.07);
+      background:rgba(5,10,17,.55);
+      flex-shrink:0;
+    "
+  >
+
+    <div
+      style="
+        display:flex;
+        align-items:center;
+        gap:7px;
+
+        padding:5px 5px 5px 13px;
+
+        border:1px solid rgba(255,255,255,.09);
+        border-radius:14px;
+
+        background:rgba(255,255,255,.035);
+
+        transition:border-color .25s ease;
+      "
+      id="aps-ai-input-wrap"
+    >
+
+      <input
+        id="aps-ai-input"
+        type="text"
+        placeholder="Ask about Amit's journey..."
+        autocomplete="off"
+        onkeydown="if(event.key==='Enter') apsAISendStep2Message()"
+        style="
+          flex:1;
+          min-width:0;
+
+          border:none;
+          outline:none;
+          background:transparent;
+
+          color:#e8edf3;
+          font:500 10px inherit;
+        "
+      >
+
+      <button
+        onclick="apsAISendStep2Message()"
+        aria-label="Send message"
+        style="
+          width:34px;
+          height:34px;
+          flex-shrink:0;
+
+          display:flex;
+          align-items:center;
+          justify-content:center;
+
+          border:none;
+          border-radius:10px;
+
+          background:
+            linear-gradient(
+              135deg,
+              rgba(85,247,210,.18),
+              rgba(77,163,255,.15)
+            );
+
+          color:#55f7d2;
+          cursor:pointer;
+
+          transition:
+            transform .25s ease,
+            background .25s ease;
+        "
+      >
+        <i
+          class="fas fa-arrow-up"
+          style="font-size:11px;"
+        ></i>
+      </button>
+
+    </div>
+
+    <div
+      style="
+        margin-top:7px;
+        text-align:center;
+        color:#4e5968;
+        font-size:7px;
+        letter-spacing:.5px;
+      "
+    >
+      APS · AUTOMATED PORTFOLIO INTELLIGENCE
+    </div>
+
+  </div>
+
+</div>
+
+
+<style>
+
+@keyframes apsAIStep2Pulse {
+
+  0%,100% {
+    opacity:.45;
+    transform:scale(.8);
+  }
+
+  50% {
+    opacity:1;
+    transform:scale(1.3);
+  }
+
+}
+
+
+/* Mobile */
+
+@media (max-width:600px) {
+
+  #aps-ai-panel {
+
+    left:16px !important;
+    right:16px !important;
+    bottom:92px !important;
+
+    width:auto !important;
+
+    height:calc(100vh - 120px) !important;
+    max-height:600px !important;
+
+    border-radius:20px !important;
+
+  }
+
+}
+
+</style>
+
+
+<script>
+
+/* ==========================================
+   APS AI — STEP 2
+   Interface controller only
+   ========================================== */
+
+const apsAIPanel =
+  document.getElementById("aps-ai-panel");
+
+const apsAIClose =
+  document.getElementById("aps-ai-close");
+
+const apsAIInput =
+  document.getElementById("aps-ai-input");
+
+const apsAIInputWrap =
+  document.getElementById("aps-ai-input-wrap");
+
+const apsAILauncherStep2 =
+  document.getElementById("aps-ai-launcher");
+
+
+/* Open APS */
+
+function apsAIOpen() {
+
+  apsAIPanel.style.opacity = "1";
+  apsAIPanel.style.visibility = "visible";
+  apsAIPanel.style.pointerEvents = "auto";
+  apsAIPanel.style.transform =
+    "translateY(0) scale(1)";
+
+  setTimeout(function() {
+
+    apsAIInput.focus();
+
+  }, 350);
+
+}
+
+
+/* Close APS */
+
+function apsAIClosePanel() {
+
+  apsAIPanel.style.opacity = "0";
+  apsAIPanel.style.visibility = "hidden";
+  apsAIPanel.style.pointerEvents = "none";
+  apsAIPanel.style.transform =
+    "translateY(25px) scale(.96)";
+
+}
+
+
+/* Connect launcher */
+
+if (apsAILauncherStep2) {
+
+  apsAILauncherStep2.onclick = function() {
+
+    apsAIOpen();
+
+  };
+
+}
+
+
+/* Close button */
+
+if (apsAIClose) {
+
+  apsAIClose.addEventListener(
+    "click",
+    function(event) {
+
+      event.stopPropagation();
+
+      apsAIClosePanel();
+
+    }
+  );
+
+}
+
+
+/* Escape key */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (
+      event.key === "Escape" &&
+      apsAIPanel.style.visibility === "visible"
+    ) {
+
+      apsAIClosePanel();
+
+    }
+
+  }
+);
+
+
+/* Input focus */
+
+if (apsAIInput) {
+
+  apsAIInput.addEventListener(
+    "focus",
+    function() {
+
+      apsAIInputWrap.style.borderColor =
+        "rgba(85,247,210,.35)";
+
+    }
+  );
+
+
+  apsAIInput.addEventListener(
+    "blur",
+    function() {
+
+      apsAIInputWrap.style.borderColor =
+        "rgba(255,255,255,.09)";
+
+    }
+  );
+
+}
+
+
+/* Temporary Step 2 response */
+
+function apsAIStep2Demo(question) {
+
+  apsAIAddUserMessage(question);
+
+  setTimeout(function() {
+
+    apsAIAddSystemMessage(
+      "The APS Intelligence knowledge system will be connected in Step 3. This interface is working correctly."
+    );
+
+  }, 450);
+
+}
+
+
+/* Temporary send */
+
+function apsAISendStep2Message() {
+
+  const question =
+    apsAIInput.value.trim();
+
+  if (!question) return;
+
+  apsAIAddUserMessage(question);
+
+  apsAIInput.value = "";
+
+  setTimeout(function() {
+
+    apsAIAddSystemMessage(
+      "I'm ready. My portfolio knowledge system will be connected in Step 3."
+    );
+
+  }, 450);
+
+}
+
+
+/* Add visitor message */
+
+function apsAIAddUserMessage(text) {
+
+  const messages =
+    document.getElementById(
+      "aps-ai-messages"
+    );
+
+  const message =
+    document.createElement("div");
+
+  message.style.cssText = `
+    display:flex;
+    justify-content:flex-end;
+    margin:10px 0;
+  `;
+
+  message.innerHTML = `
+    <div style="
+      max-width:82%;
+      padding:10px 12px;
+      border-radius:14px 4px 14px 14px;
+      background:linear-gradient(
+        135deg,
+        rgba(85,247,210,.12),
+        rgba(77,163,255,.10)
+      );
+      border:1px solid rgba(85,247,210,.15);
+      color:#dce5ed;
+      font-size:11px;
+      line-height:1.55;
+    ">
+      ${apsAIStep2Escape(text)}
+    </div>
+  `;
+
+  messages.appendChild(message);
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+}
+
+
+/* Add APS message */
+
+function apsAIAddSystemMessage(text) {
+
+  const messages =
+    document.getElementById(
+      "aps-ai-messages"
+    );
+
+  const message =
+    document.createElement("div");
+
+  message.style.cssText = `
+    display:flex;
+    align-items:flex-start;
+    gap:9px;
+    margin:10px 0 14px;
+  `;
+
+  message.innerHTML = `
+    <div style="
+      width:27px;
+      height:27px;
+      flex-shrink:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border-radius:9px;
+      background:rgba(85,247,210,.08);
+      border:1px solid rgba(85,247,210,.18);
+      color:#55f7d2;
+      font-size:10px;
+    ">
+      <i class="fas fa-sparkles"></i>
+    </div>
+
+    <div style="
+      max-width:calc(100% - 36px);
+      padding:11px 13px;
+      border:1px solid rgba(255,255,255,.07);
+      border-radius:4px 14px 14px 14px;
+      background:rgba(255,255,255,.035);
+      color:#c8d0da;
+      font-size:11px;
+      line-height:1.65;
+    ">
+      ${apsAIStep2Escape(text)}
+    </div>
+  `;
+
+  messages.appendChild(message);
+
+  messages.scrollTop =
+    messages.scrollHeight;
+
+}
+
+
+/* Prevent HTML injection */
+
+function apsAIStep2Escape(text) {
+
+  return text
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+</script>
+
+<!-- =========================
+     END APS AI — STEP 2
+     ========================= -->
 
 <script>
 

@@ -3910,12 +3910,7 @@
     .timeline {border-left:3px solid #0ff;padding-left:2rem;max-width:600px;}
     .event {margin:1rem 0;position:relative;}
     .event::before {
-      content:"";position:absolute;left:-1.3rem;top:0;width:15px;height:15px;
-      background:#0ff;border-radius:50%;
-    }
-
-
-    .socials {display:flex;gap:20px;margin-top:1.5rem;}
+      content:"";position:absolute;margin-top:1.5rem;}
     .socials a {
       font-size:1.8rem;color:#0ff;
       transition:0.3s;
@@ -8874,6 +8869,687 @@ section {
     }
 
 }
+/* =========================================================
+   FINAL CONTACT + PORTFOLIO FOOTER
+   Completely separate visual language
+========================================================= */
+
+#contact.final-contact {
+    position: relative;
+    overflow: hidden;
+    padding: 120px 7% 0;
+    background:
+        radial-gradient(circle at 12% 20%, rgba(0, 255, 200, 0.07), transparent 30%),
+        radial-gradient(circle at 88% 35%, rgba(168, 85, 247, 0.08), transparent 32%),
+        linear-gradient(180deg, #05070d 0%, #080b13 55%, #030408 100%);
+    color: #f5f7fb;
+}
+
+
+/* subtle background architecture */
+
+#contact.final-contact::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.18;
+    background-image:
+        linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+    background-size: 70px 70px;
+    mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+
+
+/* shell */
+
+.contact-shell {
+    position: relative;
+    z-index: 2;
+    max-width: 1250px;
+    margin: auto;
+}
+
+
+/* =========================================================
+   INTRO
+========================================================= */
+
+.contact-intro {
+    max-width: 850px;
+    margin: 0 auto 75px;
+    text-align: center;
+}
+
+.contact-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+    padding: 9px 16px;
+    border: 1px solid rgba(0,255,200,.25);
+    border-radius: 100px;
+    background: rgba(0,255,200,.045);
+    color: #55f7d2;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2.5px;
+    box-shadow: 0 0 30px rgba(0,255,200,.05);
+}
+
+.contact-kicker i {
+    animation: contactSignal 1.8s ease-in-out infinite;
+}
+
+@keyframes contactSignal {
+    0%,100% { opacity: .5; transform: scale(.9); }
+    50% { opacity: 1; transform: scale(1.15); }
+}
+
+
+.contact-intro h2 {
+    margin: 25px 0 20px;
+    font-size: clamp(42px, 6vw, 78px);
+    line-height: .98;
+    letter-spacing: -3px;
+    font-weight: 900;
+}
+
+.contact-intro h2 span {
+    display: block;
+    background: linear-gradient(
+        100deg,
+        #ffffff 0%,
+        #55f7d2 45%,
+        #a855f7 100%
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+
+.contact-intro p {
+    max-width: 720px;
+    margin: auto;
+    color: #9098aa;
+    font-size: 16px;
+    line-height: 1.9;
+}
+
+
+/* =========================================================
+   CONTACT GRID
+========================================================= */
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+}
+
+
+.contact-card {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    min-height: 120px;
+    padding: 25px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    border: 1px solid rgba(255,255,255,.08);
+    background: rgba(255,255,255,.025);
+    backdrop-filter: blur(18px);
+    transition:
+        transform .45s cubic-bezier(.16,1,.3,1),
+        border-color .45s ease,
+        background .45s ease,
+        box-shadow .45s ease;
+}
+
+
+.contact-card::before {
+    content: "";
+    position: absolute;
+    width: 180px;
+    height: 180px;
+    right: -100px;
+    top: -100px;
+    border-radius: 50%;
+    background: var(--contact-accent);
+    filter: blur(70px);
+    opacity: 0;
+    transition: opacity .5s ease;
+}
+
+
+.contact-card:hover {
+    transform: translateY(-7px);
+    border-color: var(--contact-accent);
+    background: rgba(255,255,255,.045);
+    box-shadow:
+        0 20px 60px rgba(0,0,0,.35),
+        0 0 35px color-mix(in srgb, var(--contact-accent), transparent 82%);
+}
+
+
+.contact-card:hover::before {
+    opacity: .16;
+}
+
+
+.contact-card-icon {
+    position: relative;
+    z-index: 2;
+    flex: 0 0 58px;
+    width: 58px;
+    height: 58px;
+    display: grid;
+    place-items: center;
+    border: 1px solid color-mix(in srgb, var(--contact-accent), transparent 65%);
+    background: color-mix(in srgb, var(--contact-accent), transparent 92%);
+    color: var(--contact-accent);
+    font-size: 22px;
+    transition: transform .45s ease;
+}
+
+
+.contact-card:hover .contact-card-icon {
+    transform: rotate(-7deg) scale(1.08);
+}
+
+
+.contact-card-content {
+    position: relative;
+    z-index: 2;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+
+.contact-card-content span {
+    color: var(--contact-accent);
+    font-size: 10px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+
+.contact-card-content strong {
+    color: #f4f7fb;
+    font-size: 16px;
+    font-weight: 750;
+}
+
+
+.contact-card-content small {
+    color: #737c8e;
+    font-size: 12px;
+}
+
+
+.contact-arrow {
+    position: relative;
+    z-index: 2;
+    margin-left: auto;
+    color: #596273;
+    transition:
+        transform .35s ease,
+        color .35s ease;
+}
+
+
+.contact-card:hover .contact-arrow {
+    color: var(--contact-accent);
+    transform: translate(4px,-4px);
+}
+
+
+/* brand accents */
+
+.contact-email {
+    --contact-accent: #55f7d2;
+}
+
+.contact-linkedin {
+    --contact-accent: #4da3ff;
+}
+
+.contact-github {
+    --contact-accent: #ffffff;
+}
+
+.contact-microsoft {
+    --contact-accent: #66b3ff;
+}
+
+.contact-codewars {
+    --contact-accent: #ff5c67;
+}
+
+.contact-leetcode {
+    --contact-accent: #ffb347;
+}
+
+
+/* =========================================================
+   AVAILABILITY
+========================================================= */
+
+.contact-availability {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 32px 0 115px;
+    padding: 20px 24px;
+    border-left: 2px solid #55f7d2;
+    background: linear-gradient(
+        90deg,
+        rgba(85,247,210,.06),
+        transparent
+    );
+}
+
+
+.availability-pulse {
+    width: 9px;
+    height: 9px;
+    flex: 0 0 9px;
+    border-radius: 50%;
+    background: #55f7d2;
+    box-shadow: 0 0 0 0 rgba(85,247,210,.5);
+    animation: availabilityPulse 2s infinite;
+}
+
+@keyframes availabilityPulse {
+    70% {
+        box-shadow: 0 0 0 9px rgba(85,247,210,0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(85,247,210,0);
+    }
+}
+
+
+.contact-availability div:not(.availability-pulse) {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+
+.contact-availability span {
+    color: #687184;
+    font-size: 9px;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+
+.contact-availability strong {
+    color: #dfe5ee;
+    font-size: 14px;
+}
+
+
+.contact-availability > i {
+    margin-left: auto;
+    color: #4d586b;
+    font-size: 20px;
+}
+
+
+/* =========================================================
+   CLOSING MESSAGE
+========================================================= */
+
+.contact-closing {
+    max-width: 800px;
+    margin: 0 auto 120px;
+    text-align: center;
+}
+
+
+.closing-line {
+    display: block;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.15),
+        transparent
+    );
+}
+
+
+.closing-icon {
+    width: 58px;
+    height: 58px;
+    margin: 35px auto 25px;
+    display: grid;
+    place-items: center;
+    border-radius: 50%;
+    color: #ff6b9a;
+    border: 1px solid rgba(255,107,154,.25);
+    background: rgba(255,107,154,.06);
+    box-shadow: 0 0 35px rgba(255,107,154,.08);
+    animation: heartFloat 3s ease-in-out infinite;
+}
+
+@keyframes heartFloat {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+}
+
+
+.contact-closing h3 {
+    margin: 0 0 22px;
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 850;
+    letter-spacing: -1.5px;
+}
+
+
+.contact-closing p {
+    margin: 12px auto;
+    color: #858e9f;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+
+.closing-highlight {
+    display: block;
+    margin-top: 25px;
+    color: #dfe6ef;
+    font-size: 15px;
+    letter-spacing: .5px;
+}
+
+
+/* =========================================================
+   FINAL FOOTER
+========================================================= */
+
+.portfolio-final-footer {
+    position: relative;
+    margin: 0 -7%;
+    padding: 40px 7% 30px;
+    border-top: 1px solid rgba(255,255,255,.07);
+    background:
+        radial-gradient(circle at 50% 0%, rgba(85,247,210,.045), transparent 40%),
+        #030408;
+}
+
+
+.footer-top {
+    max-width: 1250px;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+}
+
+
+.footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+
+.footer-mark {
+    width: 43px;
+    height: 43px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(85,247,210,.25);
+    color: #55f7d2;
+    font-family: monospace;
+    font-size: 15px;
+    background: rgba(85,247,210,.04);
+}
+
+
+.footer-brand div {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+
+.footer-brand strong {
+    font-size: 14px;
+    color: #e9edf3;
+}
+
+
+.footer-brand small {
+    color: #596273;
+    font-size: 10px;
+    letter-spacing: 1px;
+}
+
+
+.footer-status {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #596273;
+    font-family: monospace;
+    font-size: 9px;
+    letter-spacing: 1.5px;
+}
+
+
+.footer-status-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #55f7d2;
+    box-shadow: 0 0 12px #55f7d2;
+}
+
+
+/* divider */
+
+.footer-divider {
+    max-width: 1250px;
+    height: 1px;
+    margin: 30px auto;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.1),
+        transparent
+    );
+}
+
+
+/* footer journey */
+
+.footer-middle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 18px;
+    color: #596273;
+    font-family: monospace;
+    font-size: 9px;
+    letter-spacing: 2px;
+}
+
+
+.footer-middle i {
+    color: #55f7d2;
+    font-size: 9px;
+}
+
+
+/* footer bottom */
+
+.footer-bottom {
+    max-width: 1250px;
+    margin: 30px auto 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    color: #4e5768;
+    font-size: 10px;
+}
+
+
+.footer-built i {
+    margin: 0 4px;
+    color: #ff6b9a;
+    animation: footerHeart 1.8s ease-in-out infinite;
+}
+
+
+@keyframes footerHeart {
+    50% {
+        transform: scale(1.2);
+    }
+}
+
+
+.footer-bottom span:last-child {
+    color: #687284;
+    letter-spacing: 1px;
+    transition: color .3s ease;
+}
+
+
+.footer-bottom span:last-child:hover {
+    color: #55f7d2;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 800px) {
+
+    #contact.final-contact {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .portfolio-final-footer {
+        margin-left: -5%;
+        margin-right: -5%;
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .footer-top,
+    .footer-bottom {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-status {
+        justify-content: center;
+    }
+
+    .contact-availability {
+        margin-bottom: 90px;
+    }
+}
+
+
+@media (max-width: 520px) {
+
+    #contact.final-contact {
+        padding-top: 85px;
+    }
+
+    .contact-intro {
+        margin-bottom: 50px;
+    }
+
+    .contact-intro h2 {
+        font-size: 42px;
+        letter-spacing: -2px;
+    }
+
+    .contact-intro p {
+        font-size: 13px;
+    }
+
+    .contact-card {
+        min-height: 105px;
+        padding: 18px;
+        gap: 13px;
+    }
+
+    .contact-card-icon {
+        width: 48px;
+        height: 48px;
+        flex-basis: 48px;
+        font-size: 18px;
+    }
+
+    .contact-card-content strong {
+        font-size: 13px;
+    }
+
+    .contact-card-content small {
+        font-size: 10px;
+    }
+
+    .contact-availability {
+        align-items: flex-start;
+        padding: 18px;
+    }
+
+    .contact-availability > i {
+        display: none;
+    }
+
+    .contact-closing {
+        margin-bottom: 85px;
+    }
+
+    .contact-closing p {
+        font-size: 12px;
+    }
+
+    .footer-middle {
+        line-height: 2;
+        text-align: center;
+    }
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+
+    .contact-kicker i,
+    .availability-pulse,
+    .closing-icon,
+    .footer-built i {
+        animation: none;
+    }
+
+    .contact-card,
+    .contact-card-icon,
+    .contact-arrow {
+        transition: none;
+    }
+}
   
   </style>
   <script src="https://counterapi.com/c.js" async></script>
@@ -12898,52 +13574,287 @@ section {
     </div>
 
 
-    <!-- FOOTER -->
+    
+<!-- =========================
+     FINAL CONTACT SECTION
+========================= -->
 
-    <div class="social-accounts-footer">
+<section id="contact" class="final-contact">
 
-        <div class="social-accounts-footer-line"></div>
+    <div class="contact-shell">
 
-        <div class="social-accounts-footer-content">
-            <i class="fas fa-terminal"></i>
-            <span>CONNECT · LEARN · BUILD · GROW</span>
+        <!-- INTRO -->
+        <div class="contact-intro">
+
+            <span class="contact-kicker">
+                <i class="fas fa-satellite-dish"></i>
+                OPEN TO CONNECTIONS
+            </span>
+
+            <h2>
+                Let's Build Something
+                <span>Meaningful.</span>
+            </h2>
+
+            <p>
+                Whether it's a project, internship opportunity, collaboration,
+                technical discussion, or simply a conversation about technology —
+                I'm always open to connecting, learning, and creating something useful.
+            </p>
+
         </div>
 
-        <div class="social-accounts-footer-line"></div>
+
+        <!-- CONTACT CARDS -->
+        <div class="contact-grid">
+
+            <!-- EMAIL -->
+            <a href="mailto:amitmavinakatti1@gmail.com"
+               class="contact-card contact-email">
+
+                <div class="contact-card-icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+
+                <div class="contact-card-content">
+                    <span>EMAIL</span>
+                    <strong>amitmavinakatti1@gmail.com</strong>
+                    <small>Best way to reach me directly</small>
+                </div>
+
+                <i class="fas fa-arrow-up-right-from-square contact-arrow"></i>
+
+            </a>
+
+
+            <!-- LINKEDIN -->
+            <a href="https://www.linkedin.com/in/amitmd8"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="contact-card contact-linkedin">
+
+                <div class="contact-card-icon">
+                    <i class="fab fa-linkedin-in"></i>
+                </div>
+
+                <div class="contact-card-content">
+                    <span>LINKEDIN</span>
+                    <strong>Let's connect professionally</strong>
+                    <small>Career · Technology · Opportunities</small>
+                </div>
+
+                <i class="fas fa-arrow-up-right-from-square contact-arrow"></i>
+
+            </a>
+
+
+            <!-- GITHUB -->
+            <a href="https://github.com/Amit-Mavinakatti"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="contact-card contact-github">
+
+                <div class="contact-card-icon">
+                    <i class="fab fa-github"></i>
+                </div>
+
+                <div class="contact-card-content">
+                    <span>GITHUB</span>
+                    <strong>Explore my work</strong>
+                    <small>Projects · Code · Experiments</small>
+                </div>
+
+                <i class="fas fa-arrow-up-right-from-square contact-arrow"></i>
+
+            </a>
+
+
+            <!-- MICROSOFT LEARN -->
+            <a href="https://learn.microsoft.com/en-us/users/amitmavinakatti-9947"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="contact-card contact-microsoft">
+
+                <div class="contact-card-icon">
+                    <i class="fab fa-microsoft"></i>
+                </div>
+
+                <div class="contact-card-content">
+                    <span>MICROSOFT LEARN</span>
+                    <strong>Learning & community</strong>
+                    <small>Skills · Credentials · Learning journey</small>
+                </div>
+
+                <i class="fas fa-arrow-up-right-from-square contact-arrow"></i>
+
+            </a>
+
+
+            <!-- CODEWARS -->
+            <a href="https://www.codewars.com/users/AmitM8"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="contact-card contact-codewars">
+
+                <div class="contact-card-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+
+                <div class="contact-card-content">
+                    <span>CODEWARS</span>
+                    <strong>Problem-solving journey</strong>
+                    <small>Kata · Algorithms · Consistency</small>
+                </div>
+
+                <i class="fas fa-arrow-up-right-from-square contact-arrow"></i>
+
+            </a>
+
+
+            <!-- LEETCODE -->
+            <a href="https://leetcode.com/AmitMavinakatti"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="contact-card contact-leetcode">
+
+                <div class="contact-card-icon">
+                    <i class="fas fa-terminal"></i>
+                </div>
+
+                <div class="contact-card-content">
+                    <span>LEETCODE</span>
+                    <strong>DSA & problem solving</strong>
+                    <small>Practice · Algorithms · Interview preparation</small>
+                </div>
+
+                <i class="fas fa-arrow-up-right-from-square contact-arrow"></i>
+
+            </a>
+
+        </div>
+
+
+        <!-- AVAILABILITY -->
+        <div class="contact-availability">
+
+            <div class="availability-pulse"></div>
+
+            <div>
+                <span>CURRENTLY OPEN TO</span>
+                <strong>Internships · Collaborations · Learning Opportunities</strong>
+            </div>
+
+            <i class="fas fa-code-branch"></i>
+
+        </div>
+
+
+        <!-- CLOSING MESSAGE -->
+        <div class="contact-closing">
+
+            <span class="closing-line"></span>
+
+            <div class="closing-icon">
+                <i class="fas fa-heart"></i>
+            </div>
+
+            <h3>Thank you for being here.</h3>
+
+            <p>
+                This portfolio is more than a collection of projects and
+                technologies. It's a small record of the things I'm learning,
+                the problems I'm trying to solve, the mistakes I'm making,
+                and the progress I'm making along the way.
+            </p>
+
+            <p>
+                Every project started with curiosity.
+                Every challenge taught me something.
+                And every step keeps me moving forward.
+            </p>
+
+            <strong class="closing-highlight">
+                The journey is still being written.
+            </strong>
+
+            <span class="closing-line"></span>
+
+        </div>
 
     </div>
 
+
+    <!-- =========================
+         FINAL PORTFOLIO FOOTER
+    ========================== -->
+
+    <footer class="portfolio-final-footer">
+
+        <div class="footer-top">
+
+            <div class="footer-brand">
+                <span class="footer-mark">&lt;/&gt;</span>
+
+                <div>
+                    <strong>Amit Mavinakatti</strong>
+                    <small>Software Engineering Journey</small>
+                </div>
+            </div>
+
+
+            <div class="footer-status">
+                <span class="footer-status-dot"></span>
+                <span>BUILDING · LEARNING · GROWING</span>
+            </div>
+
+        </div>
+
+
+        <div class="footer-divider"></div>
+
+
+        <div class="footer-middle">
+
+            <span>FROM AN IDEA</span>
+
+            <i class="fas fa-arrow-right"></i>
+
+            <span>TO CODE</span>
+
+            <i class="fas fa-arrow-right"></i>
+
+            <span>TO SOMETHING USEFUL</span>
+
+        </div>
+
+
+        <div class="footer-bottom">
+
+            <span>
+                © 2026 Amit Mavinakatti <a href="copyright.html">CopyRight ©️ </a>
+            </span>
+
+            <span class="footer-built">
+                Designed & built with
+                <i class="fas fa-heart"></i>
+                & lots of curiosity.
+            </span>
+
+            <span>
+                KEEP MOVING FORWARD <i class="fas fa-arrow-up"></i>
+            </span>
+
+        </div>
+
+    </footer>
+
 </section>
 
-
-  
-    <br>
-    <div class="section-divider"></div>
-<section id="contact">
-  <a href="#contact" class="btn">Contact Me</a>
-  <br><br><br>
-  <strong>Email:</strong> 
-  <a href="mailto:amitmavinakatti1@gmail.com">amitmavinakatti1@gmail.com</a>
-
- <br>
- <br>
- <br>
+<div class="section-divider"></div>
 
 
 
-    <h2>Thank You! Visit Again</h2>
-
-    <br>
-    <hr>
- </section>
-
-
-
-
-  <footer>
-    <p>  <a href="copyright.html">© 2026 Amit D Mavinakatti </a> | Made with ⚡ Code & Vision | <a href="copyright.html">© CopyRight 2026</a> |  <a href="copyright.html">All Rights Reserved</a> </p>
-  </footer>
-
+ 
 
 <script>
 

@@ -3501,6 +3501,934 @@ section {
   opacity: 0;
   pointer-events: none;
 }
+.problem-solving-section {
+  min-height: auto;
+  padding: 8rem 5% 6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.problem-solving-section::before {
+  content: "";
+  position: absolute;
+  width: 700px;
+  height: 700px;
+  top: 3%;
+  left: -360px;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle,
+      rgba(0,255,255,0.075),
+      rgba(0,255,255,0.025) 35%,
+      transparent 70%
+    );
+  pointer-events: none;
+}
+
+.problem-solving-section::after {
+  content: "";
+  position: absolute;
+  width: 650px;
+  height: 650px;
+  right: -330px;
+  bottom: 3%;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle,
+      rgba(0,153,255,0.075),
+      rgba(0,153,255,0.02) 38%,
+      transparent 70%
+    );
+  pointer-events: none;
+}
+
+.problem-solving-heading {
+  width: min(900px, 100%);
+  margin: 0 auto 4.5rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.problem-solving-eyebrow {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: var(--accent);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+}
+
+.problem-solving-heading h2 {
+  margin-bottom: 1rem;
+  font-size: clamp(2.35rem, 5vw, 4rem);
+  background:
+    linear-gradient(
+      100deg,
+      #fff 10%,
+      var(--accent) 45%,
+      #fff 75%
+    );
+  background-size: 220% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: problemTitleFlow 6s linear infinite;
+}
+
+.problem-solving-heading h2::after {
+  width: 95px;
+  height: 3px;
+  margin: 0.85rem auto;
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      var(--accent),
+      transparent
+    );
+  box-shadow: 0 0 15px rgba(0,255,255,0.3);
+}
+
+.problem-solving-heading p {
+  width: min(700px, 100%);
+  margin: auto;
+  color: var(--text-secondary);
+  font-size: 0.9rem;
+  line-height: 1.85;
+}
+
+@keyframes problemTitleFlow {
+  to {
+    background-position: 220% center;
+  }
+}
+
+.coding-overview {
+  width: min(1200px, 100%);
+  margin: 0 auto 5rem;
+  display: grid;
+  grid-template-columns: 1.35fr 1fr 1fr 1fr;
+  gap: 15px;
+  position: relative;
+  z-index: 1;
+}
+
+.coding-overview-card {
+  min-height: 185px;
+  padding: 25px 22px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(0,255,255,0.12);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,0.055),
+      rgba(255,255,255,0.012)
+    );
+  backdrop-filter: blur(18px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.045),
+    0 18px 45px rgba(0,0,0,0.18);
+  transition:
+    transform var(--transition-smooth),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-smooth);
+}
+
+.coding-overview-card::before {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  top: -105px;
+  right: -90px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0,255,255,0.1),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.coding-overview-card::after {
+  content: "";
+  position: absolute;
+  width: 1px;
+  height: 55%;
+  left: 0;
+  top: 22%;
+  background: linear-gradient(
+    transparent,
+    rgba(0,255,255,0.4),
+    transparent
+  );
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.coding-overview-card:hover {
+  transform: translateY(-7px);
+  border-color: rgba(0,255,255,0.35);
+  box-shadow:
+    0 25px 55px rgba(0,0,0,0.28),
+    0 0 35px rgba(0,255,255,0.055);
+}
+
+.coding-overview-card:hover::after {
+  opacity: 1;
+}
+
+.coding-main-stat {
+  border-color: rgba(0,255,255,0.24);
+  background:
+    radial-gradient(
+      circle at 90% 10%,
+      rgba(0,255,255,0.09),
+      transparent 35%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(0,255,255,0.045),
+      rgba(255,255,255,0.015)
+    );
+}
+
+.coding-stat-icon {
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+  border: 1px solid rgba(0,255,255,0.17);
+  border-radius: 13px;
+  color: var(--accent);
+  background: rgba(0,255,255,0.045);
+  box-shadow: 0 0 22px rgba(0,255,255,0.055);
+}
+
+.coding-overview-card > span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.59rem;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+}
+
+.coding-overview-card > strong {
+  display: block;
+  margin: 12px 0 7px;
+  color: #fff;
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.coding-overview-card > strong span {
+  color: var(--accent);
+  font-size: 1.1rem;
+}
+
+.coding-overview-card > strong small {
+  color: var(--accent);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.coding-overview-card > p {
+  color: var(--text-secondary);
+  font-size: 0.68rem;
+  line-height: 1.5;
+}
+
+.coding-platforms {
+  width: min(1200px, 100%);
+  margin: 0 auto 5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.coding-platform-heading {
+  margin-bottom: 2rem;
+}
+
+.coding-platform-heading h3 {
+  margin-top: 4px;
+  font-size: 1.65rem;
+}
+
+.coding-platform-heading p {
+  margin-top: 6px;
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.coding-platform-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.coding-platform-card {
+  min-height: 310px;
+  padding: 27px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid rgba(255,255,255,0.075);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,0.052),
+      rgba(255,255,255,0.012)
+    );
+  backdrop-filter: blur(20px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.045),
+    0 20px 50px rgba(0,0,0,0.2);
+  transition:
+    transform var(--transition-smooth),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-smooth);
+}
+
+.coding-platform-card::before {
+  content: "";
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  right: -150px;
+  top: -150px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0,255,255,0.085),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.coding-platform-card::after {
+  content: "";
+  position: absolute;
+  left: -100%;
+  bottom: 0;
+  width: 70%;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent),
+    transparent
+  );
+  transition: left 0.7s ease;
+}
+
+.coding-platform-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(0,255,255,0.28);
+  box-shadow:
+    0 28px 65px rgba(0,0,0,0.3),
+    0 0 35px rgba(0,255,255,0.06);
+}
+
+.coding-platform-card:hover::after {
+  left: 100%;
+}
+
+.coding-platform-card.featured {
+  border-color: rgba(0,255,255,0.28);
+  background:
+    radial-gradient(
+      circle at 90% 0%,
+      rgba(0,255,255,0.07),
+      transparent 35%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(0,255,255,0.035),
+      rgba(255,255,255,0.012)
+    );
+  box-shadow:
+    0 0 35px rgba(0,255,255,0.045),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+}
+
+.coding-platform-card.featured::before {
+  background:
+    radial-gradient(
+      circle,
+      rgba(0,255,255,0.14),
+      transparent 70%
+    );
+}
+
+.coding-platform-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.coding-platform-icon {
+  width: 55px;
+  height: 55px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  font-size: 1.25rem;
+  border: 1px solid rgba(0,255,255,0.18);
+  background: rgba(0,255,255,0.045);
+  color: var(--accent);
+  box-shadow: 0 0 25px rgba(0,255,255,0.055);
+  transition:
+    transform var(--transition-smooth),
+    box-shadow var(--transition-smooth);
+}
+
+.coding-platform-card:hover .coding-platform-icon {
+  transform: translateY(-3px) rotate(-3deg);
+  box-shadow:
+    0 0 30px rgba(0,255,255,0.12);
+}
+
+.leetcode-icon {
+  color: #ffb84d;
+  border-color: rgba(255,184,77,0.16);
+  background: rgba(255,184,77,0.035);
+}
+
+.hackerrank-icon {
+  color: #7fffd4;
+  border-color: rgba(127,255,212,0.15);
+  background: rgba(127,255,212,0.03);
+}
+
+.github-icon {
+  color: #fff;
+  border-color: rgba(255,255,255,0.13);
+  background: rgba(255,255,255,0.035);
+}
+
+.coding-platform-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 9px;
+  border: 1px solid rgba(0,255,255,0.1);
+  border-radius: 20px;
+  color: var(--text-muted);
+  background: rgba(0,255,255,0.025);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+}
+
+.coding-platform-status i {
+  color: var(--accent);
+  font-size: 0.4rem;
+  animation: codingStatusPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes codingStatusPulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.coding-platform-content {
+  flex: 1;
+  margin-top: 25px;
+}
+
+.coding-platform-label {
+  color: var(--text-muted);
+  font-size: 0.58rem;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+}
+
+.coding-platform-content h4 {
+  margin: 5px 0 9px;
+  font-size: 1.45rem;
+}
+
+.coding-platform-content p {
+  max-width: 560px;
+  color: var(--text-secondary);
+  font-size: 0.73rem;
+  line-height: 1.75;
+}
+
+.coding-platform-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin-top: 21px;
+}
+
+.coding-platform-stats div {
+  padding: 12px 8px;
+  text-align: center;
+  border: 1px solid rgba(0,255,255,0.09);
+  border-radius: 11px;
+  background: rgba(0,255,255,0.025);
+}
+
+.coding-platform-stats strong {
+  display: block;
+  color: var(--accent);
+  font-size: 0.9rem;
+}
+
+.coding-platform-stats span {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: 0.55rem;
+  letter-spacing: 0.7px;
+}
+
+.coding-platform-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-top: 23px;
+  padding-top: 17px;
+  border-top: 1px solid rgba(255,255,255,0.055);
+}
+
+.coding-platform-footer > span {
+  padding: 6px 10px;
+  border: 1px solid rgba(255,255,255,0.075);
+  border-radius: 8px;
+  color: var(--text-muted);
+  font-size: 0.58rem;
+}
+
+.coding-platform-footer a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent);
+  font-size: 0.67rem;
+  font-weight: 600;
+  transition: gap var(--transition-fast);
+}
+
+.coding-platform-footer a:hover {
+  gap: 12px;
+}
+
+.problem-solving-journey {
+  width: min(1200px, 100%);
+  margin: 0 auto 5rem;
+  padding: 38px;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,0.045),
+      rgba(255,255,255,0.012)
+    );
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-glow);
+}
+
+.problem-solving-journey::before {
+  content: "";
+  position: absolute;
+  width: 400px;
+  height: 400px;
+  left: 50%;
+  top: -250px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0,255,255,0.055),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.problem-solving-journey-heading {
+  position: relative;
+  text-align: center;
+  margin-bottom: 55px;
+  z-index: 1;
+}
+
+.problem-solving-journey-heading h3 {
+  margin-top: 5px;
+  font-size: 1.5rem;
+}
+
+.coding-journey-line {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  position: relative;
+  z-index: 1;
+}
+
+.coding-journey-line::before {
+  content: "";
+  position: absolute;
+  top: 20px;
+  left: 9%;
+  right: 9%;
+  height: 1px;
+  background:
+    linear-gradient(
+      90deg,
+      var(--accent),
+      var(--accent-blue),
+      rgba(255,255,255,0.1)
+    );
+}
+
+.coding-journey-point {
+  position: relative;
+  text-align: center;
+}
+
+.coding-journey-node {
+  width: 41px;
+  height: 41px;
+  margin: 0 auto 20px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  z-index: 2;
+  border: 2px solid rgba(255,255,255,0.13);
+  border-radius: 50%;
+  background: #070b0f;
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.coding-journey-point.completed .coding-journey-node {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(0,255,255,0.07);
+  box-shadow:
+    0 0 0 6px rgba(0,255,255,0.035),
+    0 0 25px rgba(0,255,255,0.2);
+}
+
+.coding-journey-point.current .coding-journey-node {
+  border-color: var(--accent);
+  color: #fff;
+  background: rgba(0,255,255,0.13);
+  box-shadow:
+    0 0 0 8px rgba(0,255,255,0.035),
+    0 0 35px rgba(0,255,255,0.35);
+  animation: currentCodingNode 2s ease-in-out infinite;
+}
+
+@keyframes currentCodingNode {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 8px rgba(0,255,255,0.035),
+      0 0 25px rgba(0,255,255,0.2);
+  }
+
+  50% {
+    box-shadow:
+      0 0 0 12px rgba(0,255,255,0.025),
+      0 0 40px rgba(0,255,255,0.4);
+  }
+}
+
+.coding-journey-content {
+  padding: 0 12px;
+}
+
+.coding-journey-content > span {
+  color: var(--text-muted);
+  font-size: 0.57rem;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+}
+
+.coding-journey-point.completed .coding-journey-content > span,
+.coding-journey-point.current .coding-journey-content > span {
+  color: var(--accent);
+}
+
+.coding-journey-content h4 {
+  margin: 6px 0 8px;
+  font-size: 0.9rem;
+}
+
+.coding-journey-content p {
+  color: var(--text-secondary);
+  font-size: 0.67rem;
+  line-height: 1.65;
+}
+
+.coding-focus {
+  width: min(1200px, 100%);
+  margin: 0 auto 4rem;
+  position: relative;
+  z-index: 1;
+}
+
+.coding-focus-heading {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.coding-focus-heading h3 {
+  margin-top: 5px;
+  font-size: 1.45rem;
+}
+
+.coding-focus-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+
+.coding-focus-grid > div {
+  min-height: 125px;
+  padding: 20px 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 7px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.065);
+  border-radius: 16px;
+  background: rgba(255,255,255,0.018);
+  transition:
+    transform var(--transition-smooth),
+    border-color var(--transition-fast),
+    background var(--transition-fast),
+    box-shadow var(--transition-smooth);
+}
+
+.coding-focus-grid > div:hover {
+  transform: translateY(-6px);
+  border-color: rgba(0,255,255,0.27);
+  background: rgba(0,255,255,0.025);
+  box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+}
+
+.coding-focus-grid i {
+  color: var(--accent);
+  font-size: 1.25rem;
+}
+
+.coding-focus-grid span {
+  color: #fff;
+  font-size: 0.73rem;
+  font-weight: 600;
+}
+
+.coding-focus-grid small {
+  color: var(--text-muted);
+  font-size: 0.58rem;
+}
+
+.problem-solving-footer {
+  width: min(1200px, 100%);
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  position: relative;
+  z-index: 1;
+  color: var(--text-muted);
+  font-size: 0.61rem;
+  letter-spacing: 1.5px;
+  text-align: center;
+}
+
+.problem-solving-footer strong {
+  color: rgba(0,255,255,0.65);
+  font-weight: 600;
+}
+
+.coding-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(0,255,255,0.8);
+  animation: codingFooterPulse 1.8s ease-in-out infinite;
+}
+
+@keyframes codingFooterPulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.4;
+    transform: scale(0.7);
+  }
+}
+
+@media (max-width: 1050px) {
+
+  .coding-overview {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .coding-focus-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .coding-journey-line {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 45px 20px;
+  }
+
+  .coding-journey-line::before {
+    display: none;
+  }
+
+}
+
+@media (max-width: 800px) {
+
+  .problem-solving-section {
+    padding: 6rem 5% 4rem;
+  }
+
+  .problem-solving-heading {
+    margin-bottom: 3.5rem;
+  }
+
+  .coding-platform-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .problem-solving-journey {
+    padding: 28px 22px;
+  }
+
+  .coding-journey-line {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .coding-journey-point {
+    display: grid;
+    grid-template-columns: 45px 1fr;
+    gap: 15px;
+    text-align: left;
+  }
+
+  .coding-journey-node {
+    margin: 0;
+  }
+
+  .coding-journey-content {
+    padding: 0;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .coding-overview {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .coding-overview-card {
+    min-height: 150px;
+    padding: 18px 15px;
+  }
+
+  .coding-stat-icon {
+    width: 39px;
+    height: 39px;
+    margin-bottom: 14px;
+    border-radius: 11px;
+  }
+
+  .coding-overview-card > strong {
+    font-size: 1.55rem;
+  }
+
+  .coding-overview-card > p {
+    font-size: 0.61rem;
+  }
+
+  .coding-platform-card {
+    min-height: 290px;
+    padding: 22px;
+  }
+
+  .coding-platform-content h4 {
+    font-size: 1.25rem;
+  }
+
+  .coding-platform-stats strong {
+    font-size: 0.78rem;
+  }
+
+  .coding-focus-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .problem-solving-footer {
+    flex-wrap: wrap;
+    line-height: 1.7;
+  }
+
+}
+
+@media (max-width: 420px) {
+
+  .coding-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .coding-overview-card {
+    min-height: 145px;
+  }
+
+  .coding-platform-stats {
+    gap: 5px;
+  }
+
+  .coding-platform-stats div {
+    padding: 10px 5px;
+  }
+
+  .coding-focus-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .problem-solving-journey {
+    padding: 24px 17px;
+  }
+
+}
   
   </style>
   <script src="https://counterapi.com/c.js" async></script>
@@ -4471,6 +5399,361 @@ section {
     <span class="academic-live-dot"></span>
     <span>ACADEMIC JOURNEY</span>
     <strong>CONTINUOUSLY UPDATING</strong>
+  </div>
+
+  <div class="section-divider"></div>
+
+</section>
+
+<section id="problem-solving" class="problem-solving-section">
+
+  <div class="problem-solving-heading">
+    <span class="problem-solving-eyebrow">PROBLEM SOLVING</span>
+    <h2>Coding &amp; Problem Solving</h2>
+    <p>
+      A continuous journey of sharpening logic, solving problems, and becoming
+      a better programmer through consistent practice.
+    </p>
+  </div>
+
+  <div class="coding-overview">
+
+    <div class="coding-overview-card coding-main-stat">
+      <div class="coding-stat-icon">
+        <i class="fas fa-code"></i>
+      </div>
+      <span>CODING JOURNEY</span>
+      <strong>170<span>+</span></strong>
+      <p>Problems &amp; challenges completed</p>
+    </div>
+
+    <div class="coding-overview-card">
+      <div class="coding-stat-icon">
+        <i class="fas fa-medal"></i>
+      </div>
+      <span>HIGHEST RANK</span>
+      <strong>3 <small>kyu</small></strong>
+      <p>Codewars achievement</p>
+    </div>
+
+    <div class="coding-overview-card">
+      <div class="coding-stat-icon">
+        <i class="fas fa-chart-line"></i>
+      </div>
+      <span>TOP PERFORMANCE</span>
+      <strong>3.8<span>%</span></strong>
+      <p>Codewars leaderboard percentile</p>
+    </div>
+
+    <div class="coding-overview-card">
+      <div class="coding-stat-icon">
+        <i class="fas fa-brain"></i>
+      </div>
+      <span>CURRENT FOCUS</span>
+      <strong>DSA</strong>
+      <p>Strengthening problem-solving skills</p>
+    </div>
+
+  </div>
+
+
+  <div class="coding-platforms">
+
+    <div class="coding-platform-heading">
+      <span class="problem-solving-eyebrow">CODING PROFILES</span>
+      <h3>Where I Practice</h3>
+      <p>
+        Platforms where I practice programming, algorithms, and problem solving.
+      </p>
+    </div>
+
+
+    <div class="coding-platform-grid">
+
+      <div class="coding-platform-card featured">
+
+        <div class="coding-platform-top">
+          <div class="coding-platform-icon codewars-icon">
+            <i class="fas fa-code"></i>
+          </div>
+
+          <span class="coding-platform-status">
+            <i class="fas fa-circle"></i>
+            ACTIVE
+          </span>
+        </div>
+
+        <div class="coding-platform-content">
+          <span class="coding-platform-label">PROBLEM SOLVING PLATFORM</span>
+          <h4>Codewars</h4>
+
+          <p>
+            Consistently solving programming challenges and improving algorithmic
+            thinking through structured kata practice.
+          </p>
+
+          <div class="coding-platform-stats">
+            <div>
+              <strong>3 kyu</strong>
+              <span>Rank</span>
+            </div>
+
+            <div>
+              <strong>170+</strong>
+              <span>Kata</span>
+            </div>
+
+            <div>
+              <strong>3.8%</strong>
+              <span>Top</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="coding-platform-footer">
+          <span>Python</span>
+
+          <a href="https://www.codewars.com/users/AmitM8" target="_blank">
+            View Profile
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+      </div>
+
+
+      <div class="coding-platform-card">
+
+        <div class="coding-platform-top">
+          <div class="coding-platform-icon leetcode-icon">
+            <i class="fas fa-terminal"></i>
+          </div>
+
+          <span class="coding-platform-status">
+            <i class="fas fa-circle"></i>
+            PRACTICING
+          </span>
+        </div>
+
+        <div class="coding-platform-content">
+          <span class="coding-platform-label">CODING PLATFORM</span>
+          <h4>LeetCode</h4>
+
+          <p>
+            Practicing data structures, algorithms, and interview-oriented
+            programming problems.
+          </p>
+        </div>
+
+        <div class="coding-platform-footer">
+          <span>DSA</span>
+
+          <a href="https://leetcode.com/" target="_blank">
+            View Profile
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+      </div>
+
+
+      <div class="coding-platform-card">
+
+        <div class="coding-platform-top">
+          <div class="coding-platform-icon hackerrank-icon">
+            <i class="fas fa-laptop-code"></i>
+          </div>
+
+          <span class="coding-platform-status">
+            <i class="fas fa-circle"></i>
+            ACTIVE
+          </span>
+        </div>
+
+        <div class="coding-platform-content">
+          <span class="coding-platform-label">CODING PLATFORM</span>
+          <h4>HackerRank</h4>
+
+          <p>
+            Exploring programming challenges and strengthening implementation
+            skills across different problem-solving areas.
+          </p>
+        </div>
+
+        <div class="coding-platform-footer">
+          <span>Programming</span>
+
+          <a href="https://www.hackerrank.com/" target="_blank">
+            View Profile
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+      </div>
+
+
+      <div class="coding-platform-card">
+
+        <div class="coding-platform-top">
+          <div class="coding-platform-icon github-icon">
+            <i class="fab fa-github"></i>
+          </div>
+
+          <span class="coding-platform-status">
+            <i class="fas fa-circle"></i>
+            BUILDING
+          </span>
+        </div>
+
+        <div class="coding-platform-content">
+          <span class="coding-platform-label">DEVELOPMENT</span>
+          <h4>GitHub</h4>
+
+          <p>
+            Building projects, experimenting with technologies, and maintaining
+            my development work in public repositories.
+          </p>
+        </div>
+
+        <div class="coding-platform-footer">
+          <span>Projects</span>
+
+          <a href="https://github.com/Amit-Mavinakatti" target="_blank">
+            View Profile
+            <i class="fas fa-arrow-right"></i>
+          </a>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="problem-solving-journey">
+
+    <div class="problem-solving-journey-heading">
+      <span class="problem-solving-eyebrow">THE JOURNEY</span>
+      <h3>From Practice to Progress</h3>
+    </div>
+
+    <div class="coding-journey-line">
+
+      <div class="coding-journey-point completed">
+        <div class="coding-journey-node">
+          <i class="fas fa-play"></i>
+        </div>
+
+        <div class="coding-journey-content">
+          <span>START</span>
+          <h4>Started Solving Problems</h4>
+          <p>
+            Began consistently practicing programming and learning how to
+            approach problems logically.
+          </p>
+        </div>
+      </div>
+
+
+      <div class="coding-journey-point completed">
+        <div class="coding-journey-node">
+          <i class="fas fa-fire"></i>
+        </div>
+
+        <div class="coding-journey-content">
+          <span>CONSISTENCY</span>
+          <h4>Built Problem-Solving Discipline</h4>
+          <p>
+            Continued solving challenges across different platforms and
+            strengthened programming fundamentals.
+          </p>
+        </div>
+      </div>
+
+
+      <div class="coding-journey-point completed">
+        <div class="coding-journey-node">
+          <i class="fas fa-medal"></i>
+        </div>
+
+        <div class="coding-journey-content">
+          <span>MILESTONE</span>
+          <h4>Reached Codewars 3 kyu</h4>
+          <p>
+            Reached 3 kyu on Codewars through consistent kata practice and
+            problem solving.
+          </p>
+        </div>
+      </div>
+
+
+      <div class="coding-journey-point current">
+        <div class="coding-journey-node">
+          <i class="fas fa-rocket"></i>
+        </div>
+
+        <div class="coding-journey-content">
+          <span>NOW</span>
+          <h4>Strengthening DSA</h4>
+          <p>
+            Currently focusing on Data Structures, Algorithms, Java, and
+            interview-oriented problem solving.
+          </p>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="coding-focus">
+
+    <div class="coding-focus-heading">
+      <span class="problem-solving-eyebrow">CURRENT DIRECTION</span>
+      <h3>What I'm Working On</h3>
+    </div>
+
+    <div class="coding-focus-grid">
+
+      <div>
+        <i class="fab fa-java"></i>
+        <span>Java</span>
+        <small>Programming foundation</small>
+      </div>
+
+      <div>
+        <i class="fas fa-sitemap"></i>
+        <span>Data Structures</span>
+        <small>Core DSA</small>
+      </div>
+
+      <div>
+        <i class="fas fa-project-diagram"></i>
+        <span>Algorithms</span>
+        <small>Problem solving</small>
+      </div>
+
+      <div>
+        <i class="fas fa-brain"></i>
+        <span>Logic Building</span>
+        <small>Better approaches</small>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="problem-solving-footer">
+
+    <span class="coding-live-dot"></span>
+
+    <span>PROBLEM SOLVING</span>
+
+    <strong>ALWAYS LEARNING • ALWAYS IMPROVING</strong>
+
   </div>
 
   <div class="section-divider"></div>

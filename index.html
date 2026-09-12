@@ -5237,24 +5237,30 @@ section {
     }
     .main-header {
   position: fixed;
-  top: 16px;
+  top: 12px;
   left: 50%;
   transform: translateX(-50%);
-  width: calc(100% - 40px);
-  max-width: 1400px;
-  padding: 14px 22px;
+  width: calc(100% - 80px);
+  max-width: 1250px;
+
+  padding: 9px 16px;
+
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 20px;
+  gap: 14px;
+
   z-index: 1000;
+
   background: rgba(5, 8, 12, 0.72);
   border: 1px solid rgba(0, 255, 255, 0.14);
-  border-radius: 18px;
+  border-radius: 14px;
+
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 10px 40px rgba(0,0,0,.35);
-}
+
+  box-shadow: 0 8px 30px rgba(0,0,0,.30);
+    }
 
 .brand {
   display: flex;

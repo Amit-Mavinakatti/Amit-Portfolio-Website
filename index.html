@@ -15700,7 +15700,2395 @@ apsAILauncher.addEventListener(
         });
     });
 </script>
+<!-- =========================================================
+     APS AI — STEP 3
+     ADVANCED PORTFOLIO INTELLIGENCE ENGINE
+     
+     Architecture:
+     • Permanent core profile
+     • Automatic portfolio scanner
+     • Section discovery
+     • Keyword intelligence
+     • Question classification
+     • Relevance scoring
+     • Context-aware responses
+     • Unknown-question handling
+     • Self-updating portfolio knowledge
+     
+     IMPORTANT:
+     This block is designed to work with the existing
+     Step 1 + Step 2 without modifying their HTML.
+     ========================================================= -->
 
+<script>
+
+(function () {
+
+  "use strict";
+
+
+  /* =========================================================
+     1. APS CORE IDENTITY
+     
+     These are the few facts APS should always know.
+     Everything else can be discovered from the portfolio.
+     ========================================================= */
+
+  const APS_CORE = {
+
+    identity: {
+      name: "Amit",
+      fullBrand: "APS — Amit's Personal Space",
+      role: "BE Computer Science and Engineering student",
+      field: "Computer Science and Engineering",
+      country: "India",
+      state: "Karnataka"
+    },
+
+
+    education: {
+
+      degree: "BE Computer Science and Engineering",
+
+      college:
+        "A.G.M. Rural College of Engineering & Technology, Varur",
+
+      currentYear:
+        "3rd year",
+
+      currentSemester:
+        "5th semester",
+
+      firstYearCGPA:
+        "8.95",
+
+      semesterPerformance: {
+        "1st Semester": "8.90",
+        "2nd Semester": "9.00",
+        "3rd Semester": "8.57",
+        "4th Semester": "8.21"
+      }
+
+    },
+
+
+    primarySkills: [
+      "Java",
+      "Python",
+      "Data Structures and Algorithms",
+      "Problem Solving",
+      "HTML",
+      "CSS",
+      "JavaScript",
+      "Node.js",
+      "REST APIs",
+      "MongoDB",
+      "Git",
+      "GitHub"
+    ],
+
+
+    currentFocus: [
+      "Java",
+      "Data Structures and Algorithms",
+      "Problem Solving",
+      "Software Engineering",
+      "Web Development",
+      "Core Computer Science"
+    ],
+
+
+    careerDirection:
+      "Software engineering, internships, practical development experience and product-based technology companies",
+
+
+    longTermDirection:
+      "Become a strong and highly capable software engineer with excellent problem-solving ability, practical development experience and strong Computer Science fundamentals.",
+
+
+    hackathon: {
+
+      name: "HackArena 2K26",
+
+      location:
+        "Jain College, Hubballi",
+
+      team:
+        "Alpha Hackers",
+
+      role:
+        "Team Leader",
+
+      result:
+        "7th rank",
+
+      experience:
+        "Amit's first hackathon. The team was selected for the offline round after the PPT selection stage."
+
+    },
+
+
+    codingProfile: {
+
+      platform:
+        "Codewars",
+
+      username:
+        "AmitM8",
+
+      rank:
+        "3 kyu",
+
+      kata:
+        "170",
+
+      pythonTraining:
+        "4 kyu",
+
+      honor:
+        "1,145",
+
+      leaderboard:
+        "#29,408",
+
+      percentile:
+        "Top 3.841%"
+
+    },
+
+
+    credential: {
+
+      microsoftAppliedSkills:
+        "Streamline business workflows with AI chat"
+
+    }
+
+  };
+
+
+  /* =========================================================
+     2. APS SYSTEM CONFIGURATION
+     ========================================================= */
+
+  const APS_CONFIG = {
+
+    minimumConfidence: 0.12,
+
+    strongConfidence: 0.35,
+
+    maximumPortfolioCharacters: 90000,
+
+    maximumStoredSnippets: 250,
+
+    maximumSnippetLength: 700,
+
+    responseDelay: 420,
+
+    enableLiveScanning: true,
+
+    debug: false
+
+  };
+
+
+  /* =========================================================
+     3. INTERNAL MEMORY
+     ========================================================= */
+
+  let APS_MEMORY = {
+
+    portfolioText: "",
+
+    sections: [],
+
+    snippets: [],
+
+    keywords: {},
+
+    lastQuestion: "",
+
+    lastTopic: "",
+
+    lastResults: [],
+
+    initialized: false
+
+  };
+
+
+  /* =========================================================
+     4. TEXT NORMALIZATION
+     ========================================================= */
+
+  function apsNormalize(text) {
+
+    if (!text) return "";
+
+    return String(text)
+
+      .toLowerCase()
+
+      .replace(/[\u200B-\u200D\uFEFF]/g, " ")
+
+      .replace(/[^\p{L}\p{N}\s]/gu, " ")
+
+      .replace(/\s+/g, " ")
+
+      .trim();
+
+  }
+
+
+  function apsCleanDisplayText(text) {
+
+    if (!text) return "";
+
+    return String(text)
+
+      .replace(/\s+/g, " ")
+
+      .replace(/\n{3,}/g, "\n\n")
+
+      .trim();
+
+  }
+
+
+  /* =========================================================
+     5. STOP WORDS
+     
+     These words are too common to help determine a topic.
+     ========================================================= */
+
+  const APS_STOP_WORDS = new Set([
+
+    "the",
+    "a",
+    "an",
+    "and",
+    "or",
+    "but",
+    "is",
+    "are",
+    "was",
+    "were",
+    "am",
+    "be",
+    "been",
+    "being",
+    "to",
+    "of",
+    "in",
+    "on",
+    "for",
+    "with",
+    "from",
+    "by",
+    "at",
+    "as",
+    "this",
+    "that",
+    "these",
+    "those",
+    "it",
+    "its",
+    "he",
+    "his",
+    "him",
+    "she",
+    "her",
+    "they",
+    "them",
+    "their",
+    "what",
+    "who",
+    "when",
+    "where",
+    "why",
+    "how",
+    "which",
+    "can",
+    "could",
+    "would",
+    "should",
+    "do",
+    "does",
+    "did",
+    "has",
+    "have",
+    "had",
+    "i",
+    "me",
+    "my",
+    "you",
+    "your",
+    "we",
+    "our",
+    "tell",
+    "about",
+    "give",
+    "show",
+    "please",
+    "there",
+    "here",
+    "his",
+    "him",
+    "also",
+    "more",
+    "some",
+    "any",
+    "very",
+    "just",
+    "really",
+    "currently",
+    "now"
+
+  ]);
+
+
+  /* =========================================================
+     6. QUESTION ALIASES
+     
+     This allows APS to understand different ways of asking
+     the same thing.
+     ========================================================= */
+
+  const APS_ALIASES = {
+
+    identity: [
+      "who is amit",
+      "about amit",
+      "tell me about amit",
+      "who is this person",
+      "who is the developer",
+      "who created this",
+      "whose portfolio is this",
+      "portfolio owner",
+      "about the developer"
+    ],
+
+
+    academics: [
+      "education",
+      "academic",
+      "academics",
+      "college",
+      "university",
+      "degree",
+      "course",
+      "cgpa",
+      "sgpa",
+      "semester",
+      "study",
+      "studies",
+      "student",
+      "engineering"
+    ],
+
+
+    skills: [
+      "skills",
+      "skill",
+      "technical skills",
+      "technologies",
+      "technology",
+      "tech stack",
+      "programming",
+      "programming languages",
+      "what can he do",
+      "what does he know",
+      "technical knowledge",
+      "expertise"
+    ],
+
+
+    projects: [
+      "projects",
+      "project",
+      "built",
+      "build",
+      "developed",
+      "development",
+      "applications",
+      "app",
+      "apps",
+      "things he built",
+      "work"
+    ],
+
+
+    hackathon: [
+      "hackathon",
+      "hack arena",
+      "competition",
+      "team alpha",
+      "alpha hackers",
+      "7th rank",
+      "seventh rank",
+      "hackathon experience"
+    ],
+
+
+    coding: [
+      "codewars",
+      "leetcode",
+      "coding",
+      "problem solving",
+      "kata",
+      "coding profile",
+      "competitive programming",
+      "programming practice"
+    ],
+
+
+    certificates: [
+      "certificate",
+      "certificates",
+      "certification",
+      "certifications",
+      "credential",
+      "credentials",
+      "badge",
+      "badges",
+      "microsoft applied skills"
+    ],
+
+
+    journey: [
+      "journey",
+      "progress",
+      "growth",
+      "learning",
+      "learning journey",
+      "current journey",
+      "what is he doing",
+      "what is he learning",
+      "currently doing",
+      "current focus"
+    ],
+
+
+    career: [
+      "career",
+      "career goal",
+      "career goals",
+      "future",
+      "future plans",
+      "ambition",
+      "dream",
+      "dream job",
+      "software engineer",
+      "engineering career",
+      "job",
+      "internship",
+      "internships"
+    ],
+
+
+    achievements: [
+      "achievement",
+      "achievements",
+      "accomplishment",
+      "accomplishments",
+      "milestone",
+      "milestones",
+      "success"
+    ],
+
+
+    contact: [
+      "contact",
+      "email",
+      "linkedin",
+      "github",
+      "social",
+      "social media",
+      "connect",
+      "reach him"
+    ],
+
+
+    resume: [
+      "resume",
+      "cv",
+      "curriculum vitae",
+      "experience",
+      "professional profile"
+    ]
+
+  };
+
+
+  /* =========================================================
+     7. KEYWORD WEIGHTS
+     ========================================================= */
+
+  const APS_TOPIC_KEYWORDS = {
+
+    identity: [
+      "amit",
+      "developer",
+      "student",
+      "creator",
+      "portfolio",
+      "person"
+    ],
+
+    academics: [
+      "college",
+      "education",
+      "degree",
+      "engineering",
+      "semester",
+      "cgpa",
+      "sgpa",
+      "student",
+      "academic"
+    ],
+
+    skills: [
+      "java",
+      "python",
+      "javascript",
+      "html",
+      "css",
+      "react",
+      "node",
+      "mongodb",
+      "sql",
+      "git",
+      "github",
+      "dsa",
+      "algorithm",
+      "programming",
+      "development",
+      "technology"
+    ],
+
+    projects: [
+      "project",
+      "built",
+      "developed",
+      "application",
+      "system",
+      "platform",
+      "website",
+      "app",
+      "api"
+    ],
+
+    hackathon: [
+      "hackathon",
+      "hackarena",
+      "alpha",
+      "team",
+      "competition",
+      "rank"
+    ],
+
+    coding: [
+      "codewars",
+      "leetcode",
+      "kata",
+      "coding",
+      "problem",
+      "algorithm",
+      "dsa"
+    ],
+
+    certificates: [
+      "certificate",
+      "credential",
+      "badge",
+      "certification",
+      "microsoft",
+      "applied"
+    ],
+
+    journey: [
+      "journey",
+      "learning",
+      "focus",
+      "currently",
+      "progress",
+      "growth",
+      "improving"
+    ],
+
+    career: [
+      "career",
+      "goal",
+      "future",
+      "internship",
+      "job",
+      "software",
+      "engineer",
+      "company",
+      "product"
+    ],
+
+    achievements: [
+      "achievement",
+      "award",
+      "rank",
+      "milestone",
+      "selected",
+      "winner",
+      "success"
+    ]
+
+  };
+
+
+  /* =========================================================
+     8. BUILD PERMANENT CORE TEXT
+     ========================================================= */
+
+  function apsBuildCoreText() {
+
+    const core = APS_CORE;
+
+    return [
+
+      "Name: " + core.identity.name,
+
+      "Brand: " + core.identity.fullBrand,
+
+      "Role: " + core.identity.role,
+
+      "Field: " + core.identity.field,
+
+      "Location: " +
+        core.identity.state +
+        ", " +
+        core.identity.country,
+
+      "Degree: " +
+        core.education.degree,
+
+      "College: " +
+        core.education.college,
+
+      "Current year: " +
+        core.education.currentYear,
+
+      "Current semester: " +
+        core.education.currentSemester,
+
+      "First year CGPA: " +
+        core.education.firstYearCGPA,
+
+      "Semester 1 SGPA: " +
+        core.education.semesterPerformance["1st Semester"],
+
+      "Semester 2 SGPA: " +
+        core.education.semesterPerformance["2nd Semester"],
+
+      "Semester 3 SGPA: " +
+        core.education.semesterPerformance["3rd Semester"],
+
+      "Semester 4 SGPA: " +
+        core.education.semesterPerformance["4th Semester"],
+
+      "Skills: " +
+        core.primarySkills.join(", "),
+
+      "Current focus: " +
+        core.currentFocus.join(", "),
+
+      "Career direction: " +
+        core.careerDirection,
+
+      "Long term direction: " +
+        core.longTermDirection,
+
+      "Hackathon: " +
+        core.hackathon.name,
+
+      "Hackathon location: " +
+        core.hackathon.location,
+
+      "Hackathon team: " +
+        core.hackathon.team,
+
+      "Hackathon role: " +
+        core.hackathon.role,
+
+      "Hackathon result: " +
+        core.hackathon.result,
+
+      "Hackathon experience: " +
+        core.hackathon.experience,
+
+      "Coding platform: " +
+        core.codingProfile.platform,
+
+      "Coding username: " +
+        core.codingProfile.username,
+
+      "Codewars rank: " +
+        core.codingProfile.rank,
+
+      "Codewars kata: " +
+        core.codingProfile.kata,
+
+      "Python training: " +
+        core.codingProfile.pythonTraining,
+
+      "Codewars honor: " +
+        core.codingProfile.honor,
+
+      "Codewars leaderboard: " +
+        core.codingProfile.leaderboard,
+
+      "Codewars percentile: " +
+        core.codingProfile.percentile,
+
+      "Microsoft Applied Skills credential: " +
+        core.credential.microsoftAppliedSkills
+
+    ].join("\n");
+
+  }
+
+
+  /* =========================================================
+     9. AUTOMATIC PORTFOLIO SCANNER
+     
+     This is the important part.
+
+     APS reads the actual rendered portfolio instead of
+     requiring every new piece of information to be manually
+     added to this script.
+     ========================================================= */
+
+  function apsScanPortfolio() {
+
+    try {
+
+      const bodyText =
+        document.body
+          ? document.body.innerText || ""
+          : "";
+
+
+      const cleaned =
+        apsCleanDisplayText(bodyText);
+
+
+      APS_MEMORY.portfolioText =
+        cleaned.substring(
+          0,
+          APS_CONFIG.maximumPortfolioCharacters
+        );
+
+
+      APS_MEMORY.sections = [];
+
+      APS_MEMORY.snippets = [];
+
+
+      /* ---------------------------------------------
+         Detect common semantic HTML sections
+         --------------------------------------------- */
+
+      const selectors = [
+
+        "section",
+
+        "article",
+
+        "main > div",
+
+        ".section",
+
+        "[id]",
+
+        "[class*='section']",
+
+        "[class*='project']",
+
+        "[class*='skill']",
+
+        "[class*='certificate']",
+
+        "[class*='achievement']",
+
+        "[class*='journey']",
+
+        "[class*='about']",
+
+        "[class*='education']",
+
+        "[class*='resume']"
+
+      ];
+
+
+      const seen = new Set();
+
+
+      document
+        .querySelectorAll(selectors.join(","))
+        .forEach(function (element) {
+
+          const text =
+            apsCleanDisplayText(
+              element.innerText || ""
+            );
+
+
+          if (!text) return;
+
+
+          if (text.length < 25) return;
+
+
+          if (text.length > 5000) return;
+
+
+          const normalized =
+            apsNormalize(text);
+
+
+          if (seen.has(normalized)) return;
+
+
+          seen.add(normalized);
+
+
+          let heading = "";
+
+
+          const headingElement =
+            element.querySelector(
+              "h1,h2,h3,h4,h5,h6,.title,.heading,[class*='title'],[class*='heading']"
+            );
+
+
+          if (headingElement) {
+
+            heading =
+              apsCleanDisplayText(
+                headingElement.innerText || ""
+              );
+
+          }
+
+
+          if (!heading) {
+
+            heading =
+              element.id ||
+              element.className ||
+              "";
+
+          }
+
+
+          APS_MEMORY.sections.push({
+
+            heading:
+              String(heading)
+                .replace(/\s+/g, " ")
+                .trim()
+                .substring(0, 150),
+
+            text:
+              text.substring(
+                0,
+                5000
+              )
+
+          });
+
+        });
+
+
+      /* ---------------------------------------------
+         Extract meaningful text blocks
+         --------------------------------------------- */
+
+      const blocks =
+        document.querySelectorAll(
+          "h1,h2,h3,h4,h5,h6,p,li,article,blockquote"
+        );
+
+
+      blocks.forEach(function (element) {
+
+        const text =
+          apsCleanDisplayText(
+            element.innerText || ""
+          );
+
+
+        if (!text) return;
+
+
+        if (text.length < 30) return;
+
+
+        if (text.length > APS_CONFIG.maximumSnippetLength)
+          return;
+
+
+        const normalized =
+          apsNormalize(text);
+
+
+        if (seen.has(normalized)) return;
+
+
+        seen.add(normalized);
+
+
+        APS_MEMORY.snippets.push({
+
+          text: text,
+
+          normalized:
+            normalized,
+
+          source:
+            element.tagName.toLowerCase()
+
+        });
+
+      });
+
+
+      /* ---------------------------------------------
+         Add permanent core knowledge
+         --------------------------------------------- */
+
+      APS_MEMORY.snippets.unshift({
+
+        text:
+          apsBuildCoreText(),
+
+        normalized:
+          apsNormalize(
+            apsBuildCoreText()
+          ),
+
+        source:
+          "APS CORE"
+
+      });
+
+
+      if (
+        APS_MEMORY.snippets.length >
+        APS_CONFIG.maximumStoredSnippets
+      ) {
+
+        APS_MEMORY.snippets =
+          APS_MEMORY.snippets.slice(
+            0,
+            APS_CONFIG.maximumStoredSnippets
+          );
+
+      }
+
+
+      APS_MEMORY.initialized = true;
+
+
+      if (APS_CONFIG.debug) {
+
+        console.log(
+          "APS portfolio scan completed:",
+          APS_MEMORY
+        );
+
+      }
+
+    }
+
+    catch (error) {
+
+      console.warn(
+        "APS portfolio scanner:",
+        error
+      );
+
+    }
+
+  }
+
+
+  /* =========================================================
+     10. TOPIC DETECTION
+     ========================================================= */
+
+  function apsDetectTopic(question) {
+
+    const q =
+      apsNormalize(question);
+
+
+    const scores = {};
+
+
+    Object.keys(APS_TOPIC_KEYWORDS)
+      .forEach(function (topic) {
+
+        scores[topic] = 0;
+
+
+        APS_TOPIC_KEYWORDS[topic]
+          .forEach(function (keyword) {
+
+            const normalizedKeyword =
+              apsNormalize(keyword);
+
+
+            if (
+              q.includes(normalizedKeyword)
+            ) {
+
+              scores[topic] +=
+                normalizedKeyword.length > 5
+                  ? 3
+                  : 2;
+
+            }
+
+          });
+
+      });
+
+
+    /* Alias matching */
+
+    Object.keys(APS_ALIASES)
+      .forEach(function (topic) {
+
+        APS_ALIASES[topic]
+          .forEach(function (alias) {
+
+            if (
+              q.includes(
+                apsNormalize(alias)
+              )
+            ) {
+
+              scores[topic] += 5;
+
+            }
+
+          });
+
+      });
+
+
+    let bestTopic = "general";
+
+    let bestScore = 0;
+
+
+    Object.keys(scores)
+      .forEach(function (topic) {
+
+        if (
+          scores[topic] >
+          bestScore
+        ) {
+
+          bestScore =
+            scores[topic];
+
+          bestTopic =
+            topic;
+
+        }
+
+      });
+
+
+    return {
+
+      topic:
+        bestTopic,
+
+      score:
+        bestScore,
+
+      scores:
+        scores
+
+    };
+
+  }
+
+
+  /* =========================================================
+     11. TOKEN EXTRACTION
+     ========================================================= */
+
+  function apsGetTokens(text) {
+
+    return apsNormalize(text)
+
+      .split(/\s+/)
+
+      .filter(function (word) {
+
+        return (
+          word.length > 2 &&
+          !APS_STOP_WORDS.has(word)
+        );
+
+      });
+
+  }
+
+
+  /* =========================================================
+     12. RELEVANCE SCORING
+     
+     Finds portfolio content that is closest to the question.
+     ========================================================= */
+
+  function apsScoreSnippet(
+    question,
+    snippet,
+    topic
+  ) {
+
+    const questionTokens =
+      apsGetTokens(question);
+
+
+    const snippetTokens =
+      apsGetTokens(snippet);
+
+
+    if (
+      !questionTokens.length ||
+      !snippetTokens.length
+    ) {
+
+      return 0;
+
+    }
+
+
+    let score = 0;
+
+
+    const snippetSet =
+      new Set(snippetTokens);
+
+
+    /* Exact token overlap */
+
+    questionTokens.forEach(function (token) {
+
+      if (snippetSet.has(token)) {
+
+        score += 1;
+
+      }
+
+    });
+
+
+    /* Phrase-level relevance */
+
+    const normalizedQuestion =
+      apsNormalize(question);
+
+
+    const normalizedSnippet =
+      apsNormalize(snippet);
+
+
+    if (
+      normalizedSnippet.includes(
+        normalizedQuestion
+      )
+    ) {
+
+      score += 8;
+
+    }
+
+
+    /* Topic boost */
+
+    if (
+      topic &&
+      APS_TOPIC_KEYWORDS[topic]
+    ) {
+
+      APS_TOPIC_KEYWORDS[topic]
+        .forEach(function (keyword) {
+
+          if (
+            normalizedSnippet.includes(
+              apsNormalize(keyword)
+            )
+          ) {
+
+            score += 0.7;
+
+          }
+
+        });
+
+    }
+
+
+    /* Named entity boosts */
+
+    const importantTerms = [
+
+      "amit",
+
+      "java",
+
+      "python",
+
+      "dsa",
+
+      "leetcode",
+
+      "codewars",
+
+      "hackarena",
+
+      "alpha hackers",
+
+      "project",
+
+      "certificate",
+
+      "achievement",
+
+      "github",
+
+      "microsoft",
+
+      "mongodb",
+
+      "javascript",
+
+      "node",
+
+      "react",
+
+      "college",
+
+      "cgpa"
+
+    ];
+
+
+    importantTerms.forEach(function (term) {
+
+      if (
+        normalizedQuestion.includes(term) &&
+        normalizedSnippet.includes(term)
+      ) {
+
+        score += 1.8;
+
+      }
+
+    });
+
+
+    return score;
+
+  }
+
+
+  /* =========================================================
+     13. SEARCH PORTFOLIO KNOWLEDGE
+     ========================================================= */
+
+  function apsSearch(question) {
+
+    if (!APS_MEMORY.initialized) {
+
+      apsScanPortfolio();
+
+    }
+
+
+    const topicData =
+      apsDetectTopic(question);
+
+
+    const results =
+      APS_MEMORY.snippets
+
+        .map(function (item) {
+
+          return {
+
+            text:
+              item.text,
+
+            score:
+              apsScoreSnippet(
+                question,
+                item.text,
+                topicData.topic
+              ),
+
+            source:
+              item.source
+
+          };
+
+        })
+
+        .filter(function (item) {
+
+          return item.score >
+            APS_CONFIG.minimumConfidence;
+
+        })
+
+        .sort(function (a, b) {
+
+          return b.score - a.score;
+
+        });
+
+
+    return {
+
+      topic:
+        topicData.topic,
+
+      confidence:
+        results.length
+          ? results[0].score
+          : 0,
+
+      results:
+        results.slice(0, 6)
+
+    };
+
+  }
+
+
+  /* =========================================================
+     14. PREDEFINED HIGH-QUALITY RESPONSES
+     
+     These handle common questions much better than raw
+     portfolio extraction.
+     ========================================================= */
+
+  function apsGetKnownResponse(
+    question,
+    topic
+  ) {
+
+    const q =
+      apsNormalize(question);
+
+
+    /* GREETING */
+
+    if (
+      /^(hi|hello|hey|hii|heyy)$/.test(q) ||
+      q.includes("good morning") ||
+      q.includes("good evening")
+    ) {
+
+      return `
+Hello 👋
+
+I'm **ASK APS** — the Automated Portfolio Intelligence System.
+
+I can help you quickly understand Amit's portfolio.
+
+You can ask me about his:
+
+• Background
+• Academics
+• Skills
+• Projects
+• Hackathon experience
+• Coding journey
+• Certificates
+• Achievements
+• Current learning
+• Career direction
+
+Try asking:
+
+**"Give me a quick overview of Amit."**
+      `.trim();
+
+    }
+
+
+    /* IDENTITY */
+
+    if (
+      topic === "identity" &&
+      (
+        q.includes("who is") ||
+        q.includes("about")
+      )
+    ) {
+
+      return `
+**Amit** is a BE Computer Science and Engineering student currently in his 3rd year.
+
+His journey combines academics, programming, problem solving, web development, projects, hackathons and continuous technical learning.
+
+He created **APS — Amit's Personal Space** as a personal software-engineering portfolio to bring that journey together in one place.
+
+His current technical direction is centered around **Java, DSA, software engineering, web development and core Computer Science fundamentals**.
+      `.trim();
+
+    }
+
+
+    /* ACADEMICS */
+
+    if (
+      topic === "academics"
+    ) {
+
+      return `
+### Academic Background
+
+**Degree:** BE — Computer Science and Engineering
+
+**College:** A.G.M. Rural College of Engineering & Technology, Varur
+
+**Current stage:** 3rd year / 5th semester
+
+**First-year CGPA:** 8.95
+
+Semester performance:
+
+• Semester 1 — 8.90 SGPA
+• Semester 2 — 9.00 SGPA
+• Semester 3 — 8.57 SGPA
+• Semester 4 — 8.21 SGPA
+
+Academically, the focus is not only on maintaining performance but also on building practical technical ability alongside the degree.
+      `.trim();
+
+    }
+
+
+    /* SKILLS */
+
+    if (
+      topic === "skills"
+    ) {
+
+      return `
+### Technical Skills
+
+**Programming**
+• Java
+• Python
+
+**Problem Solving**
+• Data Structures & Algorithms
+• LeetCode
+• Codewars
+
+**Web / Backend**
+• HTML
+• CSS
+• JavaScript
+• Node.js
+• REST APIs
+• MongoDB
+
+**Developer Tools**
+• Git
+• GitHub
+
+**Current learning direction**
+• Java
+• DSA
+• Software Engineering
+• Web Development
+• Core Computer Science
+
+The important distinction is that Amit is continuously developing these skills rather than claiming everything as mastered.
+      `.trim();
+
+    }
+
+
+    /* PROJECTS */
+
+    if (
+      topic === "projects"
+    ) {
+
+      return `
+### Projects
+
+Amit's portfolio includes projects across different problem domains:
+
+**1. Doctor Availability & Teleconsultation Platform**
+
+A healthcare-oriented platform focused on doctor availability and teleconsultation.
+
+Technology direction includes Node.js, REST APIs and MongoDB.
+
+**2. Smart Food Rescue System**
+
+A system designed around food rescue coordination involving restaurants, volunteers, NGOs, delivery participants and administrators.
+
+It uses technologies including Express and MongoDB.
+
+**3. Expense Tracker**
+
+A Java desktop application using Swing/AWT with a ChatGPT API integration.
+
+**4. APS — Amit's Personal Space**
+
+The portfolio itself is also a technical project, built as an interactive personal software-engineering platform using HTML, CSS and JavaScript.
+
+The projects demonstrate an emphasis on solving practical problems rather than building only tutorial-style applications.
+      `.trim();
+
+    }
+
+
+    /* HACKATHON */
+
+    if (
+      topic === "hackathon"
+    ) {
+
+      return `
+### HackArena 2K26
+
+Amit's first hackathon experience was **HackArena 2K26 at Jain College, Hubballi**.
+
+**Team:** Alpha Hackers  
+**Role:** Team Leader  
+**Final result:** 7th rank
+
+The team first went through the PPT selection stage and was selected for the offline round.
+
+The experience provided practical exposure to:
+
+• Team leadership
+• Rapid development
+• Problem solving
+• Presentation
+• Collaboration
+• Building under time constraints
+
+For Amit, the value of the hackathon was not only the final ranking but the experience of actually building and competing as a team.
+      `.trim();
+
+    }
+
+
+    /* CODING */
+
+    if (
+      topic === "coding"
+    ) {
+
+      return `
+### Coding & Problem Solving
+
+Amit actively practices programming and problem solving.
+
+His Codewars profile is:
+
+**Username:** AmitM8  
+**Rank:** 3 kyu  
+**Kata:** 170  
+**Python highest trained:** 4 kyu  
+**Honor:** 1,145  
+**Leaderboard:** #29,408  
+**Percentile:** Top 3.841%
+
+Coding practice is part of his broader goal of becoming stronger at DSA and technical problem solving.
+      `.trim();
+
+    }
+
+
+    /* CERTIFICATES */
+
+    if (
+      topic === "certificates"
+    ) {
+
+      return `
+### Credentials
+
+One of the credentials currently known to APS is the Microsoft Applied Skills credential:
+
+**"Streamline business workflows with AI chat"**
+
+Amit also continues building his profile through technical projects, coding practice, community activities and other learning experiences represented in the portfolio.
+      `.trim();
+
+    }
+
+
+    /* CAREER */
+
+    if (
+      topic === "career"
+    ) {
+
+      return `
+### Career Direction
+
+Amit is working toward becoming a **software engineer**.
+
+His current strategy is to strengthen:
+
+• Programming
+• Java
+• DSA
+• Problem solving
+• Core Computer Science
+• Web development
+• Practical projects
+
+He is interested in gaining internship and placement experience and eventually working in strong product-based technology environments.
+
+The long-term goal is not simply to collect technologies, but to become someone who can understand problems, design solutions, write reliable code and build useful software.
+      `.trim();
+
+    }
+
+
+    /* JOURNEY */
+
+    if (
+      topic === "journey"
+    ) {
+
+      return `
+### Current Journey
+
+Amit is currently in the phase of converting his academic foundation into practical software-engineering ability.
+
+The major areas of focus are:
+
+**Learn**
+→ Java, DSA, web development and core CS
+
+**Practice**
+→ Coding platforms and problem solving
+
+**Build**
+→ Real-world projects
+
+**Participate**
+→ Hackathons and technical communities
+
+**Improve**
+→ Technical depth, communication and engineering thinking
+
+The overall direction is simple:
+
+**Learn → Build → Solve → Improve → Repeat**
+      `.trim();
+
+    }
+
+
+    /* ACHIEVEMENTS */
+
+    if (
+      topic === "achievements"
+    ) {
+
+      return `
+### Achievements & Milestones
+
+Some notable milestones represented in APS include:
+
+• 8.95 first-year CGPA
+• 9.00 SGPA in Semester 2
+• 3 kyu Codewars rank
+• Top 3.841% Codewars leaderboard position
+• 170 Codewars kata
+• Team Leader at HackArena 2K26
+• 7th rank at HackArena 2K26
+• Microsoft Applied Skills credential
+
+APS can also search the live portfolio for additional achievements that have been added there.
+      `.trim();
+
+    }
+
+
+    /* RESUME */
+
+    if (
+      topic === "resume"
+    ) {
+
+      return `
+Amit's portfolio acts as a broader version of his professional profile.
+
+It brings together his:
+
+• Education
+• Technical skills
+• Projects
+• Coding practice
+• Hackathon experience
+• Credentials
+• Achievements
+• Career direction
+
+For the most complete professional overview, the portfolio's Resume section contains the dedicated resume information.
+      `.trim();
+
+    }
+
+
+    return null;
+
+  }
+
+
+  /* =========================================================
+     15. UNKNOWN QUESTION ENGINE
+     
+     Instead of simply saying "I don't know", APS searches
+     the actual portfolio and explains what it found.
+     ========================================================= */
+
+  function apsBuildSearchResponse(
+    question,
+    searchData
+  ) {
+
+    if (
+      !searchData.results.length
+    ) {
+
+      return `
+I couldn't find a reliable answer to that in my current portfolio knowledge.
+
+I don't want to invent information that isn't actually part of Amit's portfolio.
+
+Try asking about:
+
+• Skills
+• Projects
+• Academics
+• Hackathons
+• Coding
+• Certificates
+• Achievements
+• Current journey
+• Career goals
+
+Or ask your question in another way and I'll search the portfolio again.
+      `.trim();
+
+    }
+
+
+    const top =
+      searchData.results
+        .slice(0, 3);
+
+
+    const confidence =
+      searchData.confidence;
+
+
+    if (
+      confidence >=
+      APS_CONFIG.strongConfidence
+    ) {
+
+      let response = `I found this in Amit's portfolio:\n\n`;
+
+
+      top.forEach(function (item, index) {
+
+        if (index === 0) {
+
+          response +=
+            "• " +
+            item.text;
+
+        }
+
+        else {
+
+          response +=
+            "\n\n• " +
+            item.text;
+
+        }
+
+      });
+
+
+      response +=
+        "\n\nIf you're asking about a specific part of this, try mentioning the project, skill, achievement or section name.";
+
+      return response.trim();
+
+    }
+
+
+    let response = `
+I couldn't find an exact answer, but I found some related information:
+
+`;
+
+
+    top.forEach(function (item) {
+
+      response +=
+        "• " +
+        item.text +
+        "\n\n";
+
+    });
+
+
+    response +=
+      "If you meant something more specific, try rephrasing the question.";
+
+    return response.trim();
+
+  }
+
+
+  /* =========================================================
+     16. 30-SECOND SUMMARY
+     ========================================================= */
+
+  function apsGetSummary() {
+
+    return `
+### ⚡ 30-Second APS Summary
+
+Amit is a **3rd-year BE Computer Science and Engineering student** building his path toward software engineering.
+
+His technical journey includes **Java, Python, DSA, problem solving, web development and backend technologies**.
+
+He has built projects involving **healthcare, food rescue and expense tracking**, and is also developing APS — his own interactive portfolio.
+
+He participated in **HackArena 2K26** as Team Leader of **Alpha Hackers**, where the team finished **7th**.
+
+Outside academics, he practices programming through platforms such as **Codewars**, builds technical credentials and continues developing practical software-engineering skills.
+
+His current direction is:
+
+**Learn → Practice → Build → Compete → Improve → Become a stronger software engineer.**
+    `.trim();
+
+  }
+
+
+  /* =========================================================
+     17. MAIN RESPONSE CONTROLLER
+     ========================================================= */
+
+  function apsGenerateResponse(question) {
+
+    const cleanQuestion =
+      apsCleanDisplayText(question);
+
+
+    if (!cleanQuestion) {
+
+      return `
+Ask me something about Amit's portfolio and I'll try to help.
+      `.trim();
+
+    }
+
+
+    APS_MEMORY.lastQuestion =
+      cleanQuestion;
+
+
+    /* ---------------------------------------------
+       Special summary questions
+       --------------------------------------------- */
+
+    const normalized =
+      apsNormalize(cleanQuestion);
+
+
+    if (
+      normalized.includes("30 second") ||
+      normalized.includes("30-second") ||
+      normalized.includes("quick summary") ||
+      normalized.includes("short summary") ||
+      normalized === "summary" ||
+      normalized.includes("summarize")
+    ) {
+
+      APS_MEMORY.lastTopic =
+        "summary";
+
+      return apsGetSummary();
+
+    }
+
+
+    /* ---------------------------------------------
+       Detect topic
+       --------------------------------------------- */
+
+    const topicData =
+      apsDetectTopic(
+        cleanQuestion
+      );
+
+
+    APS_MEMORY.lastTopic =
+      topicData.topic;
+
+
+    /* ---------------------------------------------
+       Try high-quality known answer
+       --------------------------------------------- */
+
+    const knownResponse =
+      apsGetKnownResponse(
+        cleanQuestion,
+        topicData.topic
+      );
+
+
+    if (knownResponse) {
+
+      return knownResponse;
+
+    }
+
+
+    /* ---------------------------------------------
+       Search live portfolio
+       --------------------------------------------- */
+
+    const searchData =
+      apsSearch(
+        cleanQuestion
+      );
+
+
+    APS_MEMORY.lastResults =
+      searchData.results;
+
+
+    return apsBuildSearchResponse(
+      cleanQuestion,
+      searchData
+    );
+
+  }
+
+
+  /* =========================================================
+     18. SAFE MESSAGE WRAPPER
+     
+     Uses the existing Step 2 message functions.
+     ========================================================= */
+
+  function apsStep3AddUser(text) {
+
+    if (
+      typeof window.apsAIAddUserMessage ===
+      "function"
+    ) {
+
+      window.apsAIAddUserMessage(text);
+
+    }
+
+  }
+
+
+  function apsStep3AddSystem(text) {
+
+    if (
+      typeof window.apsAIAddSystemMessage ===
+      "function"
+    ) {
+
+      window.apsAIAddSystemMessage(text);
+
+    }
+
+  }
+
+
+  /* =========================================================
+     19. OVERRIDE STEP 2 DEMO FUNCTION
+     
+     Existing quick-question buttons continue working.
+     ========================================================= */
+
+  window.apsAIStep2Demo =
+    function (question) {
+
+      apsStep3AddUser(
+        question
+      );
+
+
+      setTimeout(
+        function () {
+
+          apsStep3AddSystem(
+            apsGenerateResponse(
+              question
+            )
+          );
+
+        },
+        APS_CONFIG.responseDelay
+      );
+
+    };
+
+
+  /* =========================================================
+     20. OVERRIDE STEP 2 SEND FUNCTION
+     ========================================================= */
+
+  window.apsAISendStep2Message =
+    function () {
+
+      const input =
+        document.getElementById(
+          "aps-ai-input"
+        );
+
+
+      if (!input) return;
+
+
+      const question =
+        input.value.trim();
+
+
+      if (!question) return;
+
+
+      apsStep3AddUser(
+        question
+      );
+
+
+      input.value = "";
+
+
+      setTimeout(
+        function () {
+
+          apsStep3AddSystem(
+            apsGenerateResponse(
+              question
+            )
+          );
+
+        },
+        APS_CONFIG.responseDelay
+      );
+
+    };
+
+
+  /* =========================================================
+     21. ENTER KEY SUPPORT
+     ========================================================= */
+
+  function apsAttachInput() {
+
+    const input =
+      document.getElementById(
+        "aps-ai-input"
+      );
+
+
+    if (!input) return;
+
+
+    if (
+      input.dataset.apsStep3Attached ===
+      "true"
+    ) {
+
+      return;
+
+    }
+
+
+    input.dataset.apsStep3Attached =
+      "true";
+
+
+    input.addEventListener(
+      "keydown",
+      function (event) {
+
+        if (
+          event.key ===
+          "Enter"
+        ) {
+
+          event.preventDefault();
+
+
+          window.apsAISendStep2Message();
+
+        }
+
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     22. AUTOMATIC RE-SCAN
+     
+     If the portfolio dynamically changes, APS can rescan.
+     ========================================================= */
+
+  let apsScanTimer = null;
+
+
+  function apsScheduleScan() {
+
+    clearTimeout(
+      apsScanTimer
+    );
+
+
+    apsScanTimer =
+      setTimeout(
+        function () {
+
+          apsScanPortfolio();
+
+        },
+        1000
+      );
+
+  }
+
+
+  /* =========================================================
+     23. MUTATION OBSERVER
+     
+     Watches for dynamically added portfolio content.
+     ========================================================= */
+
+  if (
+    APS_CONFIG.enableLiveScanning &&
+    window.MutationObserver
+  ) {
+
+    try {
+
+      const observer =
+        new MutationObserver(
+          function (mutations) {
+
+            let importantChange =
+              false;
+
+
+            mutations.forEach(
+              function (mutation) {
+
+                if (
+                  mutation.addedNodes &&
+                  mutation.addedNodes.length
+                ) {
+
+                  importantChange =
+                    true;
+
+                }
+
+              }
+            );
+
+
+            if (
+              importantChange
+            ) {
+
+              apsScheduleScan();
+
+            }
+
+          }
+        );
+
+
+      if (document.body) {
+
+        observer.observe(
+          document.body,
+          {
+            childList: true,
+            subtree: true
+          }
+        );
+
+      }
+
+    }
+
+    catch (error) {
+
+      console.warn(
+        "APS observer:",
+        error
+      );
+
+    }
+
+  }
+
+
+  /* =========================================================
+     24. INITIALIZE
+     ========================================================= */
+
+  function apsInitialize() {
+
+    apsScanPortfolio();
+
+    apsAttachInput();
+
+
+    console.log(
+      "APS — Advanced Portfolio Intelligence Engine ONLINE"
+    );
+
+    console.log(
+      "APS — Portfolio sections discovered:",
+      APS_MEMORY.sections.length
+    );
+
+    console.log(
+      "APS — Knowledge snippets:",
+      APS_MEMORY.snippets.length
+    );
+
+  }
+
+
+  /* =========================================================
+     25. WAIT UNTIL DOM IS READY
+     ========================================================= */
+
+  if (
+    document.readyState ===
+    "loading"
+  ) {
+
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
+
+        apsInitialize();
+
+      }
+    );
+
+  }
+
+  else {
+
+    apsInitialize();
+
+  }
+
+
+  /* =========================================================
+     26. OPTIONAL DEBUG ACCESS
+     
+     Available from browser console:
+     
+     APS_AI_DEBUG.scan()
+     APS_AI_DEBUG.memory()
+     APS_AI_DEBUG.ask("question")
+     
+     This does NOT appear to visitors.
+     ========================================================= */
+
+  window.APS_AI_DEBUG = {
+
+    scan:
+      function () {
+
+        apsScanPortfolio();
+
+        return APS_MEMORY;
+
+      },
+
+
+    memory:
+      function () {
+
+        return APS_MEMORY;
+
+      },
+
+
+    ask:
+      function (question) {
+
+        return apsGenerateResponse(
+          question
+        );
+
+      },
+
+
+    search:
+      function (question) {
+
+        return apsSearch(
+          question
+        );
+
+      }
+
+  };
+
+
+  /* =========================================================
+     END APS AI — STEP 3
+     ========================================================= */
+
+})();
+
+</script>
+
+<!-- =========================================================
+     END APS AI — STEP 3
+     ========================================================= -->
 
 
  

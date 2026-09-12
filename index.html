@@ -28,6 +28,594 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <style>
+.experience-section {
+  min-height: auto;
+  padding: 8rem 5% 6rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.experience-section::before {
+  content: "";
+  position: absolute;
+  width: 650px;
+  height: 650px;
+  top: 5%;
+  left: -320px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0,255,255,0.07),
+    transparent 68%
+  );
+  pointer-events: none;
+}
+
+.experience-section::after {
+  content: "";
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  bottom: 5%;
+  right: -300px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0,153,255,0.06),
+    transparent 68%
+  );
+  pointer-events: none;
+}
+
+.experience-heading {
+  width: min(900px, 100%);
+  margin: 0 auto 5rem;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+}
+
+.experience-eyebrow {
+  display: inline-block;
+  margin-bottom: 12px;
+  color: var(--accent);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+}
+
+.experience-heading h2 {
+  margin-bottom: 1rem;
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  background: linear-gradient(
+    90deg,
+    #fff,
+    var(--accent),
+    #fff
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: experienceTitleGlow 5s linear infinite;
+}
+
+.experience-heading h2::after {
+  width: 90px;
+  height: 3px;
+  margin: 0.8rem auto;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--accent),
+    transparent
+  );
+}
+
+.experience-heading p {
+  max-width: 700px;
+  margin: auto;
+  color: var(--text-secondary);
+  line-height: 1.8;
+  font-size: 0.95rem;
+}
+
+@keyframes experienceTitleGlow {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.experience-subsection {
+  width: min(1100px, 100%);
+  margin: 0 auto 5rem;
+  position: relative;
+  z-index: 1;
+}
+
+.experience-subsection-heading {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 2.2rem;
+}
+
+.experience-subsection-icon {
+  width: 58px;
+  height: 58px;
+  min-width: 58px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(0,255,255,0.22);
+  border-radius: 17px;
+  color: var(--accent);
+  background: rgba(0,255,255,0.045);
+  box-shadow: 0 0 25px rgba(0,255,255,0.08);
+}
+
+.experience-subsection-heading span {
+  display: block;
+  color: var(--text-muted);
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.experience-subsection-heading h3 {
+  margin: 3px 0 4px;
+  font-size: 1.45rem;
+}
+
+.experience-subsection-heading p {
+  color: var(--text-secondary);
+  font-size: 0.75rem;
+}
+
+.experience-timeline {
+  position: relative;
+  padding-left: 55px;
+}
+
+.experience-timeline::before {
+  content: "";
+  position: absolute;
+  left: 18px;
+  top: 10px;
+  bottom: 10px;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    var(--accent),
+    rgba(0,153,255,0.35),
+    rgba(255,255,255,0.05)
+  );
+}
+
+.experience-item {
+  position: relative;
+  margin-bottom: 28px;
+}
+
+.experience-item:last-child {
+  margin-bottom: 0;
+}
+
+.experience-node {
+  position: absolute;
+  left: -55px;
+  top: 25px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(0,255,255,0.4);
+  border-radius: 50%;
+  background: #070b0f;
+  color: var(--accent);
+  box-shadow:
+    0 0 0 6px rgba(0,255,255,0.035),
+    0 0 25px rgba(0,255,255,0.18);
+  z-index: 2;
+}
+
+.experience-card {
+  position: relative;
+  padding: 28px;
+  border: 1px solid rgba(0,255,255,0.13);
+  border-radius: var(--radius-lg);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,0.055),
+      rgba(255,255,255,0.015)
+    );
+  backdrop-filter: blur(20px);
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,0.05),
+    0 20px 50px rgba(0,0,0,0.2);
+  transition:
+    transform var(--transition-smooth),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-smooth);
+}
+
+.experience-card::before {
+  content: "";
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  right: -90px;
+  top: -90px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(0,255,255,0.07),
+    transparent 70%
+  );
+  pointer-events: none;
+}
+
+.experience-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(0,255,255,0.4);
+  box-shadow:
+    0 25px 60px rgba(0,0,0,0.28),
+    0 0 35px rgba(0,255,255,0.07);
+}
+
+.experience-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.experience-type {
+  color: var(--accent);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+}
+
+.experience-card h4 {
+  margin: 6px 0 5px;
+  font-size: 1.25rem;
+}
+
+.experience-company {
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+}
+
+.experience-date {
+  flex-shrink: 0;
+  padding: 7px 11px;
+  border: 1px solid rgba(0,255,255,0.15);
+  border-radius: 20px;
+  color: var(--accent);
+  background: rgba(0,255,255,0.04);
+  font-size: 0.62rem;
+  font-weight: 600;
+}
+
+.experience-description {
+  margin-top: 20px;
+  color: var(--text-secondary);
+  font-size: 0.78rem;
+  line-height: 1.8;
+}
+
+.experience-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.experience-tags span {
+  padding: 7px 11px;
+  border: 1px solid rgba(0,255,255,0.1);
+  border-radius: 8px;
+  background: rgba(0,255,255,0.035);
+  color: rgba(255,255,255,0.75);
+  font-size: 0.65rem;
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast),
+    background var(--transition-fast);
+}
+
+.experience-tags span:hover {
+  transform: translateY(-2px);
+  border-color: rgba(0,255,255,0.3);
+  background: rgba(0,255,255,0.07);
+}
+
+.experience-card-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-top: 24px;
+  padding-top: 17px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  color: var(--text-muted);
+  font-size: 0.65rem;
+}
+
+.experience-card-footer span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+
+.experience-card-footer span i {
+  color: var(--accent);
+  font-size: 0.45rem;
+}
+
+.experience-card-footer a {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--accent);
+  transition: gap var(--transition-fast);
+}
+
+.experience-card-footer a:hover {
+  gap: 11px;
+}
+
+.experience-leadership-highlights {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.experience-leadership-highlights div {
+  padding: 15px;
+  text-align: center;
+  border: 1px solid rgba(0,255,255,0.09);
+  border-radius: 12px;
+  background: rgba(0,255,255,0.025);
+}
+
+.experience-leadership-highlights strong {
+  display: block;
+  color: var(--accent);
+  font-size: 1.15rem;
+}
+
+.experience-leadership-highlights span {
+  display: block;
+  margin-top: 4px;
+  color: var(--text-muted);
+  font-size: 0.6rem;
+  letter-spacing: 0.7px;
+}
+
+.experience-empty-card {
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 28px;
+  border: 1px dashed rgba(255,255,255,0.13);
+  border-radius: var(--radius-lg);
+  background: rgba(255,255,255,0.018);
+  opacity: 0.72;
+}
+
+.experience-empty-icon {
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 15px;
+  color: var(--text-muted);
+  background: rgba(255,255,255,0.025);
+}
+
+.experience-empty-card span {
+  color: var(--text-muted);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+}
+
+.experience-empty-card h4 {
+  margin: 5px 0;
+  font-size: 1rem;
+}
+
+.experience-empty-card p {
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  line-height: 1.6;
+}
+
+.experience-empty-status {
+  margin-left: auto;
+  flex-shrink: 0;
+  padding: 8px 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 20px;
+  color: var(--text-muted);
+  font-size: 0.6rem;
+}
+
+.experience-empty-status i {
+  margin-right: 5px;
+}
+
+.experience-footer {
+  width: min(1100px, 100%);
+  margin: -1rem auto 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 9px;
+  color: var(--text-muted);
+  font-size: 0.62rem;
+  letter-spacing: 1.5px;
+  position: relative;
+  z-index: 1;
+}
+
+.experience-footer strong {
+  color: rgba(0,255,255,0.65);
+  font-weight: 600;
+}
+
+.experience-live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 12px rgba(0,255,255,0.8);
+  animation: experiencePulse 1.8s ease-in-out infinite;
+}
+
+@keyframes experiencePulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  50% {
+    opacity: 0.45;
+    transform: scale(0.7);
+  }
+}
+
+@media (max-width: 800px) {
+
+  .experience-section {
+    padding: 6rem 5% 4rem;
+  }
+
+  .experience-heading {
+    margin-bottom: 3.5rem;
+  }
+
+  .experience-subsection {
+    margin-bottom: 4rem;
+  }
+
+  .experience-timeline {
+    padding-left: 45px;
+  }
+
+  .experience-timeline::before {
+    left: 14px;
+  }
+
+  .experience-node {
+    left: -45px;
+    width: 32px;
+    height: 32px;
+    top: 22px;
+    font-size: 0.8rem;
+  }
+
+  .experience-card {
+    padding: 22px;
+  }
+
+  .experience-leadership-highlights {
+    grid-template-columns: 1fr;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .experience-subsection-heading {
+    gap: 13px;
+  }
+
+  .experience-subsection-icon {
+    width: 50px;
+    height: 50px;
+    min-width: 50px;
+    border-radius: 14px;
+  }
+
+  .experience-subsection-heading h3 {
+    font-size: 1.2rem;
+  }
+
+  .experience-card-top {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .experience-date {
+    align-self: flex-start;
+  }
+
+  .experience-card h4 {
+    font-size: 1.05rem;
+  }
+
+  .experience-description {
+    font-size: 0.72rem;
+  }
+
+  .experience-card-footer {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .experience-empty-card {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    padding: 22px;
+  }
+
+  .experience-empty-status {
+    margin-left: 0;
+  }
+
+  .experience-footer {
+    flex-wrap: wrap;
+    text-align: center;
+    line-height: 1.7;
+  }
+
+}
+
+@media (max-width: 420px) {
+
+  .experience-timeline {
+    padding-left: 38px;
+  }
+
+  .experience-timeline::before {
+    left: 11px;
+  }
+
+  .experience-node {
+    left: -38px;
+    width: 27px;
+    height: 27px;
+    font-size: 0.7rem;
+  }
+
+  .experience-card {
+    padding: 18px;
+  }
+
+  .experience-tags span {
+    font-size: 0.6rem;
+  }
+
+}
 /* ================================
    ACADEMICS SECTION
 ================================ */
@@ -4161,6 +4749,257 @@ section {
 </section>
 
 <div class="section-divider"></div>
+
+<section id="experience" class="experience-section">
+
+  <div class="experience-heading">
+    <span class="experience-eyebrow">PROFESSIONAL JOURNEY</span>
+    <h2>Experience &amp; Leadership</h2>
+    <p>
+      Experiences, responsibilities, and leadership opportunities that are shaping
+      my journey beyond the classroom.
+    </p>
+  </div>
+
+  <div class="experience-subsection">
+
+    <div class="experience-subsection-heading">
+      <div class="experience-subsection-icon">
+        <i class="fas fa-briefcase"></i>
+      </div>
+      <div>
+        <span>01</span>
+        <h3>Internships</h3>
+        <p>Professional learning and industry exposure.</p>
+      </div>
+    </div>
+
+    <div class="experience-timeline">
+
+      <div class="experience-item">
+        <div class="experience-node">
+          <i class="fas fa-user-graduate"></i>
+        </div>
+
+        <div class="experience-card">
+          <div class="experience-card-top">
+            <div>
+              <span class="experience-type">STUDENT PROGRAM</span>
+              <h4>Internshala Student Partner</h4>
+              <p class="experience-company">
+                Internshala
+              </p>
+            </div>
+
+            <span class="experience-date">2026</span>
+          </div>
+
+          <p class="experience-description">
+            Selected as an Internshala Student Partner, contributing to student
+            engagement and awareness of learning, internship, and career opportunities.
+          </p>
+
+          <div class="experience-tags">
+            <span>Student Community</span>
+            <span>Communication</span>
+            <span>Outreach</span>
+            <span>Leadership</span>
+          </div>
+
+          <div class="experience-card-footer">
+            <span>
+              <i class="fas fa-circle"></i>
+              Active
+            </span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="experience-subsection">
+
+    <div class="experience-subsection-heading">
+      <div class="experience-subsection-icon">
+        <i class="fas fa-building"></i>
+      </div>
+      <div>
+        <span>02</span>
+        <h3>Jobs</h3>
+        <p>Professional employment and industry experience.</p>
+      </div>
+    </div>
+
+    <div class="experience-empty-card">
+
+      <div class="experience-empty-icon">
+        <i class="fas fa-code"></i>
+      </div>
+
+      <div>
+        <span>CAREER PATH</span>
+        <h4>Ready for the next opportunity</h4>
+        <p>
+          Professional employment experience will be added here as my career
+          journey progresses.
+        </p>
+      </div>
+
+      <div class="experience-empty-status">
+        <i class="fas fa-hourglass-half"></i>
+        Future Experience
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="experience-subsection">
+
+    <div class="experience-subsection-heading">
+      <div class="experience-subsection-icon">
+        <i class="fas fa-crown"></i>
+      </div>
+      <div>
+        <span>03</span>
+        <h3>Leadership</h3>
+        <p>Teams, communities, and responsibilities I've taken ownership of.</p>
+      </div>
+    </div>
+
+    <div class="experience-timeline">
+
+      <div class="experience-item">
+        <div class="experience-node">
+          <i class="fas fa-users"></i>
+        </div>
+
+        <div class="experience-card leadership-card">
+
+          <div class="experience-card-top">
+            <div>
+              <span class="experience-type">TEAM LEADERSHIP</span>
+              <h4>Team Leader — Alpha Hackers</h4>
+              <p class="experience-company">
+                HackArena 2K26
+              </p>
+            </div>
+
+            <span class="experience-date">2026</span>
+          </div>
+
+          <p class="experience-description">
+            Led the Alpha Hackers team during HackArena 2K26, coordinating the
+            team throughout the hackathon and helping turn our idea into a working
+            project.
+          </p>
+
+          <div class="experience-leadership-highlights">
+
+            <div>
+              <strong>7th</strong>
+              <span>Final Rank</span>
+            </div>
+
+            <div>
+              <strong>Team</strong>
+              <span>Alpha Hackers</span>
+            </div>
+
+            <div>
+              <strong>Role</strong>
+              <span>Team Leader</span>
+            </div>
+
+          </div>
+
+          <div class="experience-tags">
+            <span>Team Leadership</span>
+            <span>Hackathon</span>
+            <span>Project Coordination</span>
+            <span>Problem Solving</span>
+          </div>
+
+          <div class="experience-card-footer">
+            <span>
+              <i class="fas fa-trophy"></i>
+              HackArena 2K26
+            </span>
+
+            <a href="#achievements">
+              View Achievement
+              <i class="fas fa-arrow-right"></i>
+            </a>
+          </div>
+
+        </div>
+      </div>
+
+
+      <div class="experience-item">
+        <div class="experience-node">
+          <i class="fab fa-microsoft"></i>
+        </div>
+
+        <div class="experience-card leadership-card">
+
+          <div class="experience-card-top">
+            <div>
+              <span class="experience-type">COMMUNITY</span>
+              <h4>Microsoft Learn Community</h4>
+              <p class="experience-company">
+                Community Influencer
+              </p>
+            </div>
+
+            <span class="experience-date">2026</span>
+          </div>
+
+          <p class="experience-description">
+            Participating in the Microsoft Learn community by sharing learning
+            resources, encouraging engagement, and contributing to the developer
+            learning ecosystem.
+          </p>
+
+          <div class="experience-tags">
+            <span>Microsoft Learn</span>
+            <span>Community</span>
+            <span>Technology</span>
+            <span>Knowledge Sharing</span>
+          </div>
+
+          <div class="experience-card-footer">
+            <span>
+              <i class="fas fa-circle"></i>
+              Active
+            </span>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="experience-footer">
+
+    <span class="experience-live-dot"></span>
+
+    <span>EXPERIENCE TIMELINE</span>
+
+    <strong>CONTINUOUSLY GROWING</strong>
+
+  </div>
+
+  <div class="section-divider"></div>
+
+</section>
   
   <section id="achievements">
   <h2>Achievements, Badges & Awards</h2>

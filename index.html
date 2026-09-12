@@ -14503,7 +14503,267 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(link) {
     ">TOP</span>
 
 </button>
+<!-- =========================
+     APS AI — STEP 1
+     Automated Portfolio Intelligence System
+     ========================= -->
 
+<div
+  id="aps-ai-launcher"
+  onclick="apsAIHandleLauncher()"
+  style="
+    position:fixed;
+    left:28px;
+    bottom:28px;
+    z-index:9998;
+    width:190px;
+    min-height:58px;
+    padding:10px 15px;
+    box-sizing:border-box;
+    display:flex;
+    align-items:center;
+    gap:11px;
+    cursor:pointer;
+    border:1px solid rgba(85,247,210,.28);
+    border-radius:16px;
+    background:
+      linear-gradient(
+        135deg,
+        rgba(85,247,210,.10),
+        rgba(77,163,255,.08),
+        rgba(155,140,255,.07)
+      );
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    box-shadow:
+      0 12px 35px rgba(0,0,0,.30),
+      0 0 25px rgba(85,247,210,.06);
+    color:#fff;
+    font-family:inherit;
+    overflow:hidden;
+    transform:translateY(20px);
+    opacity:0;
+    visibility:hidden;
+    transition:
+      opacity .45s ease,
+      visibility .45s ease,
+      transform .45s cubic-bezier(.16,1,.3,1),
+      border-color .3s ease,
+      box-shadow .3s ease;
+  "
+>
+
+  <!-- System indicator -->
+  <span
+    style="
+      position:relative;
+      width:31px;
+      height:31px;
+      flex-shrink:0;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid rgba(85,247,210,.35);
+      border-radius:10px;
+      background:rgba(85,247,210,.06);
+      color:#55f7d2;
+      font-size:13px;
+      box-shadow:inset 0 0 15px rgba(85,247,210,.05);
+    "
+  >
+    <i class="fas fa-sparkles"></i>
+
+    <span
+      style="
+        position:absolute;
+        top:-3px;
+        right:-3px;
+        width:6px;
+        height:6px;
+        border-radius:50%;
+        background:#55f7d2;
+        box-shadow:0 0 9px #55f7d2;
+        animation:apsAIStatusPulse 1.8s ease-in-out infinite;
+      "
+    ></span>
+  </span>
+
+  <!-- Text -->
+  <span
+    style="
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      line-height:1.1;
+    "
+  >
+    <strong
+      style="
+        font-size:11px;
+        font-weight:900;
+        letter-spacing:1.5px;
+        color:#ffffff;
+        white-space:nowrap;
+      "
+    >
+      ASK APS
+    </strong>
+
+    <small
+      style="
+        margin-top:5px;
+        font-size:8px;
+        font-weight:700;
+        letter-spacing:.7px;
+        color:#8d9aaa;
+        white-space:nowrap;
+      "
+    >
+      AUTOMATED PORTFOLIO SYSTEM
+    </small>
+  </span>
+
+  <!-- Arrow -->
+  <i
+    class="fas fa-chevron-right"
+    style="
+      margin-left:auto;
+      color:#55f7d2;
+      font-size:9px;
+      opacity:.65;
+      transition:transform .3s ease,opacity .3s ease;
+    "
+  ></i>
+
+</div>
+
+<style>
+@keyframes apsAIStatusPulse {
+
+  0%, 100% {
+    opacity:.45;
+    transform:scale(.8);
+  }
+
+  50% {
+    opacity:1;
+    transform:scale(1.25);
+  }
+
+}
+</style>
+
+<script>
+
+function apsAIHandleLauncher() {
+
+  /*
+    STEP 1 ONLY
+
+    The actual APS automated intelligence
+    interface will be connected in Step 2.
+  */
+
+  console.log(
+    "APS — Automated Portfolio Intelligence System"
+  );
+
+}
+
+
+const apsAILauncher =
+  document.getElementById("aps-ai-launcher");
+
+
+/* Show launcher after visitor starts scrolling */
+
+window.addEventListener("scroll", function () {
+
+  if (window.scrollY > 250) {
+
+    apsAILauncher.style.opacity = "1";
+    apsAILauncher.style.visibility = "visible";
+    apsAILauncher.style.transform =
+      "translateY(0)";
+
+  } else {
+
+    apsAILauncher.style.opacity = "0";
+    apsAILauncher.style.visibility = "hidden";
+    apsAILauncher.style.transform =
+      "translateY(20px)";
+
+  }
+
+});
+
+
+/* Hover effect */
+
+apsAILauncher.addEventListener(
+  "mouseenter",
+  function () {
+
+    this.style.transform =
+      "translateY(-4px)";
+
+    this.style.borderColor =
+      "rgba(85,247,210,.75)";
+
+    this.style.boxShadow =
+      "0 16px 40px rgba(0,0,0,.38),0 0 30px rgba(85,247,210,.12)";
+
+    const arrow =
+      this.querySelector(".fa-chevron-right");
+
+    if (arrow) {
+
+      arrow.style.transform =
+        "translateX(3px)";
+
+      arrow.style.opacity = "1";
+
+    }
+
+  }
+);
+
+
+/* Reset hover */
+
+apsAILauncher.addEventListener(
+  "mouseleave",
+  function () {
+
+    this.style.transform =
+      "translateY(0)";
+
+    this.style.borderColor =
+      "rgba(85,247,210,.28)";
+
+    this.style.boxShadow =
+      "0 12px 35px rgba(0,0,0,.30),0 0 25px rgba(85,247,210,.06)";
+
+    const arrow =
+      this.querySelector(".fa-chevron-right");
+
+    if (arrow) {
+
+      arrow.style.transform =
+        "translateX(0)";
+
+      arrow.style.opacity = ".65";
+
+    }
+
+  }
+);
+
+</script>
+
+<!-- =========================
+     END APS AI — STEP 1
+     ========================= -->
 <script>
     const backToTop = document.getElementById("backToTop");
 

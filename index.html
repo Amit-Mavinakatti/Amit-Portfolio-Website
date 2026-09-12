@@ -18092,7 +18092,1968 @@ Ask me something about Amit's portfolio and I'll try to help.
 
 
  
+<!-- =========================================================
+     APS AI — STEP 4
+     Conversational Intelligence + Context Engine
+     
+     Adds:
+     • Conversation memory
+     • Follow-up question understanding
+     • Context-aware answers
+     • Better intent detection
+     • Related-question understanding
+     • Confidence-aware responses
+     • Smart follow-up suggestions
+     • Natural conversational behavior
+     
+     Does NOT require modifying Steps 1–3.
+     ========================================================= -->
 
+<script>
+
+(function () {
+
+  "use strict";
+
+
+  /* =========================================================
+     1. CONVERSATION MEMORY
+     ========================================================= */
+
+  const APS_CONVERSATION = {
+
+    history: [],
+
+    lastQuestion: "",
+
+    lastAnswer: "",
+
+    lastTopic: "",
+
+    lastSearchResults: [],
+
+    lastEntity: "",
+
+    turnCount: 0,
+
+    maxHistory: 12
+
+  };
+
+
+  /* =========================================================
+     2. TOPIC / ENTITY DEFINITIONS
+     ========================================================= */
+
+  const APS_CONTEXT_TOPICS = {
+
+    projects: [
+      "project",
+      "projects",
+      "built",
+      "build",
+      "application",
+      "app",
+      "platform",
+      "system",
+      "developed"
+    ],
+
+    hackathon: [
+      "hackathon",
+      "hackarena",
+      "competition",
+      "alpha hackers",
+      "team",
+      "rank"
+    ],
+
+    skills: [
+      "skill",
+      "skills",
+      "technology",
+      "technologies",
+      "tech",
+      "programming",
+      "language",
+      "stack"
+    ],
+
+    academics: [
+      "academic",
+      "academics",
+      "education",
+      "college",
+      "degree",
+      "semester",
+      "cgpa",
+      "sgpa"
+    ],
+
+    coding: [
+      "coding",
+      "codewars",
+      "leetcode",
+      "kata",
+      "dsa",
+      "problem solving"
+    ],
+
+    certificates: [
+      "certificate",
+      "certificates",
+      "credential",
+      "credentials",
+      "badge",
+      "certification"
+    ],
+
+    achievements: [
+      "achievement",
+      "achievements",
+      "award",
+      "rank",
+      "milestone"
+    ],
+
+    career: [
+      "career",
+      "goal",
+      "goals",
+      "future",
+      "internship",
+      "job",
+      "software engineer",
+      "ambition"
+    ],
+
+    journey: [
+      "journey",
+      "learning",
+      "currently",
+      "current",
+      "focus",
+      "progress",
+      "growth"
+    ]
+
+  };
+
+
+  /* =========================================================
+     3. NORMALIZATION
+     ========================================================= */
+
+  function aps4Normalize(text) {
+
+    return String(text || "")
+
+      .toLowerCase()
+
+      .replace(/[^\p{L}\p{N}\s]/gu, " ")
+
+      .replace(/\s+/g, " ")
+
+      .trim();
+
+  }
+
+
+  /* =========================================================
+     4. DETECT CURRENT TOPIC
+     ========================================================= */
+
+  function aps4DetectTopic(question) {
+
+    const q =
+      aps4Normalize(question);
+
+
+    let bestTopic = null;
+
+    let bestScore = 0;
+
+
+    Object.keys(
+      APS_CONTEXT_TOPICS
+    ).forEach(function (topic) {
+
+      let score = 0;
+
+
+      APS_CONTEXT_TOPICS[topic]
+        .forEach(function (keyword) {
+
+          const k =
+            aps4Normalize(keyword);
+
+
+          if (
+            q.includes(k)
+          ) {
+
+            score +=
+              k.length > 5
+                ? 2
+                : 1;
+
+          }
+
+        });
+
+
+      if (
+        score > bestScore
+      ) {
+
+        bestScore =
+          score;
+
+        bestTopic =
+          topic;
+
+      }
+
+    });
+
+
+    return {
+
+      topic:
+        bestTopic,
+
+      score:
+        bestScore
+
+    };
+
+  }
+
+
+  /* =========================================================
+     5. DETECT FOLLOW-UP QUESTIONS
+     
+     Examples:
+     
+     "What projects has he built?"
+     "Which one is the best?"
+     "What technology did he use?"
+     "When did he do it?"
+     
+     The second question depends on the first.
+     ========================================================= */
+
+  function aps4IsFollowUp(question) {
+
+    const q =
+      aps4Normalize(question);
+
+
+    const followUpPatterns = [
+
+      "which one",
+
+      "which project",
+
+      "what about it",
+
+      "what about that",
+
+      "tell me more",
+
+      "more about it",
+
+      "more about that",
+
+      "what technology",
+
+      "what technologies",
+
+      "which technology",
+
+      "which technologies",
+
+      "what tech",
+
+      "when did he",
+
+      "where did he",
+
+      "why did he",
+
+      "how did he",
+
+      "how was it",
+
+      "what was his role",
+
+      "what was the role",
+
+      "what happened",
+
+      "what rank",
+
+      "what position",
+
+      "how many",
+
+      "which one is",
+
+      "the best one",
+
+      "his best",
+
+      "his role",
+
+      "that project",
+
+      "this project",
+
+      "that hackathon",
+
+      "this hackathon",
+
+      "that certificate",
+
+      "this certificate",
+
+      "that skill",
+
+      "this skill"
+
+    ];
+
+
+    return followUpPatterns.some(
+      function (pattern) {
+
+        return q.includes(pattern);
+
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     6. DETECT PRONOUN-BASED QUESTIONS
+     ========================================================= */
+
+  function aps4UsesContextPronoun(question) {
+
+    const q =
+      aps4Normalize(question);
+
+
+    const contextWords = [
+
+      "it",
+
+      "that",
+
+      "this",
+
+      "they",
+
+      "them",
+
+      "he",
+
+      "his",
+
+      "one",
+
+      "there",
+
+      "then"
+
+    ];
+
+
+    const words =
+      q.split(" ");
+
+
+    return words.some(
+      function (word) {
+
+        return contextWords.includes(
+          word
+        );
+
+      }
+    );
+
+  }
+
+
+  /* =========================================================
+     7. DETERMINE EFFECTIVE QUESTION
+     
+     Turns:
+     
+     "What projects?"
+     +
+     "Which one is best?"
+     
+     into a context-aware request.
+     ========================================================= */
+
+  function aps4BuildContextQuestion(question) {
+
+    const current =
+      String(question || "")
+        .trim();
+
+
+    const isFollowUp =
+      aps4IsFollowUp(current);
+
+
+    const usesPronoun =
+      aps4UsesContextPronoun(current);
+
+
+    if (
+      !isFollowUp &&
+      !usesPronoun
+    ) {
+
+      return {
+
+        question:
+          current,
+
+        usedContext:
+          false
+
+      };
+
+    }
+
+
+    if (
+      !APS_CONVERSATION.lastQuestion
+    ) {
+
+      return {
+
+        question:
+          current,
+
+        usedContext:
+          false
+
+      };
+
+    }
+
+
+    const previous =
+      APS_CONVERSATION.lastQuestion;
+
+
+    const previousTopic =
+      APS_CONVERSATION.lastTopic ||
+      "general";
+
+
+    return {
+
+      question:
+        previous +
+        " " +
+        current +
+        " Context topic: " +
+        previousTopic,
+
+      usedContext:
+        true
+
+    };
+
+  }
+
+
+  /* =========================================================
+     8. DETECT ENTITY FROM CURRENT CONTEXT
+     ========================================================= */
+
+  function aps4DetectEntity(question) {
+
+    const q =
+      aps4Normalize(question);
+
+
+    const entities = [
+
+      {
+        name:
+          "Doctor Availability & Teleconsultation Platform",
+
+        aliases: [
+          "doctor",
+          "teleconsultation",
+          "telemedicine",
+          "healthcare",
+          "doctor availability"
+        ]
+      },
+
+      {
+        name:
+          "Smart Food Rescue System",
+
+        aliases: [
+          "food rescue",
+          "food",
+          "restaurant",
+          "ngo",
+          "volunteer",
+          "delivery"
+        ]
+      },
+
+      {
+        name:
+          "Expense Tracker",
+
+        aliases: [
+          "expense",
+          "expenses",
+          "expense tracker"
+        ]
+      },
+
+      {
+        name:
+          "APS",
+
+        aliases: [
+          "aps",
+          "portfolio",
+          "amit personal space",
+          "personal space"
+        ]
+      },
+
+      {
+        name:
+          "HackArena 2K26",
+
+        aliases: [
+          "hackarena",
+          "hackathon"
+        ]
+      },
+
+      {
+        name:
+          "Codewars",
+
+        aliases: [
+          "codewars",
+          "kata",
+          "3 kyu"
+        ]
+      }
+
+    ];
+
+
+    for (
+      let i = 0;
+      i < entities.length;
+      i++
+    ) {
+
+      const entity =
+        entities[i];
+
+
+      for (
+        let j = 0;
+        j < entity.aliases.length;
+        j++
+      ) {
+
+        if (
+          q.includes(
+            aps4Normalize(
+              entity.aliases[j]
+            )
+          )
+        ) {
+
+          return entity.name;
+
+        }
+
+      }
+
+    }
+
+
+    return "";
+
+  }
+
+
+  /* =========================================================
+     9. SMART FOLLOW-UP ANSWERS
+     
+     These answers are generated from the conversation context
+     instead of requiring a new hard-coded question.
+     ========================================================= */
+
+  function aps4HandleFollowUp(question) {
+
+    const q =
+      aps4Normalize(question);
+
+
+    const previousTopic =
+      APS_CONVERSATION.lastTopic;
+
+
+    const previousEntity =
+      APS_CONVERSATION.lastEntity;
+
+
+    /* ---------------------------------------------
+       PROJECT FOLLOW-UPS
+       --------------------------------------------- */
+
+    if (
+      previousTopic === "projects" ||
+      previousEntity ===
+        "Doctor Availability & Teleconsultation Platform" ||
+      previousEntity ===
+        "Smart Food Rescue System" ||
+      previousEntity ===
+        "Expense Tracker"
+    ) {
+
+      if (
+        q.includes("which one") ||
+        q.includes("best one") ||
+        q.includes("best project")
+      ) {
+
+        return `
+There isn't an objectively "best" project because each one demonstrates something different.
+
+The **Doctor Availability & Teleconsultation Platform** demonstrates work around a real-world healthcare problem.
+
+The **Smart Food Rescue System** demonstrates role-based system design and coordination between multiple types of users.
+
+The **Expense Tracker** demonstrates Java desktop development and API integration.
+
+So the strongest project depends on what you want to evaluate.
+        `.trim();
+
+      }
+
+
+      if (
+        q.includes("what technology") ||
+        q.includes("what technologies") ||
+        q.includes("what tech") ||
+        q.includes("which technology")
+      ) {
+
+        if (
+          previousEntity ===
+          "Expense Tracker"
+        ) {
+
+          return `
+The Expense Tracker was built around **Java**, particularly **Swing and AWT**, with a **ChatGPT API integration**.
+
+That makes it different from the web-based projects in the portfolio.
+          `.trim();
+
+        }
+
+
+        if (
+          previousEntity ===
+          "Smart Food Rescue System"
+        ) {
+
+          return `
+The Smart Food Rescue System uses technologies including **Node.js, Express, MongoDB and REST-style backend functionality**.
+
+Its architecture also includes different user roles such as restaurant, volunteer, NGO, delivery and admin.
+          `.trim();
+
+        }
+
+
+        return `
+The Doctor Availability & Teleconsultation Platform uses technologies including **Node.js, REST APIs and MongoDB**.
+
+It was developed as a practical hackathon project focused on healthcare availability and teleconsultation.
+        `.trim();
+
+      }
+
+    }
+
+
+    /* ---------------------------------------------
+       HACKATHON FOLLOW-UPS
+       --------------------------------------------- */
+
+    if (
+      previousTopic === "hackathon" ||
+      previousEntity ===
+        "HackArena 2K26"
+    ) {
+
+      if (
+        q.includes("role") ||
+        q.includes("position")
+      ) {
+
+        return `
+Amit was the **Team Leader** of Alpha Hackers during HackArena 2K26.
+
+The team ultimately finished **7th**.
+        `.trim();
+
+      }
+
+
+      if (
+        q.includes("team")
+      ) {
+
+        return `
+The team was called **Alpha Hackers**.
+
+Amit participated as the **Team Leader**.
+        `.trim();
+
+      }
+
+
+      if (
+        q.includes("rank") ||
+        q.includes("result") ||
+        q.includes("position")
+      ) {
+
+        return `
+Alpha Hackers finished **7th** at HackArena 2K26.
+        `.trim();
+
+      }
+
+
+      if (
+        q.includes("first") ||
+        q.includes("experience")
+      ) {
+
+        return `
+HackArena 2K26 was Amit's **first hackathon**.
+
+The experience involved team leadership, rapid development, presentation, collaboration and building under time constraints.
+        `.trim();
+
+      }
+
+    }
+
+
+    /* ---------------------------------------------
+       CODING FOLLOW-UPS
+       --------------------------------------------- */
+
+    if (
+      previousTopic === "coding" ||
+      previousEntity === "Codewars"
+    ) {
+
+      if (
+        q.includes("rank")
+      ) {
+
+        return `
+Amit's current Codewars rank is **3 kyu**.
+        `.trim();
+
+      }
+
+
+      if (
+        q.includes("how many") ||
+        q.includes("kata")
+      ) {
+
+        return `
+The Codewars profile currently has **170 kata**.
+        `.trim();
+
+      }
+
+
+      if (
+        q.includes("username") ||
+        q.includes("profile")
+      ) {
+
+        return `
+The Codewars username is **AmitM8**.
+        `.trim();
+
+      }
+
+    }
+
+
+    /* ---------------------------------------------
+       ACADEMIC FOLLOW-UPS
+       --------------------------------------------- */
+
+    if (
+      previousTopic === "academics"
+    ) {
+
+      if (
+        q.includes("cgpa") ||
+        q.includes("overall")
+      ) {
+
+        return `
+The first-year CGPA was **8.95**.
+
+The semester SGPAs recorded in APS are:
+
+S1 — 8.90  
+S2 — 9.00  
+S3 — 8.57  
+S4 — 8.21
+        `.trim();
+
+      }
+
+
+      if (
+        q.includes("college") ||
+        q.includes("where")
+      ) {
+
+        return `
+Amit is pursuing BE CSE at **A.G.M. Rural College of Engineering & Technology, Varur**.
+        `.trim();
+
+      }
+
+    }
+
+
+    return null;
+
+  }
+
+
+  /* =========================================================
+     10. SMART UNKNOWN-QUESTION HANDLING
+     ========================================================= */
+
+  function aps4BuildUnknownResponse(
+    question,
+    searchData
+  ) {
+
+    if (
+      !searchData ||
+      !searchData.results ||
+      !searchData.results.length
+    ) {
+
+      return `
+I couldn't find enough reliable information about that in Amit's portfolio.
+
+I don't want to make up an answer.
+
+You can ask me about his **projects, skills, academics, coding journey, hackathons, certificates, achievements, current focus or career direction**.
+
+If your question is related to something in the portfolio, try rephrasing it and I'll search again.
+      `.trim();
+
+    }
+
+
+    const best =
+      searchData.results[0];
+
+
+    if (
+      searchData.confidence >=
+      2
+    ) {
+
+      return `
+I couldn't find an exact predefined answer, but I found something related in the portfolio:
+
+**${best.text}**
+
+If you were asking about a specific part of this, you can ask a follow-up question and I'll use this context.
+      `.trim();
+
+    }
+
+
+    return `
+That isn't something I have a confident direct answer for yet.
+
+However, I found related information:
+
+${best.text}
+
+I'm keeping the answer cautious rather than inventing details that aren't available in the portfolio.
+    `.trim();
+
+  }
+
+
+  /* =========================================================
+     11. SMART FOLLOW-UP SUGGESTIONS
+     ========================================================= */
+
+  function aps4Suggestions(topic) {
+
+    const suggestions = {
+
+      identity: [
+        "What are his skills?",
+        "What projects has he built?",
+        "What is he currently learning?"
+      ],
+
+      academics: [
+        "What is his CGPA?",
+        "What is he studying?",
+        "What are his current goals?"
+      ],
+
+      skills: [
+        "Which projects use these skills?",
+        "What is he currently learning?",
+        "How does he practice DSA?"
+      ],
+
+      projects: [
+        "Which project is the most interesting?",
+        "What technologies did he use?",
+        "Tell me about his hackathon project."
+      ],
+
+      hackathon: [
+        "What was his role?",
+        "What was the final result?",
+        "What did he learn from it?"
+      ],
+
+      coding: [
+        "What is his Codewars rank?",
+        "How many kata has he completed?",
+        "What is he currently practicing?"
+      ],
+
+      certificates: [
+        "What is his latest credential?",
+        "What other achievements does he have?",
+        "What is he currently learning?"
+      ],
+
+      achievements: [
+        "Tell me about his hackathon.",
+        "What is his Codewars rank?",
+        "What are his current goals?"
+      ],
+
+      career: [
+        "What skills is he building?",
+        "What projects has he built?",
+        "What is his current focus?"
+      ],
+
+      journey: [
+        "What is he learning now?",
+        "What projects has he built?",
+        "What are his career goals?"
+      ]
+
+    };
+
+
+    return (
+      suggestions[topic] ||
+      [
+        "Who is Amit?",
+        "What are his skills?",
+        "What projects has he built?"
+      ]
+    );
+
+  }
+
+
+  /* =========================================================
+     12. RESPONSE ENHANCER
+     
+     Adds context and next-question suggestions without
+     making the answer unnecessarily long.
+     ========================================================= */
+
+  function aps4EnhanceResponse(
+    response,
+    topic
+  ) {
+
+    if (!response) return "";
+
+
+    const suggestions =
+      aps4Suggestions(
+        topic
+      );
+
+
+    const selected =
+      suggestions.slice(
+        0,
+        2
+      );
+
+
+    return (
+      response +
+      "\n\n" +
+      "You can also ask:\n" +
+      "→ " +
+      selected[0] +
+      "\n" +
+      "→ " +
+      selected[1]
+    );
+
+  }
+
+
+  /* =========================================================
+     13. MAIN STEP 4 INTELLIGENCE
+     ========================================================= */
+
+  function aps4GenerateResponse(
+    originalQuestion
+  ) {
+
+    const question =
+      String(
+        originalQuestion || ""
+      ).trim();
+
+
+    if (!question) {
+
+      return `
+Ask me something about Amit's portfolio and I'll help you explore it.
+      `.trim();
+
+    }
+
+
+    /* ---------------------------------------------
+       Context-aware question
+       --------------------------------------------- */
+
+    const contextQuestion =
+      aps4BuildContextQuestion(
+        question
+      );
+
+
+    const effectiveQuestion =
+      contextQuestion.question;
+
+
+    /* ---------------------------------------------
+       Detect current topic
+       --------------------------------------------- */
+
+    let topicData =
+      aps4DetectTopic(
+        question
+      );
+
+
+    let topic =
+      topicData.topic;
+
+
+    /* If this is a follow-up with no new topic,
+       keep previous topic. */
+
+    if (
+      !topic &&
+      contextQuestion.usedContext
+    ) {
+
+      topic =
+        APS_CONVERSATION.lastTopic;
+
+    }
+
+
+    if (!topic) {
+
+      topic =
+        "general";
+
+    }
+
+
+    /* ---------------------------------------------
+       Detect entity
+       --------------------------------------------- */
+
+    let entity =
+      aps4DetectEntity(
+        question
+      );
+
+
+    if (!entity) {
+
+      entity =
+        APS_CONVERSATION.lastEntity;
+
+    }
+
+
+    /* ---------------------------------------------
+       Try contextual follow-up first
+       --------------------------------------------- */
+
+    if (
+      contextQuestion.usedContext
+    ) {
+
+      const contextualAnswer =
+        aps4HandleFollowUp(
+          question
+        );
+
+
+      if (contextualAnswer) {
+
+        const enhanced =
+          aps4EnhanceResponse(
+            contextualAnswer,
+            topic
+          );
+
+
+        aps4RememberConversation(
+
+
+          </script>
+
+  <!-- =========================================================
+     APS STEP 5 — ADVANCED UI / UX + INTERACTION LAYER
+     Paste AFTER APS STEP 4
+     ========================================================= -->
+
+<style>
+/* =========================================================
+   APS STEP 5 — UI ENHANCEMENTS
+   ========================================================= */
+
+#aps-ai-panel.aps5-enhanced {
+    overflow: hidden;
+}
+
+#aps-ai-panel.aps5-enhanced #aps-ai-messages {
+    scroll-behavior: smooth;
+}
+
+/* ---------- Thinking Indicator ---------- */
+
+.aps5-thinking {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: fit-content;
+    max-width: 85%;
+    margin: 8px 0;
+    padding: 10px 13px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.045);
+    border: 1px solid rgba(255,255,255,0.08);
+    color: rgba(255,255,255,0.68);
+    font-size: 12px;
+    letter-spacing: 0.02em;
+    animation: aps5ThinkingIn 0.25s ease;
+}
+
+.aps5-thinking-dots {
+    display: flex;
+    gap: 3px;
+}
+
+.aps5-thinking-dots span {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: aps5Dot 1.2s infinite ease-in-out;
+}
+
+.aps5-thinking-dots span:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.aps5-thinking-dots span:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+@keyframes aps5Dot {
+    0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: 0.35;
+    }
+
+    30% {
+        transform: translateY(-3px);
+        opacity: 1;
+    }
+}
+
+@keyframes aps5ThinkingIn {
+    from {
+        opacity: 0;
+        transform: translateY(5px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ---------- System Status ---------- */
+
+.aps5-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 7px;
+    padding: 3px 7px;
+    border-radius: 999px;
+    border: 1px solid rgba(80,220,180,0.18);
+    background: rgba(80,220,180,0.06);
+    color: rgba(150,255,220,0.8);
+    font-size: 9px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    vertical-align: middle;
+}
+
+.aps5-status-dot {
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: #62f5b5;
+    box-shadow: 0 0 8px rgba(98,245,181,0.8);
+    animation: aps5StatusPulse 2s infinite;
+}
+
+@keyframes aps5StatusPulse {
+    0%, 100% {
+        opacity: 0.55;
+        transform: scale(0.9);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.15);
+    }
+}
+
+
+/* ---------- Message Improvements ---------- */
+
+.aps5-message-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 5px;
+    font-size: 9px;
+    opacity: 0.42;
+    letter-spacing: 0.04em;
+}
+
+.aps5-message-tag {
+    text-transform: uppercase;
+}
+
+
+/* ---------- Quick Suggestion Chips ---------- */
+
+.aps5-suggestion-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin: 8px 0 4px;
+}
+
+.aps5-chip {
+    appearance: none;
+    border: 1px solid rgba(255,255,255,0.09);
+    background: rgba(255,255,255,0.035);
+    color: rgba(255,255,255,0.72);
+    border-radius: 999px;
+    padding: 7px 11px;
+    font-size: 10px;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+        transform 0.2s ease,
+        border-color 0.2s ease,
+        background 0.2s ease,
+        color 0.2s ease;
+}
+
+.aps5-chip:hover {
+    transform: translateY(-1px);
+    border-color: rgba(100,210,255,0.35);
+    background: rgba(100,210,255,0.08);
+    color: rgba(255,255,255,0.95);
+}
+
+.aps5-chip:active {
+    transform: scale(0.96);
+}
+
+
+/* ---------- Input Processing State ---------- */
+
+.aps5-input-processing {
+    opacity: 0.55 !important;
+    pointer-events: none !important;
+}
+
+.aps5-send-processing {
+    animation: aps5SendPulse 0.8s infinite;
+}
+
+@keyframes aps5SendPulse {
+    50% {
+        transform: scale(0.9);
+        opacity: 0.55;
+    }
+}
+
+
+/* ---------- Scrollbar ---------- */
+
+#aps-ai-messages::-webkit-scrollbar {
+    width: 4px;
+}
+
+#aps-ai-messages::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+#aps-ai-messages::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.12);
+    border-radius: 999px;
+}
+
+#aps-ai-messages::-webkit-scrollbar-thumb:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+
+/* ---------- Mobile ---------- */
+
+@media (max-width: 600px) {
+
+    #aps-ai-panel.aps5-enhanced {
+        max-width: calc(100vw - 20px);
+        width: calc(100vw - 20px);
+    }
+
+    .aps5-chip {
+        font-size: 9px;
+        padding: 7px 9px;
+    }
+
+    .aps5-thinking {
+        font-size: 11px;
+    }
+}
+</style>
+
+
+<script>
+(function () {
+
+    "use strict";
+
+    /* =========================================================
+       APS STEP 5 — INITIALIZATION
+       ========================================================= */
+
+    function aps5Init() {
+
+        const panel = document.getElementById("aps-ai-panel");
+        const messages = document.getElementById("aps-ai-messages");
+        const input = document.getElementById("aps-ai-input");
+        const sendButton = document.querySelector(
+            "#aps-ai-panel button[onclick*='apsAISend']"
+        );
+
+        if (!panel || !messages) return;
+
+        panel.classList.add("aps5-enhanced");
+
+        /* -----------------------------------------------------
+           SYSTEM STATUS
+           ----------------------------------------------------- */
+
+        const statusTarget =
+            panel.querySelector("h1, h2, h3, strong, [class*='title']");
+
+        if (
+            statusTarget &&
+            !panel.querySelector(".aps5-status")
+        ) {
+
+            const status = document.createElement("span");
+
+            status.className = "aps5-status";
+
+            status.innerHTML = `
+                <span class="aps5-status-dot"></span>
+                ONLINE
+            `;
+
+            statusTarget.appendChild(status);
+        }
+
+
+        /* -----------------------------------------------------
+           AUTO SCROLL
+           ----------------------------------------------------- */
+
+        const observer = new MutationObserver(function () {
+
+            messages.scrollTo({
+                top: messages.scrollHeight,
+                behavior: "smooth"
+            });
+
+        });
+
+        observer.observe(messages, {
+            childList: true,
+            subtree: true
+        });
+
+
+        /* -----------------------------------------------------
+           ENTER KEY — SAFETY LAYER
+           ----------------------------------------------------- */
+
+        if (
+            input &&
+            !input.dataset.apsStep5Enter
+        ) {
+
+            input.dataset.apsStep5Enter = "true";
+
+            input.addEventListener("keydown", function (event) {
+
+                if (
+                    event.key === "Enter" &&
+                    !event.shiftKey
+                ) {
+
+                    event.preventDefault();
+
+                    if (
+                        typeof window.apsAISendStep2Message ===
+                        "function"
+                    ) {
+                        window.apsAISendStep2Message();
+                    }
+
+                }
+
+            });
+
+        }
+
+
+        /* -----------------------------------------------------
+           FOCUS INPUT WHEN PANEL OPENS
+           ----------------------------------------------------- */
+
+        const originalOpen = window.apsAIOpen;
+
+        if (
+            typeof originalOpen === "function" &&
+            !window.apsStep5OpenWrapped
+        ) {
+
+            window.apsStep5OpenWrapped = true;
+
+            window.apsAIOpen = function () {
+
+                originalOpen.apply(this, arguments);
+
+                setTimeout(function () {
+
+                    if (input) {
+                        input.focus();
+                    }
+
+                }, 250);
+
+            };
+
+        }
+
+
+        /* -----------------------------------------------------
+           SEND BUTTON PROCESSING STATE
+           ----------------------------------------------------- */
+
+        if (
+            sendButton &&
+            !sendButton.dataset.apsStep5Send
+        ) {
+
+            sendButton.dataset.apsStep5Send = "true";
+
+            sendButton.addEventListener("click", function () {
+
+                aps5StartProcessing();
+
+            });
+
+        }
+
+    }
+
+
+    /* =========================================================
+       THINKING INDICATOR
+       ========================================================= */
+
+    function aps5ShowThinking() {
+
+        const messages =
+            document.getElementById("aps-ai-messages");
+
+        if (!messages) return;
+
+        if (
+            document.getElementById("aps5-thinking")
+        ) return;
+
+        const thinking =
+            document.createElement("div");
+
+        thinking.id = "aps5-thinking";
+
+        thinking.className = "aps5-thinking";
+
+        thinking.innerHTML = `
+            <span>APS is thinking</span>
+
+            <span class="aps5-thinking-dots">
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+        `;
+
+        messages.appendChild(thinking);
+
+        messages.scrollTo({
+            top: messages.scrollHeight,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    function aps5HideThinking() {
+
+        const thinking =
+            document.getElementById("aps5-thinking");
+
+        if (thinking) {
+            thinking.remove();
+        }
+
+    }
+
+
+    /* =========================================================
+       PROCESSING
+       ========================================================= */
+
+    function aps5StartProcessing() {
+
+        const input =
+            document.getElementById("aps-ai-input");
+
+        if (input) {
+            input.classList.add(
+                "aps5-input-processing"
+            );
+        }
+
+        aps5ShowThinking();
+
+        setTimeout(function () {
+
+            aps5HideThinking();
+
+            if (input) {
+                input.classList.remove(
+                    "aps5-input-processing"
+                );
+            }
+
+        }, 650);
+
+    }
+
+
+    /* =========================================================
+       MESSAGE META
+       ========================================================= */
+
+    window.aps5AddMeta = function (
+        messageElement,
+        type
+    ) {
+
+        if (!messageElement) return;
+
+        if (
+            messageElement.querySelector(
+                ".aps5-message-meta"
+            )
+        ) {
+            return;
+        }
+
+        const meta =
+            document.createElement("div");
+
+        meta.className =
+            "aps5-message-meta";
+
+        const time =
+            new Date().toLocaleTimeString(
+                [],
+                {
+                    hour: "2-digit",
+                    minute: "2-digit"
+                }
+            );
+
+        meta.innerHTML = `
+            <span class="aps5-message-tag">
+                ${type || "APS"}
+            </span>
+
+            <span>•</span>
+
+            <span>${time}</span>
+        `;
+
+        messageElement.appendChild(meta);
+
+    };
+
+
+    /* =========================================================
+       QUICK FOLLOW-UP CHIPS
+       ========================================================= */
+
+    window.aps5ShowSuggestions = function (
+        suggestions
+    ) {
+
+        const messages =
+            document.getElementById(
+                "aps-ai-messages"
+            );
+
+        if (!messages) return;
+
+        const old =
+            document.getElementById(
+                "aps5-suggestion-wrap"
+            );
+
+        if (old) old.remove();
+
+        if (
+            !Array.isArray(suggestions) ||
+            suggestions.length === 0
+        ) {
+            return;
+        }
+
+        const wrap =
+            document.createElement("div");
+
+        wrap.id =
+            "aps5-suggestion-wrap";
+
+        wrap.className =
+            "aps5-suggestion-wrap";
+
+        suggestions
+            .slice(0, 4)
+            .forEach(function (question) {
+
+                const button =
+                    document.createElement("button");
+
+                button.type = "button";
+
+                button.className =
+                    "aps5-chip";
+
+                button.textContent =
+                    question;
+
+                button.addEventListener(
+                    "click",
+                    function () {
+
+                        const input =
+                            document.getElementById(
+                                "aps-ai-input"
+                            );
+
+                        if (!input) return;
+
+                        input.value =
+                            question;
+
+                        input.focus();
+
+                        if (
+                            typeof window
+                                .apsAISendStep2Message ===
+                            "function"
+                        ) {
+                            window
+                                .apsAISendStep2Message();
+                        }
+
+                    }
+                );
+
+                wrap.appendChild(button);
+
+            });
+
+        messages.appendChild(wrap);
+
+        messages.scrollTo({
+            top: messages.scrollHeight,
+            behavior: "smooth"
+        });
+
+    };
+
+
+    /* =========================================================
+       ENHANCE EXISTING MESSAGES
+       ========================================================= */
+
+    function aps5EnhanceMessages() {
+
+        const messages =
+            document.getElementById(
+                "aps-ai-messages"
+            );
+
+        if (!messages) return;
+
+        Array.from(
+            messages.children
+        ).forEach(function (message) {
+
+            if (
+                message.dataset.aps5Enhanced
+            ) {
+                return;
+            }
+
+            message.dataset.aps5Enhanced =
+                "true";
+
+            const text =
+                (
+                    message.textContent ||
+                    ""
+                ).toLowerCase();
+
+            const type =
+                text.includes("amit") ||
+                text.includes("aps")
+                    ? "APS"
+                    : "USER";
+
+            window.aps5AddMeta(
+                message,
+                type
+            );
+
+        });
+
+    }
+
+
+    /* =========================================================
+       INTERCEPT APS SYSTEM RESPONSE
+       ========================================================= */
+
+    if (
+        typeof window.apsAIAddSystemMessage ===
+        "function" &&
+        !window.apsStep5SystemWrapped
+    ) {
+
+        window.apsStep5SystemWrapped = true;
+
+        const originalSystemMessage =
+            window.apsAIAddSystemMessage;
+
+        window.apsAIAddSystemMessage =
+            function (text) {
+
+                aps5HideThinking();
+
+                originalSystemMessage
+                    .apply(this, arguments);
+
+                setTimeout(function () {
+
+                    aps5EnhanceMessages();
+
+                }, 20);
+
+            };
+
+    }
+
+
+    /* =========================================================
+       INTERCEPT USER MESSAGE
+       ========================================================= */
+
+    if (
+        typeof window.apsAIAddUserMessage ===
+        "function" &&
+        !window.apsStep5UserWrapped
+    ) {
+
+        window.apsStep5UserWrapped = true;
+
+        const originalUserMessage =
+            window.apsAIAddUserMessage;
+
+        window.apsAIAddUserMessage =
+            function (text) {
+
+                aps5HideThinking();
+
+                originalUserMessage
+                    .apply(this, arguments);
+
+                setTimeout(function () {
+
+                    aps5EnhanceMessages();
+
+                }, 20);
+
+            };
+
+    }
+
+
+    /* =========================================================
+       INITIALIZE
+       ========================================================= */
+
+    if (
+        document.readyState ===
+        "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            aps5Init
+        );
+
+    } else {
+
+        aps5Init();
+
+    }
+
+
+    /* =========================================================
+       DEBUG
+       ========================================================= */
+
+    window.APS_STEP5_DEBUG = {
+
+        thinking: function () {
+            aps5ShowThinking();
+        },
+
+        stopThinking: function () {
+            aps5HideThinking();
+        },
+
+        suggestions: function () {
+
+            aps5ShowSuggestions([
+                "What projects has Amit built?",
+                "Tell me about his hackathon",
+                "What technologies does he know?",
+                "What is Amit working toward?"
+            ]);
+
+        },
+
+        refresh: function () {
+            aps5EnhanceMessages();
+        }
+
+    };
+
+})();
+</script>
 <script>
 
   const bgCanvas = document.getElementById("bgCanvas");

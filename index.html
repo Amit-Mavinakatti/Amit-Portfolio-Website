@@ -9556,20 +9556,169 @@ section {
 </head>
 <body>
 
-
-
 <header class="main-header">
 
   <a href="#home" class="brand">
-    <span class="brand-icon">&lt;/&gt;</span>
-    <span class="brand-text">APS<span>-AMIT'S PERSONAL SPACE</span></span>
+
+    <!-- APS — AMIT'S PERSONAL SPACE -->
+    <div
+      onclick="
+        event.preventDefault();
+        this.classList.toggle('aps-active');
+      "
+      style="
+        position:relative;
+        width:46px;
+        height:46px;
+        display:flex;
+        align-items:center;
+        justify-content:center;
+        flex-shrink:0;
+        overflow:hidden;
+        border:1px solid rgba(85,247,210,.30);
+        border-radius:14px;
+        background:linear-gradient(
+          145deg,
+          rgba(85,247,210,.10),
+          rgba(77,163,255,.08),
+          rgba(155,140,255,.06)
+        );
+        box-shadow:
+          0 8px 25px rgba(0,0,0,.25),
+          inset 0 0 20px rgba(85,247,210,.035);
+        transition:
+          transform .45s cubic-bezier(.16,1,.3,1),
+          border-color .35s ease,
+          box-shadow .35s ease;
+      "
+
+      onmouseenter="
+        this.style.transform='translateY(-2px) rotate(-2deg) scale(1.04)';
+        this.style.borderColor='rgba(85,247,210,.75)';
+        this.style.boxShadow='0 12px 35px rgba(0,0,0,.35),0 0 25px rgba(85,247,210,.12),inset 0 0 20px rgba(85,247,210,.06)';
+      "
+
+      onmouseleave="
+        if(!this.classList.contains('aps-active')){
+          this.style.transform='translateY(0) rotate(0) scale(1)';
+          this.style.borderColor='rgba(85,247,210,.30)';
+          this.style.boxShadow='0 8px 25px rgba(0,0,0,.25),inset 0 0 20px rgba(85,247,210,.035)';
+        }
+      "
+    >
+
+      <!-- ORBIT 1 -->
+      <span
+        style="
+          position:absolute;
+          left:50%;
+          top:50%;
+          width:39px;
+          height:17px;
+          border:1px solid rgba(85,247,210,.20);
+          border-radius:50%;
+          transform:translate(-50%,-50%) rotate(-25deg);
+          pointer-events:none;
+        "
+      ></span>
+
+      <!-- ORBIT 2 -->
+      <span
+        style="
+          position:absolute;
+          left:50%;
+          top:50%;
+          width:28px;
+          height:42px;
+          border:1px solid rgba(77,163,255,.16);
+          border-radius:50%;
+          transform:translate(-50%,-50%) rotate(55deg);
+          pointer-events:none;
+        "
+      ></span>
+
+      <!-- A -->
+      <span
+        style="
+          position:absolute;
+          left:8px;
+          top:14px;
+          z-index:3;
+          font-family:Arial,Helvetica,sans-serif;
+          font-size:15px;
+          font-weight:900;
+          line-height:1;
+          letter-spacing:-1px;
+          color:#55f7d2;
+          text-shadow:0 0 12px rgba(85,247,210,.25);
+        "
+      >A</span>
+
+      <!-- P -->
+      <span
+        style="
+          position:absolute;
+          left:18px;
+          top:14px;
+          z-index:3;
+          font-family:Arial,Helvetica,sans-serif;
+          font-size:15px;
+          font-weight:900;
+          line-height:1;
+          letter-spacing:-1px;
+          color:#ffffff;
+        "
+      >P</span>
+
+      <!-- S -->
+      <span
+        style="
+          position:absolute;
+          right:7px;
+          top:14px;
+          z-index:3;
+          font-family:Arial,Helvetica,sans-serif;
+          font-size:15px;
+          font-weight:900;
+          line-height:1;
+          letter-spacing:-1px;
+          color:#7db7ff;
+          text-shadow:0 0 12px rgba(77,163,255,.25);
+        "
+      >S</span>
+
+      <!-- CORE -->
+      <span
+        style="
+          position:absolute;
+          width:4px;
+          height:4px;
+          z-index:5;
+          border-radius:50%;
+          background:#ffffff;
+          box-shadow:
+            0 0 8px #55f7d2,
+            0 0 15px rgba(85,247,210,.5);
+          animation:apsCorePulse 2.4s ease-in-out infinite;
+        "
+      ></span>
+
+    </div>
+
+
+    <!-- BRAND TEXT -->
+    <span class="brand-text">
+      APS<span>-AMIT'S PERSONAL SPACE</span>
+    </span>
+
   </a>
+
 
   <nav class="main-nav">
     <ul>
       <li><a href="#home" class="nav-link active">About Me</a></li>
       <li><a href="#timeline" class="nav-link">My Journey</a></li>
-<li><a href="#academics" class="nav-link">Academics</a></li>
+      <li><a href="#academics" class="nav-link">Academics</a></li>
       <li><a href="#projects" class="nav-link">Projects</a></li>
       <li><a href="#skills" class="nav-link">Skills</a></li>
       <li><a href="#certificates" class="nav-link">Certificates</a></li>
@@ -9580,10 +9729,12 @@ section {
     </ul>
   </nav>
 
+
   <a href="#projects" class="nav-cta">
     <span>Explore</span>
     <i class="fas fa-arrow-right"></i>
   </a>
+
 
   <button class="menu-toggle" aria-label="Open menu">
     <span></span>
@@ -9592,6 +9743,27 @@ section {
   </button>
 
 </header>
+
+
+<style>
+
+@keyframes apsCorePulse {
+
+  0%,
+  100% {
+    opacity:.55;
+    transform:scale(.8);
+  }
+
+  50% {
+    opacity:1;
+    transform:scale(1.35);
+  }
+
+}
+
+</style>
+
     <div class="section-divider"></div>
     
    

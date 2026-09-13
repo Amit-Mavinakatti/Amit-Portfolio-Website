@@ -9786,7 +9786,7 @@ section {
 
     <div class="home-status">
       <span class="home-status-dot"></span>
-      Currently learning &amp; building
+      Currently learning ,building ,Open For Internships &amp; Opportunities 
     </div>
 
     <div class="home-greeting">
@@ -9802,12 +9802,17 @@ section {
       <br>
       &amp; Aspiring Software Engineer
     </h2>
+    <span
+    data-aps-typing="CSE Student|Problem Solver|Builder & Learner|Future Software Engineer"
+></span>
 
     <p class="home-description">
+      
       I'm passionate about coding, web development, and technology.
       I enjoy turning ideas into projects, solving problems, and
       continuously learning new skills along the way.
     </p>
+    
 
     <div class="home-buttons">
 
@@ -20572,6 +20577,273 @@ window.addEventListener("scroll", () => {
             }, 900);
 
         }, 2500);
+
+    });
+
+})();
+</script>
+  <!-- =========================================================
+     APS — SECTION REVEAL + TYPING EFFECT
+     ========================================================= -->
+
+<style>
+
+/* =========================================================
+   1. APS — SECTION REVEAL
+   ========================================================= */
+
+.aps-reveal-element {
+    opacity: 0;
+    transform: translateY(28px);
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.aps-reveal-element.aps-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* =========================================================
+   2. APS — TYPING EFFECT
+   ========================================================= */
+
+.aps-typing {
+    display: inline-block;
+
+    min-height: 1.2em;
+
+    color: inherit;
+}
+
+.aps-typing-cursor {
+    display: inline-block;
+
+    width: 2px;
+    height: 1em;
+
+    margin-left: 5px;
+
+    vertical-align: -0.1em;
+
+    background: currentColor;
+
+    animation:
+        apsTypingCursor 0.8s steps(1) infinite;
+}
+
+@keyframes apsTypingCursor {
+
+    0%,
+    50% {
+        opacity: 1;
+    }
+
+    51%,
+    100% {
+        opacity: 0;
+    }
+
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .aps-reveal-element {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .aps-typing-cursor {
+        animation: none;
+        opacity: 1;
+    }
+
+}
+
+</style>
+
+
+<script>
+(function () {
+
+    /* =====================================================
+       1. APS — SECTION REVEAL
+       ===================================================== */
+
+    const apsRevealElements = document.querySelectorAll(
+        "section, .project-card, .skill-card, .certificate-card, .achievement-card"
+    );
+
+    if ("IntersectionObserver" in window) {
+
+        const apsRevealObserver =
+            new IntersectionObserver(
+                function (entries, observer) {
+
+                    entries.forEach(function (entry) {
+
+                        if (entry.isIntersecting) {
+
+                            entry.target.classList.add(
+                                "aps-reveal-element"
+                            );
+
+                            requestAnimationFrame(function () {
+
+                                entry.target.classList.add(
+                                    "aps-revealed"
+                                );
+
+                            });
+
+                            observer.unobserve(
+                                entry.target
+                            );
+                        }
+
+                    });
+
+                },
+                {
+                    threshold: 0.12,
+                    rootMargin: "0px 0px -40px 0px"
+                }
+            );
+
+        apsRevealElements.forEach(function (element) {
+
+            apsRevealObserver.observe(element);
+
+        });
+
+    }
+
+
+    /* =====================================================
+       2. APS — INDEPENDENT TYPING EFFECT
+       ===================================================== */
+
+    const apsTypingElements =
+        document.querySelectorAll(
+            "[data-aps-typing]"
+        );
+
+    apsTypingElements.forEach(function (element) {
+
+        const textList =
+            element
+                .getAttribute("data-aps-typing")
+                .split("|");
+
+        const typingSpeed = 80;
+        const deletingSpeed = 45;
+        const pauseAfterTyping = 1800;
+        const pauseAfterDeleting = 500;
+
+        let textIndex = 0;
+        let characterIndex = 0;
+        let deleting = false;
+
+        const textContainer =
+            document.createElement("span");
+
+        textContainer.className =
+            "aps-typing";
+
+        const cursor =
+            document.createElement("span");
+
+        cursor.className =
+            "aps-typing-cursor";
+
+        element.innerHTML = "";
+
+        element.appendChild(
+            textContainer
+        );
+
+        element.appendChild(
+            cursor
+        );
+
+        function apsType() {
+
+            const currentText =
+                textList[textIndex].trim();
+
+            if (!deleting) {
+
+                textContainer.textContent =
+                    currentText.substring(
+                        0,
+                        characterIndex + 1
+                    );
+
+                characterIndex++;
+
+                if (
+                    characterIndex >=
+                    currentText.length
+                ) {
+
+                    deleting = true;
+
+                    setTimeout(
+                        apsType,
+                        pauseAfterTyping
+                    );
+
+                    return;
+                }
+
+                setTimeout(
+                    apsType,
+                    typingSpeed
+                );
+
+            } else {
+
+                textContainer.textContent =
+                    currentText.substring(
+                        0,
+                        characterIndex - 1
+                    );
+
+                characterIndex--;
+
+                if (characterIndex <= 0) {
+
+                    deleting = false;
+
+                    textIndex =
+                        (textIndex + 1) %
+                        textList.length;
+
+                    setTimeout(
+                        apsType,
+                        pauseAfterDeleting
+                    );
+
+                    return;
+                }
+
+                setTimeout(
+                    apsType,
+                    deletingSpeed
+                );
+            }
+        }
+
+        apsType();
 
     });
 

@@ -20204,6 +20204,378 @@ window.addEventListener("scroll", () => {
 });
 
 </script>
+<!-- =========================================================
+     APS — PREMIUM PAGE LOADER
+     ========================================================= -->
 
+<style>
+/* ---------- APS LOADER ---------- */
+
+#aps-page-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:
+        radial-gradient(
+            circle at center,
+            rgba(0, 140, 255, 0.10) 0%,
+            rgba(0, 0, 0, 0) 32%
+        ),
+        #05070d;
+    overflow: hidden;
+    opacity: 1;
+    visibility: visible;
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease;
+}
+
+/* Subtle ambient glow */
+
+#aps-page-loader::before {
+    content: "";
+    position: absolute;
+    width: 280px;
+    height: 280px;
+    border-radius: 50%;
+    background: rgba(0, 180, 255, 0.08);
+    filter: blur(70px);
+    animation: apsLoaderGlow 2.4s ease-in-out infinite alternate;
+}
+
+/* Loader content */
+
+.aps-loader-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* APS Monogram */
+
+.aps-loader-logo {
+    position: relative;
+    width: 92px;
+    height: 92px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid rgba(0, 220, 255, 0.35);
+    border-radius: 24px;
+
+    background:
+        linear-gradient(
+            145deg,
+            rgba(0, 229, 255, 0.10),
+            rgba(124, 77, 255, 0.10)
+        );
+
+    box-shadow:
+        0 0 25px rgba(0, 200, 255, 0.12),
+        inset 0 0 25px rgba(0, 200, 255, 0.05);
+
+    transform: scale(0.65);
+    opacity: 0;
+
+    animation:
+        apsLogoReveal 1s cubic-bezier(0.22, 1, 0.36, 1)
+        0.15s forwards;
+}
+
+/* APS text inside monogram */
+
+.aps-loader-logo span {
+    font-family: Arial, sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: -2px;
+
+    background: linear-gradient(
+        135deg,
+        #ffffff,
+        #00e5ff,
+        #7c4dff
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Rotating outer ring */
+
+.aps-loader-ring {
+    position: absolute;
+    inset: -9px;
+
+    border-radius: 30px;
+
+    border: 1px solid transparent;
+    border-top-color: rgba(0, 229, 255, 0.8);
+    border-right-color: rgba(124, 77, 255, 0.55);
+
+    animation:
+        apsLoaderRotate 2s linear infinite;
+}
+
+/* Brand name */
+
+.aps-loader-title {
+    margin-top: 28px;
+
+    font-family: Arial, sans-serif;
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: 4px;
+
+    color: #ffffff;
+
+    opacity: 0;
+    transform: translateY(10px);
+
+    animation:
+        apsTitleReveal 0.8s ease
+        0.8s forwards;
+}
+
+/* Subtitle */
+
+.aps-loader-subtitle {
+    margin-top: 9px;
+
+    font-family: Arial, sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 3px;
+
+    color: rgba(255, 255, 255, 0.45);
+
+    opacity: 0;
+    transform: translateY(8px);
+
+    animation:
+        apsSubtitleReveal 0.7s ease
+        1.05s forwards;
+}
+
+/* Small loading line */
+
+.aps-loader-line {
+    width: 90px;
+    height: 2px;
+
+    margin-top: 25px;
+
+    border-radius: 10px;
+    overflow: hidden;
+
+    background: rgba(255, 255, 255, 0.08);
+
+    opacity: 0;
+
+    animation:
+        apsLineReveal 0.5s ease
+        1.2s forwards;
+}
+
+.aps-loader-line::after {
+    content: "";
+
+    display: block;
+    width: 40%;
+    height: 100%;
+
+    border-radius: inherit;
+
+    background: linear-gradient(
+        90deg,
+        #00e5ff,
+        #008cff,
+        #7c4dff
+    );
+
+    animation:
+        apsLoaderProgress 1.4s ease-in-out infinite;
+}
+
+/* ---------- LOADER EXIT ---------- */
+
+#aps-page-loader.aps-loader-hide {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* ---------- ANIMATIONS ---------- */
+
+@keyframes apsLogoReveal {
+    0% {
+        opacity: 0;
+        transform: scale(0.65) rotate(-8deg);
+        filter: blur(8px);
+    }
+
+    60% {
+        opacity: 1;
+        transform: scale(1.06) rotate(2deg);
+        filter: blur(0);
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1) rotate(0);
+    }
+}
+
+@keyframes apsTitleReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes apsSubtitleReveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes apsLineReveal {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes apsLoaderRotate {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes apsLoaderGlow {
+    from {
+        transform: scale(0.85);
+        opacity: 0.5;
+    }
+
+    to {
+        transform: scale(1.15);
+        opacity: 1;
+    }
+}
+
+@keyframes apsLoaderProgress {
+    0% {
+        transform: translateX(-120%);
+    }
+
+    100% {
+        transform: translateX(300%);
+    }
+}
+
+/* ---------- MOBILE ---------- */
+
+@media (max-width: 600px) {
+
+    .aps-loader-logo {
+        width: 82px;
+        height: 82px;
+        border-radius: 21px;
+    }
+
+    .aps-loader-logo span {
+        font-size: 27px;
+    }
+
+    .aps-loader-title {
+        font-size: 17px;
+        letter-spacing: 3px;
+    }
+
+    .aps-loader-subtitle {
+        font-size: 9px;
+        letter-spacing: 2.5px;
+    }
+}
+</style>
+
+
+<div id="aps-page-loader">
+
+    <div class="aps-loader-content">
+
+        <div class="aps-loader-logo">
+            <div class="aps-loader-ring"></div>
+            <span>APS</span>
+        </div>
+
+        <div class="aps-loader-title">
+            AMIT'S PERSONAL SPACE
+        </div>
+
+        <div class="aps-loader-subtitle">
+            DIGITAL JOURNEY
+        </div>
+
+        <div class="aps-loader-line"></div>
+
+    </div>
+
+</div>
+
+
+<script>
+(function () {
+
+    const apsLoader =
+        document.getElementById("aps-page-loader");
+
+    if (!apsLoader) return;
+
+    /* Prevent scrolling while loader is active */
+
+    document.documentElement.style.overflow = "hidden";
+    document.body.style.overflow = "hidden";
+
+    /*
+     * Let the animation play completely,
+     * then reveal the portfolio.
+     */
+
+    window.addEventListener("load", function () {
+
+        setTimeout(function () {
+
+            apsLoader.classList.add("aps-loader-hide");
+
+            document.documentElement.style.overflow = "";
+            document.body.style.overflow = "";
+
+            /*
+             * Remove loader from interaction
+             * after the fade-out finishes.
+             */
+
+            setTimeout(function () {
+                if (apsLoader) {
+                    apsLoader.remove();
+                }
+            }, 900);
+
+        }, 2500);
+
+    });
+
+})();
+</script>
 </body>
 </html>

@@ -13294,7 +13294,171 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(link) {
 
     </article>
 
- ```html
+
+<!-- =========================================================
+     UNIVERSAL CERTIFICATE IMAGE PREVIEW
+     ========================================================= -->
+
+<div
+  id="certificatePreviewModal"
+  class="certificate-preview-modal"
+  aria-hidden="true"
+>
+  <button
+    type="button"
+    class="certificate-preview-close"
+    aria-label="Close certificate preview"
+  >
+    &times;
+  </button>
+
+  <img
+    id="certificatePreviewImage"
+    src=""
+    alt="Certificate preview"
+  >
+
+  <p id="certificatePreviewCaption"></p>
+</div>
+
+<style>
+/* Isolated styles: won't modify existing certificate cards */
+
+.certificate-preview-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  padding: 65px 20px 25px;
+  background: rgba(0, 0, 0, 0.92);
+  backdrop-filter: blur(10px);
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.certificate-preview-modal.is-open {
+  display: flex;
+}
+
+.certificate-preview-modal img {
+  display: block;
+  max-width: 95%;
+  max-height: 80vh;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 0 35px rgba(0, 255, 255, 0.12);
+}
+
+.certificate-preview-modal p {
+  margin: 0;
+  color: #fff;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+.certificate-preview-close {
+  position: absolute;
+  top: 15px;
+  right: 25px;
+  width: 45px;
+  height: 45px;
+  border: 1px solid rgba(0, 255, 255, 0.25);
+  border-radius: 50%;
+  background: rgba(0, 255, 255, 0.08);
+  color: #fff;
+  font-size: 30px;
+  cursor: pointer;
+}
+
+.certificate-preview-close:hover {
+  background: rgba(0, 255, 255, 0.2);
+}
+
+@media (max-width: 600px) {
+  .certificate-preview-modal {
+    padding: 60px 12px 20px;
+  }
+
+  .certificate-preview-modal img {
+    max-width: 100%;
+    max-height: 75vh;
+  }
+
+  .certificate-preview-close {
+    top: 10px;
+    right: 12px;
+  }
+}
+</style>
+
+<script>
+(() => {
+  const modal = document.getElementById("certificatePreviewModal");
+  const previewImage = document.getElementById("certificatePreviewImage");
+  const caption = document.getElementById("certificatePreviewCaption");
+  const closeButton = modal.querySelector(".certificate-preview-close");
+
+  function closePreview() {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    previewImage.src = "";
+    document.body.style.overflow = "";
+  }
+
+  document.querySelectorAll(".certificate-card").forEach(card => {
+    const link = card.querySelector(".certificate-card-footer a[href]");
+    if (!link) return;
+
+    const imageUrl = link.getAttribute("href");
+
+    // Only enable image preview for image files or image URLs.
+    const isImage =
+      /\.(png|jpe?g|webp|gif|avif)(?:[?#].*)?$/i.test(imageUrl) ||
+      /\/image\/(?:png|jpe?g|webp)/i.test(imageUrl);
+
+    if (!isImage) return;
+
+    link.addEventListener("click", event => {
+      event.preventDefault();
+
+      previewImage.src = imageUrl;
+      previewImage.alt =
+        (card.querySelector("h3")?.textContent.trim() || "Certificate") +
+        " certificate preview";
+
+      caption.textContent =
+        card.querySelector("h3")?.textContent.trim() || "Certificate";
+
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+    });
+
+    // Make the certificate image itself clickable if one is added later.
+    card.querySelectorAll(".certificate-preview-trigger").forEach(trigger => {
+      trigger.style.cursor = "pointer";
+      trigger.addEventListener("click", () => link.click());
+    });
+  });
+
+  closeButton.addEventListener("click", closePreview);
+
+  modal.addEventListener("click", event => {
+    if (event.target === modal) closePreview();
+  });
+
+  document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && modal.classList.contains("is-open")) {
+      closePreview();
+    }
+  });
+})();
+</script>
+
 <!-- =========================================================
      TECHX MADRAS 2026 — HACKATHON CERTIFICATE
      ========================================================= -->

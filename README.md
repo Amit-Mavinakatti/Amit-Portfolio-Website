@@ -8,7 +8,7 @@ This portfolio is a space to showcase my technical skills, projects, hackathon e
 
 ## 🌐 Live Portfolio
 
-🔗 **Visit my portfolio:** [Add your deployed website URL here]
+🔗 **Visit my portfolio:** https://amit-mavinakatti.github.io/Amit-Portfolio-Website/
 
 ## ✨ About the Portfolio
 
@@ -39,7 +39,7 @@ An interactive water-pipeline monitoring and leak-simulation prototype developed
 
 **Important:** GRIDGUARD is an educational simulation. It does not connect to physical water infrastructure, and its leak detection has not been validated for real-world operational use.
 
-🔗 **Project Repository:** [GRIDGUARD on GitHub](https://github.com/bheemraj18/HackMadras)
+🔗 **Project Repository:** [GRIDGUARD on GitHub] https://github.com/Amit-Mavinakatti/GRIDGUARD-AI-Powered-Water-Sustainable-Network-System.git
 
 ## 🛠️ Technology Stack
 
@@ -70,7 +70,7 @@ Hackathons have helped me practise presenting projects, pitching ideas, and defe
 
 - **LinkedIn:** [Amit D Mavinakatti](https://www.linkedin.com/in/amitmd8/)
 - **GitHub:** [Amit-Mavinakatti](https://github.com/Amit-Mavinakatti)
-- **Portfolio:** [Add your deployed website URL here]
+- **Portfolio:** https://amit-mavinakatti.github.io/Amit-Portfolio-Website/
 
 ## 💡 My Philosophy
 

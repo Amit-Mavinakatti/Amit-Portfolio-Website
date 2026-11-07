@@ -2,7 +2,7 @@
 
 Welcome to my personal portfolio! 🚀
 
-I'm **Amit D Mavinakatti**, a Computer Science Engineering student passionate about software development, problem-solving, technology, and continuous learning.
+I'm **Amit D Mavinakatti**, a Computer Science Engineering student passionate about software development, Google Student Ambassador, problem-solving, technology, and continuous learning.
 
 This portfolio is a space to showcase my technical skills, projects, hackathon experiences, and progress as an aspiring software engineer.
 

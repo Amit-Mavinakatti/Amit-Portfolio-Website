@@ -3,151 +3,1906 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Copyright & Disclaimer - Amit M D</title>
+  <meta name="theme-color" content="#080b14">
+  <meta name="description" content="Copyright, permitted use, attribution, disclaimer and contact information for Amit Mavinakatti's portfolio.">
+  <title>Copyright &amp; Usage | Amit Mavinakatti</title>
+
+  <!-- Typography and icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #0a0a0a;
-      color: white;
-      overflow-x: hidden;
+    /* =========================================================
+       COPYRIGHT PAGE — DESIGN SYSTEM
+       Every selector is scoped to .legal-page.
+       This keeps the stylesheet isolated from the main portfolio.
+       ========================================================= */
+
+    :root {
+      --legal-bg: #080b14;
+      --legal-bg-raised: #0d1322;
+      --legal-surface: rgba(17, 25, 43, 0.78);
+      --legal-surface-solid: #11192b;
+      --legal-surface-hover: #172238;
+      --legal-border: rgba(158, 174, 202, 0.15);
+      --legal-border-strong: rgba(158, 174, 202, 0.27);
+      --legal-text: #f4f7ff;
+      --legal-muted: #a7b2c7;
+      --legal-dim: #718099;
+      --legal-cyan: #68e7f4;
+      --legal-blue: #83a0ff;
+      --legal-purple: #b99cff;
+      --legal-green: #83e7b4;
+      --legal-amber: #ffd28e;
+      --legal-red: #ff9eac;
+      --legal-width: 1160px;
+      --legal-nav-height: 74px;
+      --legal-radius-sm: 12px;
+      --legal-radius-md: 20px;
+      --legal-radius-lg: 30px;
+      --legal-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+      --legal-ease: cubic-bezier(.2, .75, .25, 1);
+    }
+
+    /* -------------------- Reset -------------------- */
+
+    .legal-page,
+    .legal-page * {
+      box-sizing: border-box;
+    }
+
+    html {
       scroll-behavior: smooth;
-      margin: 0;
-      padding: 0;
+      scroll-padding-top: 110px;
     }
 
-    h2 {
-      color: white;
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      position: relative;
-      text-align: center;
+    body.legal-page {
+      margin: 0;
+      min-width: 320px;
+      overflow-x: hidden;
+      color: var(--legal-text);
+      background: var(--legal-bg);
+      font-family: "Manrope", sans-serif;
+      line-height: 1.7;
     }
-    h2::after {
-      content: "";
+
+    .legal-page button,
+    .legal-page input {
+      font: inherit;
+    }
+
+    .legal-page a {
+      color: inherit;
+    }
+
+    .legal-page button,
+    .legal-page a {
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .legal-page ::selection {
+      color: #061018;
+      background: var(--legal-cyan);
+    }
+
+    .legal-page :focus-visible {
+      outline: 2px solid var(--legal-cyan);
+      outline-offset: 4px;
+    }
+
+    /* -------------------- Ambient background -------------------- */
+
+    .legal-page .ambient-scene {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      overflow: hidden;
+      pointer-events: none;
+      background:
+        radial-gradient(circle at 10% 8%, rgba(74, 111, 255, .15), transparent 31%),
+        radial-gradient(circle at 92% 24%, rgba(66, 218, 230, .10), transparent 29%),
+        radial-gradient(circle at 52% 100%, rgba(173, 124, 255, .09), transparent 36%),
+        var(--legal-bg);
+    }
+
+    .legal-page .ambient-grid {
+      position: absolute;
+      inset: 0;
+      opacity: .16;
+      background-image:
+        linear-gradient(rgba(148, 163, 184, .08) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(148, 163, 184, .08) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: linear-gradient(to bottom, black, transparent 84%);
+    }
+
+    .legal-page .ambient-orb {
+      position: absolute;
+      width: 430px;
+      height: 430px;
+      border-radius: 50%;
+      filter: blur(95px);
+      opacity: .16;
+      animation: legal-drift 19s ease-in-out infinite alternate;
+    }
+
+    .legal-page .orb-a {
+      top: 4%;
+      left: -250px;
+      background: #416dff;
+    }
+
+    .legal-page .orb-b {
+      top: 42%;
+      right: -250px;
+      background: #39dce8;
+      animation-delay: -7s;
+    }
+
+    .legal-page .orb-c {
+      bottom: -300px;
+      left: 34%;
+      background: #9b73ff;
+      animation-delay: -12s;
+    }
+
+    .legal-page .ambient-noise {
+      position: absolute;
+      inset: 0;
+      opacity: .035;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E");
+    }
+
+    @keyframes legal-drift {
+      from { transform: translate3d(0, 0, 0) scale(.92); }
+      to { transform: translate3d(65px, -42px, 0) scale(1.12); }
+    }
+
+    /* -------------------- Reading progress -------------------- */
+
+    .legal-page .reading-progress {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 1000;
+      height: 3px;
+      background: rgba(255, 255, 255, .05);
+    }
+
+    .legal-page .reading-progress span {
       display: block;
-      width: 60%;
-      max-width: 300px;
-      height: 4px;
-      background: #0ff;
-      margin: 0.5rem auto;
-      border-radius: 2px;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--legal-cyan), var(--legal-blue), var(--legal-purple));
+      box-shadow: 0 0 16px rgba(104, 231, 244, .65);
     }
 
-    #button {
-      background-color: aqua;
-      text-align: center;
-      margin: 50px auto;
-      padding: 20px;
-      border: #0a0a0a 2px solid;
-      border-radius: 50px;
-      width: fit-content;
-      transition: all 0.3s ease;
-    }
-    #button h1 {
-      font-size: 2rem;
-      margin: 0;
-    }
-    #button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 25px #0ff;
+    /* -------------------- Navigation -------------------- */
+
+    .legal-page .legal-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      min-height: var(--legal-nav-height);
+      border-bottom: 1px solid var(--legal-border);
+      background: rgba(8, 11, 20, .80);
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
     }
 
-    section {
-      margin: 20px auto;
-      max-width: 900px;
-      border: 2px dotted white;
-      padding: 20px;
-      background: black;
-      border-radius: 20px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.4);
-      animation: fadeIn 1s ease;
-    }
-    section:hover {
-      border-color: #0ff;
+    .legal-page .nav-inner {
+      width: min(calc(100% - 42px), var(--legal-width));
+      min-height: var(--legal-nav-height);
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 22px;
     }
 
-    p {
-      color: #ddd;
-      line-height: 1.6;
-    }
-
-    ul {
-      margin: 10px 0 10px 20px;
-      color: #ddd;
-      line-height: 1.6;
-    }
-
-    a {
-      color: #0ff;
+    .legal-page .brand-lockup {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
       text-decoration: none;
     }
-    a:hover {
-      text-decoration: underline;
+
+    .legal-page .brand-symbol {
+      display: grid;
+      width: 42px;
+      height: 42px;
+      place-items: center;
+      border: 1px solid rgba(104, 231, 244, .36);
+      border-radius: 14px;
+      color: var(--legal-cyan);
+      background: linear-gradient(145deg, rgba(104, 231, 244, .14), rgba(131, 160, 255, .08));
+      font-family: "DM Mono", monospace;
+      font-weight: 500;
+      letter-spacing: -2px;
     }
 
-    footer {
+    .legal-page .brand-copy {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.25;
+    }
+
+    .legal-page .brand-copy strong {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: .94rem;
+      letter-spacing: -.02em;
+    }
+
+    .legal-page .brand-copy small {
+      margin-top: 4px;
+      color: var(--legal-dim);
+      font-family: "DM Mono", monospace;
+      font-size: .61rem;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .legal-page .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .legal-page .nav-link {
+      padding: 9px 13px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      color: var(--legal-muted);
+      font-size: .76rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: .22s ease;
+    }
+
+    .legal-page .nav-link:hover {
+      color: var(--legal-text);
+      background: rgba(255, 255, 255, .06);
+    }
+
+    .legal-page .nav-link-home {
+      border-color: var(--legal-border-strong);
+      color: var(--legal-text);
+    }
+
+    .legal-page .nav-link-home:hover {
+      border-color: rgba(104, 231, 244, .5);
+      background: rgba(104, 231, 244, .08);
+    }
+
+    /* -------------------- Shared layout -------------------- */
+
+    .legal-page .page-shell {
+      width: min(calc(100% - 42px), var(--legal-width));
+      margin-inline: auto;
+    }
+
+    .legal-page .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--legal-cyan);
+      font-family: "DM Mono", monospace;
+      font-size: .68rem;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+    }
+
+    .legal-page .eyebrow::before {
+      width: 22px;
+      height: 1px;
+      background: currentColor;
+      content: "";
+    }
+
+    .legal-page .muted {
+      color: var(--legal-muted);
+    }
+
+    .legal-page .mono {
+      font-family: "DM Mono", monospace;
+    }
+
+    /* -------------------- Hero -------------------- */
+
+    .legal-page .hero {
+      position: relative;
+      padding: 105px 0 72px;
       text-align: center;
-      margin: 40px 0 20px;
-      font-size: 14px;
-      color: #aaa;
+      isolation: isolate;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
+    .legal-page .hero-orbit {
+      position: absolute;
+      top: 45px;
+      left: 50%;
+      z-index: -1;
+      width: 390px;
+      height: 390px;
+      border: 1px solid rgba(104, 231, 244, .11);
+      border-radius: 50%;
+      transform: translateX(-50%);
+      animation: legal-spin 42s linear infinite;
+    }
+
+    .legal-page .hero-orbit::before,
+    .legal-page .hero-orbit::after {
+      position: absolute;
+      border: 1px dashed rgba(131, 160, 255, .16);
+      border-radius: 50%;
+      content: "";
+    }
+
+    .legal-page .hero-orbit::before { inset: 30px; }
+    .legal-page .hero-orbit::after {
+      inset: 70px;
+      border-color: rgba(185, 156, 255, .16);
+    }
+
+    @keyframes legal-spin {
+      to { transform: translateX(-50%) rotate(360deg); }
+    }
+
+    .legal-page .hero-stamp {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 13px;
+      border: 1px solid rgba(104, 231, 244, .22);
+      border-radius: 999px;
+      color: #b8f5fa;
+      background: rgba(104, 231, 244, .07);
+      font-family: "DM Mono", monospace;
+      font-size: .68rem;
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      animation: legal-rise .8s both;
+    }
+
+    .legal-page .stamp-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--legal-green);
+      box-shadow: 0 0 12px var(--legal-green);
+      animation: legal-pulse 1.8s infinite;
+    }
+
+    @keyframes legal-pulse {
+      50% { opacity: .42; transform: scale(.72); }
+    }
+
+    .legal-page .hero h1 {
+      max-width: 900px;
+      margin: 25px auto 18px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(2.7rem, 7vw, 5.8rem);
+      font-weight: 700;
+      letter-spacing: -.075em;
+      line-height: 1.02;
+      animation: legal-rise .9s .08s both;
+    }
+
+    .legal-page .hero h1 .gradient-word {
+      color: transparent;
+      background: linear-gradient(100deg, var(--legal-cyan), var(--legal-blue) 55%, var(--legal-purple));
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .legal-page .hero-description {
+      max-width: 680px;
+      margin: 0 auto;
+      color: var(--legal-muted);
+      font-size: clamp(.96rem, 2vw, 1.1rem);
+      animation: legal-rise .9s .16s both;
+    }
+
+    .legal-page .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 29px;
+      animation: legal-rise .9s .24s both;
+    }
+
+    .legal-page .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border: 1px solid var(--legal-border);
+      border-radius: 999px;
+      color: var(--legal-muted);
+      background: rgba(255, 255, 255, .025);
+      font-size: .72rem;
+    }
+
+    .legal-page .meta-pill i {
+      color: var(--legal-cyan);
+    }
+
+    @keyframes legal-rise {
+      from { opacity: 0; transform: translateY(22px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* -------------------- Main content grid -------------------- */
+
+    .legal-page .content-layout {
+      display: grid;
+      grid-template-columns: 245px minmax(0, 1fr);
+      align-items: start;
+      gap: 28px;
+      padding-bottom: 100px;
+    }
+
+    .legal-page .side-index {
+      position: sticky;
+      top: calc(var(--legal-nav-height) + 24px);
+      padding: 20px;
+      border: 1px solid var(--legal-border);
+      border-radius: var(--legal-radius-md);
+      background: rgba(14, 20, 34, .68);
+      box-shadow: var(--legal-shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .legal-page .side-index-label {
+      margin: 0 0 14px;
+      color: var(--legal-dim);
+      font-family: "DM Mono", monospace;
+      font-size: .64rem;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+    }
+
+    .legal-page .index-list {
+      display: grid;
+      gap: 5px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .legal-page .index-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 11px;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      color: var(--legal-muted);
+      font-size: .76rem;
+      font-weight: 700;
+      text-decoration: none;
+      transition: .2s ease;
+    }
+
+    .legal-page .index-link span {
+      color: var(--legal-dim);
+      font-family: "DM Mono", monospace;
+      font-size: .65rem;
+    }
+
+    .legal-page .index-link:hover,
+    .legal-page .index-link.active {
+      border-color: rgba(104, 231, 244, .18);
+      color: var(--legal-text);
+      background: rgba(104, 231, 244, .07);
+    }
+
+    .legal-page .index-link.active span {
+      color: var(--legal-cyan);
+    }
+
+    .legal-page .index-note {
+      margin-top: 19px;
+      padding-top: 16px;
+      border-top: 1px solid var(--legal-border);
+      color: var(--legal-dim);
+      font-size: .68rem;
+      line-height: 1.6;
+    }
+
+    .legal-page .legal-content {
+      min-width: 0;
+    }
+
+    /* -------------------- Intro / ownership panel -------------------- */
+
+    .legal-page .ownership-panel {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 22px;
+      padding: 30px;
+      border: 1px solid rgba(104, 231, 244, .24);
+      border-radius: var(--legal-radius-lg);
+      background:
+        radial-gradient(circle at 92% 0%, rgba(104, 231, 244, .12), transparent 32%),
+        linear-gradient(135deg, rgba(19, 34, 55, .94), rgba(14, 19, 34, .92));
+      box-shadow: var(--legal-shadow);
+    }
+
+    .legal-page .ownership-panel::after {
+      position: absolute;
+      top: -85px;
+      right: -65px;
+      width: 230px;
+      height: 230px;
+      border: 1px solid rgba(104, 231, 244, .16);
+      border-radius: 50%;
+      box-shadow: 0 0 0 22px rgba(104, 231, 244, .025), 0 0 0 48px rgba(104, 231, 244, .02);
+      content: "";
+      pointer-events: none;
+    }
+
+    .legal-page .ownership-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .legal-page .ownership-icon {
+      display: grid;
+      width: 48px;
+      height: 48px;
+      place-items: center;
+      border: 1px solid rgba(104, 231, 244, .26);
+      border-radius: 15px;
+      color: var(--legal-cyan);
+      background: rgba(104, 231, 244, .09);
+      font-size: 1.1rem;
+    }
+
+    .legal-page .ownership-tag {
+      padding: 7px 10px;
+      border: 1px solid rgba(131, 231, 180, .22);
+      border-radius: 999px;
+      color: var(--legal-green);
+      background: rgba(131, 231, 180, .07);
+      font-family: "DM Mono", monospace;
+      font-size: .61rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+    }
+
+    .legal-page .ownership-panel h2 {
+      margin: 22px 0 10px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: clamp(1.5rem, 3vw, 2.1rem);
+      letter-spacing: -.045em;
+      line-height: 1.2;
+    }
+
+    .legal-page .ownership-panel p {
+      max-width: 750px;
+      margin: 0;
+      color: var(--legal-muted);
+      font-size: .91rem;
+    }
+
+    .legal-page .ownership-signature {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 9px;
+      margin-top: 22px;
+      color: #dce8f8;
+      font-size: .78rem;
+      font-weight: 800;
+    }
+
+    .legal-page .ownership-signature i {
+      color: var(--legal-cyan);
+    }
+
+    /* -------------------- Legal cards -------------------- */
+
+    .legal-page .legal-card {
+      position: relative;
+      margin-bottom: 18px;
+      padding: 28px;
+      border: 1px solid var(--legal-border);
+      border-radius: var(--legal-radius-md);
+      background: var(--legal-surface);
+      box-shadow: 0 14px 45px rgba(0, 0, 0, .16);
+      transition:
+        transform .3s var(--legal-ease),
+        border-color .3s ease,
+        background .3s ease,
+        box-shadow .3s ease;
+      scroll-margin-top: 110px;
+    }
+
+    .legal-page .legal-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--legal-border-strong);
+      background: rgba(20, 29, 49, .88);
+      box-shadow: 0 22px 55px rgba(0, 0, 0, .25);
+    }
+
+    .legal-page .card-heading {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      margin-bottom: 17px;
+    }
+
+    .legal-page .card-icon {
+      display: grid;
+      flex: 0 0 44px;
+      width: 44px;
+      height: 44px;
+      place-items: center;
+      border: 1px solid var(--legal-border);
+      border-radius: 14px;
+      color: var(--legal-cyan);
+      background: rgba(104, 231, 244, .07);
+      font-size: 1rem;
+    }
+
+    .legal-page .card-icon.green {
+      color: var(--legal-green);
+      background: rgba(131, 231, 180, .07);
+    }
+
+    .legal-page .card-icon.amber {
+      color: var(--legal-amber);
+      background: rgba(255, 210, 142, .07);
+    }
+
+    .legal-page .card-icon.red {
+      color: var(--legal-red);
+      background: rgba(255, 158, 172, .07);
+    }
+
+    .legal-page .card-icon.purple {
+      color: var(--legal-purple);
+      background: rgba(185, 156, 255, .08);
+    }
+
+    .legal-page .card-heading h2 {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.25rem;
+      letter-spacing: -.035em;
+      line-height: 1.3;
+    }
+
+    .legal-page .card-heading p {
+      margin: 5px 0 0;
+      color: var(--legal-dim);
+      font-size: .73rem;
+    }
+
+    .legal-page .legal-card > p {
+      margin: 0 0 13px;
+      color: var(--legal-muted);
+      font-size: .86rem;
+    }
+
+    .legal-page .legal-card > p:last-child {
+      margin-bottom: 0;
+    }
+
+    .legal-page .legal-card strong {
+      color: var(--legal-text);
+      font-weight: 800;
+    }
+
+    /* -------------------- Permission list -------------------- */
+
+    .legal-page .permission-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 18px;
+    }
+
+    .legal-page .permission-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      padding: 15px;
+      border: 1px solid var(--legal-border);
+      border-radius: 14px;
+      background: rgba(255, 255, 255, .025);
+    }
+
+    .legal-page .permission-item i {
+      margin-top: 3px;
+      color: var(--legal-green);
+    }
+
+    .legal-page .permission-item span {
+      color: var(--legal-muted);
+      font-size: .78rem;
+      line-height: 1.55;
+    }
+
+    .legal-page .permission-item strong {
+      display: block;
+      margin-bottom: 3px;
+      color: var(--legal-text);
+      font-size: .8rem;
+    }
+
+    /* -------------------- Restricted use -------------------- */
+
+    .legal-page .restriction-list {
+      display: grid;
+      gap: 11px;
+      margin: 18px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .legal-page .restriction-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 11px;
+      color: var(--legal-muted);
+      font-size: .83rem;
+    }
+
+    .legal-page .restriction-list i {
+      margin-top: 5px;
+      color: var(--legal-red);
+      font-size: .78rem;
+    }
+
+    /* -------------------- Attribution example -------------------- */
+
+    .legal-page .attribution-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 18px;
+      padding: 17px;
+      border: 1px solid rgba(104, 231, 244, .18);
+      border-radius: 15px;
+      background: rgba(104, 231, 244, .045);
+    }
+
+    .legal-page .attribution-copy {
+      min-width: 0;
+    }
+
+    .legal-page .attribution-copy small {
+      display: block;
+      margin-bottom: 5px;
+      color: var(--legal-dim);
+      font-family: "DM Mono", monospace;
+      font-size: .61rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .legal-page .attribution-copy code {
+      overflow-wrap: anywhere;
+      color: #c8f8fc;
+      font-family: "DM Mono", monospace;
+      font-size: .75rem;
+    }
+
+    .legal-page .copy-button {
+      display: inline-flex;
+      flex: 0 0 auto;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 13px;
+      border: 1px solid rgba(104, 231, 244, .28);
+      border-radius: 10px;
+      color: var(--legal-cyan);
+      background: rgba(104, 231, 244, .08);
+      cursor: pointer;
+      font-size: .72rem;
+      font-weight: 800;
+      transition: .2s ease;
+    }
+
+    .legal-page .copy-button:hover {
+      color: #071018;
+      background: var(--legal-cyan);
+    }
+
+    /* -------------------- Disclaimer note -------------------- */
+
+    .legal-page .notice {
+      display: flex;
+      align-items: flex-start;
+      gap: 13px;
+      margin-top: 16px;
+      padding: 15px 16px;
+      border: 1px solid rgba(255, 210, 142, .19);
+      border-radius: 13px;
+      background: rgba(255, 210, 142, .055);
+    }
+
+    .legal-page .notice i {
+      margin-top: 4px;
+      color: var(--legal-amber);
+    }
+
+    .legal-page .notice p {
+      margin: 0;
+      color: var(--legal-muted);
+      font-size: .77rem;
+    }
+
+    /* -------------------- Contact panel -------------------- */
+
+    .legal-page .contact-panel {
+      position: relative;
+      overflow: hidden;
+      margin-top: 20px;
+      padding: 30px;
+      border: 1px solid rgba(185, 156, 255, .22);
+      border-radius: var(--legal-radius-lg);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(185, 156, 255, .13), transparent 35%),
+        linear-gradient(135deg, rgba(25, 25, 48, .92), rgba(14, 19, 34, .94));
+    }
+
+    .legal-page .contact-panel h2 {
+      margin: 14px 0 8px;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 1.65rem;
+      letter-spacing: -.045em;
+    }
+
+    .legal-page .contact-panel p {
+      max-width: 620px;
+      margin: 0;
+      color: var(--legal-muted);
+      font-size: .85rem;
+    }
+
+    .legal-page .contact-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 11px;
+      margin-top: 22px;
+    }
+
+    .legal-page .action-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 9px;
+      min-height: 44px;
+      padding: 11px 16px;
+      border: 1px solid var(--legal-border-strong);
+      border-radius: 12px;
+      color: var(--legal-text);
+      background: rgba(255, 255, 255, .045);
+      font-size: .76rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform .2s ease, border-color .2s ease, background .2s ease;
+    }
+
+    .legal-page .action-button:hover {
+      transform: translateY(-2px);
+      border-color: rgba(104, 231, 244, .42);
+      background: rgba(104, 231, 244, .08);
+    }
+
+    .legal-page .action-button.primary {
+      border-color: transparent;
+      color: #071018;
+      background: linear-gradient(100deg, var(--legal-cyan), #9beaf0);
+    }
+
+    .legal-page .action-button.primary:hover {
+      background: #aaf5fa;
+      box-shadow: 0 10px 28px rgba(104, 231, 244, .15);
+    }
+
+    /* -------------------- Last updated / back to top -------------------- */
+
+    .legal-page .document-meta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 22px;
+      padding: 15px 2px;
+      color: var(--legal-dim);
+      font-family: "DM Mono", monospace;
+      font-size: .64rem;
+      letter-spacing: .04em;
+    }
+
+    .legal-page .back-to-top {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--legal-muted);
+      text-decoration: none;
+      transition: color .2s ease;
+    }
+
+    .legal-page .back-to-top:hover {
+      color: var(--legal-cyan);
+    }
+
+    /* -------------------- Footer -------------------- */
+
+    .legal-page .legal-footer {
+      position: relative;
+      overflow: hidden;
+      border-top: 1px solid var(--legal-border);
+      background: rgba(6, 9, 16, .78);
+    }
+
+    .legal-page .footer-inner {
+      width: min(calc(100% - 42px), var(--legal-width));
+      margin: auto;
+      padding: 34px 0 28px;
+    }
+
+    .legal-page .footer-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding-bottom: 24px;
+    }
+
+    .legal-page .footer-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .legal-page .footer-brand-mark {
+      display: grid;
+      width: 39px;
+      height: 39px;
+      place-items: center;
+      border: 1px solid rgba(104, 231, 244, .28);
+      border-radius: 12px;
+      color: var(--legal-cyan);
+      background: rgba(104, 231, 244, .07);
+      font-family: "DM Mono", monospace;
+    }
+
+    .legal-page .footer-brand strong {
+      display: block;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: .88rem;
+    }
+
+    .legal-page .footer-brand small {
+      display: block;
+      margin-top: 2px;
+      color: var(--legal-dim);
+      font-size: .67rem;
+    }
+
+    .legal-page .footer-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      color: var(--legal-muted);
+      font-family: "DM Mono", monospace;
+      font-size: .63rem;
+      letter-spacing: .12em;
+    }
+
+    .legal-page .footer-status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--legal-green);
+      box-shadow: 0 0 12px var(--legal-green);
+    }
+
+    .legal-page .footer-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--legal-border-strong), transparent);
+    }
+
+    .legal-page .footer-bottom {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding-top: 21px;
+      color: var(--legal-dim);
+      font-size: .68rem;
+    }
+
+    .legal-page .footer-bottom a {
+      color: var(--legal-muted);
+      text-decoration: none;
+    }
+
+    .legal-page .footer-bottom a:hover {
+      color: var(--legal-cyan);
+    }
+
+    /* -------------------- Reveal animation -------------------- */
+
+    .legal-page .reveal {
+      opacity: 0;
+      transform: translateY(22px);
+      transition: opacity .7s var(--legal-ease), transform .7s var(--legal-ease);
+    }
+
+    .legal-page .reveal.is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* -------------------- Toast -------------------- */
+
+    .legal-page .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 1200;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      max-width: calc(100% - 44px);
+      padding: 13px 17px;
+      border: 1px solid rgba(131, 231, 180, .25);
+      border-radius: 13px;
+      color: var(--legal-text);
+      background: #14251f;
+      box-shadow: var(--legal-shadow);
+      font-size: .78rem;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(12px);
+      transition: .25s ease;
+    }
+
+    .legal-page .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .legal-page .toast i {
+      color: var(--legal-green);
+    }
+
+    /* -------------------- Responsive layout -------------------- */
+
+    @media (max-width: 900px) {
+      .legal-page .content-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .legal-page .side-index {
+        position: relative;
+        top: auto;
+      }
+
+      .legal-page .index-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .legal-page .index-link {
+        font-size: .7rem;
+      }
+
+      .legal-page .index-note {
+        display: none;
+      }
+    }
+
+    @media (max-width: 640px) {
+      :root {
+        --legal-nav-height: 65px;
+      }
+
+      .legal-page .nav-inner,
+      .legal-page .page-shell,
+      .legal-page .footer-inner {
+        width: min(calc(100% - 30px), var(--legal-width));
+      }
+
+      .legal-page .brand-copy small {
+        display: none;
+      }
+
+      .legal-page .nav-actions .nav-link:not(.nav-link-home) {
+        display: none;
+      }
+
+      .legal-page .hero {
+        padding: 78px 0 52px;
+      }
+
+      .legal-page .hero-orbit {
+        top: 30px;
+        width: 300px;
+        height: 300px;
+      }
+
+      .legal-page .hero h1 {
+        font-size: clamp(2.55rem, 13vw, 4rem);
+      }
+
+      .legal-page .hero-description {
+        font-size: .9rem;
+      }
+
+      .legal-page .content-layout {
+        gap: 17px;
+        padding-bottom: 65px;
+      }
+
+      .legal-page .side-index {
+        padding: 15px;
+      }
+
+      .legal-page .index-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .legal-page .index-link {
+        padding: 9px;
+        font-size: .67rem;
+      }
+
+      .legal-page .ownership-panel,
+      .legal-page .contact-panel {
+        padding: 22px;
+        border-radius: 22px;
+      }
+
+      .legal-page .legal-card {
+        padding: 21px;
+      }
+
+      .legal-page .permission-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .legal-page .attribution-box {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .legal-page .footer-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .legal-page .footer-bottom {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .legal-page .document-meta {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+
+    @media (max-width: 390px) {
+      .legal-page .brand-copy strong {
+        font-size: .82rem;
+      }
+
+      .legal-page .nav-link-home {
+        padding: 8px 10px;
+        font-size: .68rem;
+      }
+
+      .legal-page .hero-meta {
+        gap: 7px;
+      }
+
+      .legal-page .meta-pill {
+        font-size: .64rem;
+      }
+
+      .legal-page .card-heading {
+        gap: 11px;
+      }
+
+      .legal-page .card-heading h2 {
+        font-size: 1.1rem;
+      }
+    }
+
+    /* -------------------- Motion accessibility -------------------- */
+
+    @media (prefers-reduced-motion: reduce) {
+      .legal-page *,
+      .legal-page *::before,
+      .legal-page *::after {
+        scroll-behavior: auto !important;
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+
+      .legal-page .reveal {
+        opacity: 1;
+        transform: none;
+      }
     }
   </style>
 </head>
-<body>
 
-  <div id="button"><h1>📜 Copyright & Disclaimer</h1></div>
+<body class="legal-page">
+  <!-- Ambient background effects -->
+  <div class="ambient-scene" aria-hidden="true">
+    <div class="ambient-grid"></div>
+    <div class="ambient-orb orb-a"></div>
+    <div class="ambient-orb orb-b"></div>
+    <div class="ambient-orb orb-c"></div>
+    <div class="ambient-noise"></div>
+  </div>
 
-  <section>
-    <h2>© 2026 Amit D Mavinakatti. All Rights Reserved.</h2>
-    <p>
-      This website, including its design, content, code, graphics, and media, is the intellectual property of
-      <strong>Amit Mavinakatti</strong> unless otherwise stated. Unauthorized use, reproduction, distribution, or modification of
-      any material without prior written permission is strictly prohibited.
-    </p>
-  </section>
+  <!-- Reading progress indicator -->
+  <div class="reading-progress" aria-hidden="true">
+    <span id="readingProgressBar"></span>
+  </div>
 
-  <section>
-    <h2>✅ Permitted Use</h2>
-    <ul>
-      <li>You may view, share, or link to this website for <strong>personal, educational, or non-commercial purposes</strong>.</li>
-      <li>Proper credit (mention of the author’s name and website link) must be given when referencing any part of this site.</li>
-    </ul>
-  </section>
+  <!-- Navigation -->
+  <header class="legal-nav" id="top">
+    <div class="nav-inner">
+      <a class="brand-lockup" href="index.html" aria-label="Return to Amit Mavinakatti's portfolio">
+        <span class="brand-symbol">&lt;/&gt;</span>
+        <span class="brand-copy">
+          <strong>Amit Mavinakatti</strong>
+          <small>Personal portfolio · Legal</small>
+        </span>
+      </a>
 
-  <section>
-    <h2>❌ Restricted Use</h2>
-    <ul>
-      <li>Copying, modifying, or redistributing website code, design, or content for commercial purposes.</li>
-      <li>Claiming this work as your own.</li>
-      <li>Using the portfolio, brand name, or logo for endorsement without permission.</li>
-    </ul>
-  </section>
+      <nav class="nav-actions" aria-label="Main navigation">
+        <a class="nav-link" href="#ownership">Ownership</a>
+        <a class="nav-link" href="#permissions">Permissions</a>
+        <a class="nav-link nav-link-home" href="index.html">
+          <i class="fa-solid fa-arrow-left"></i>
+          Back to portfolio
+        </a>
+      </nav>
+    </div>
+  </header>
 
-  <section>
-    <h2>⚖️ Disclaimer</h2>
-    <p>
-      This portfolio is for <strong>personal branding and educational demonstration only</strong>.
-      The projects showcased may include academic or practice-based work and are not to be misused or redistributed.
-      External links, if any, belong to their respective owners, and I claim no rights over their content.
-    </p>
-  </section>
+  <main>
+    <!-- Hero -->
+    <section class="hero page-shell" aria-labelledby="heroTitle">
+      <div class="hero-orbit" aria-hidden="true"></div>
 
-  <section>
-    <h2>📩 Contact for Permissions</h2>
-    <p>
-      For permissions, collaborations, or usage rights, please contact:<br>
-      <strong>Email:</strong> <a href="mailto:amitmavinakatti1@gmail.com">amitmavinakatti1@gmail.com</a>
-    </p>
-  </section>
+      <div class="hero-stamp">
+        <span class="stamp-dot"></span>
+        Portfolio legal information
+      </div>
 
-  <footer>
-    © 2026 Amit Mavinakatti. All rights reserved.
+      <h1 id="heroTitle">
+        Respect the work.<br>
+        <span class="gradient-word">Understand the rights.</span>
+      </h1>
+
+      <p class="hero-description">
+        A clear guide to the ownership, permitted use, attribution, limitations
+        and external materials associated with this portfolio.
+      </p>
+
+      <div class="hero-meta">
+        <span class="meta-pill">
+          <i class="fa-regular fa-calendar"></i>
+          Effective: November 2026
+        </span>
+        <span class="meta-pill">
+          <i class="fa-solid fa-shield-halved"></i>
+          Copyright &amp; usage
+        </span>
+        <span class="meta-pill">
+          <i class="fa-solid fa-code"></i>
+          Independent portfolio
+        </span>
+      </div>
+    </section>
+
+    <div class="page-shell content-layout">
+      <!-- Sticky contents navigation -->
+      <aside class="side-index" aria-label="Page contents">
+        <p class="side-index-label">On this page</p>
+
+        <ol class="index-list">
+          <li><a class="index-link active" href="#ownership"><span>01</span> Ownership</a></li>
+          <li><a class="index-link" href="#permissions"><span>02</span> Permitted use</a></li>
+          <li><a class="index-link" href="#restricted"><span>03</span> Restricted use</a></li>
+          <li><a class="index-link" href="#attribution"><span>04</span> Attribution</a></li>
+          <li><a class="index-link" href="#disclaimer"><span>05</span> Disclaimer</a></li>
+          <li><a class="index-link" href="#third-party"><span>06</span> Third-party content</a></li>
+          <li><a class="index-link" href="#contact"><span>07</span> Contact</a></li>
+        </ol>
+
+        <div class="index-note">
+          Please read these terms before reusing material from this website.
+          If something is unclear, ask before using it.
+        </div>
+      </aside>
+
+      <!-- Main legal content -->
+      <div class="legal-content">
+        <!-- Ownership -->
+        <section class="ownership-panel reveal" id="ownership">
+          <div class="ownership-top">
+            <span class="ownership-icon"><i class="fa-solid fa-fingerprint"></i></span>
+            <span class="ownership-tag">Original work · Rights reserved</span>
+          </div>
+
+          <h2>© 2026 Amit D Mavinakatti. All rights reserved.</h2>
+
+          <p>
+            Unless a different owner or licence is identified, the original
+            material created for this portfolio—including its written content,
+            original visual design, page composition and original code—is
+            associated with <strong>Amit Mavinakatti</strong>. This statement
+            does not claim ownership of third-party libraries, trademarks,
+            logos, fonts, media or other materials credited to their respective
+            owners.
+          </p>
+
+          <div class="ownership-signature">
+            <i class="fa-solid fa-circle-check"></i>
+            Original work should be credited and used responsibly.
+          </div>
+        </section>
+
+        <!-- Permitted use -->
+        <section class="legal-card reveal" id="permissions">
+          <div class="card-heading">
+            <span class="card-icon green"><i class="fa-solid fa-unlock-keyhole"></i></span>
+            <div>
+              <h2>Permitted use</h2>
+              <p>Ways visitors may interact with and reference this portfolio.</p>
+            </div>
+          </div>
+
+          <p>
+            You are welcome to explore the website and share links to publicly
+            accessible pages. The following uses are generally acceptable when
+            they do not misrepresent authorship or imply endorsement:
+          </p>
+
+          <div class="permission-grid">
+            <div class="permission-item">
+              <i class="fa-solid fa-check"></i>
+              <span>
+                <strong>View and explore</strong>
+                Visit the website for personal learning, research or inspiration.
+              </span>
+            </div>
+
+            <div class="permission-item">
+              <i class="fa-solid fa-check"></i>
+              <span>
+                <strong>Share a link</strong>
+                Share the original portfolio URL with classmates, recruiters or others.
+              </span>
+            </div>
+
+            <div class="permission-item">
+              <i class="fa-solid fa-check"></i>
+              <span>
+                <strong>Reference with credit</strong>
+                Refer to publicly visible work while clearly identifying its source.
+              </span>
+            </div>
+
+            <div class="permission-item">
+              <i class="fa-solid fa-check"></i>
+              <span>
+                <strong>Learn from concepts</strong>
+                Use the portfolio as inspiration for your own independently created work.
+              </span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Restricted use -->
+        <section class="legal-card reveal" id="restricted">
+          <div class="card-heading">
+            <span class="card-icon red"><i class="fa-solid fa-lock"></i></span>
+            <div>
+              <h2>Restricted use</h2>
+              <p>Actions that require prior permission or may misrepresent the work.</p>
+            </div>
+          </div>
+
+          <p>
+            Unless expressly permitted by the relevant owner or applicable
+            licence, do not:
+          </p>
+
+          <ul class="restriction-list">
+            <li>
+              <i class="fa-solid fa-xmark"></i>
+              Copy substantial portions of original website content, design or
+              code and publish them as your own.
+            </li>
+            <li>
+              <i class="fa-solid fa-xmark"></i>
+              Sell, commercially redistribute or package original portfolio
+              material without the necessary permission.
+            </li>
+            <li>
+              <i class="fa-solid fa-xmark"></i>
+              Remove attribution or present another person's work, contribution
+              or achievement as your own.
+            </li>
+            <li>
+              <i class="fa-solid fa-xmark"></i>
+              Use the portfolio identity, name, branding or personal details
+              in a way that falsely suggests sponsorship or endorsement.
+            </li>
+            <li>
+              <i class="fa-solid fa-xmark"></i>
+              Reuse personal information, photographs or contact details in a
+              misleading, harmful or unauthorised context.
+            </li>
+          </ul>
+        </section>
+
+        <!-- Attribution -->
+        <section class="legal-card reveal" id="attribution">
+          <div class="card-heading">
+            <span class="card-icon"><i class="fa-solid fa-quote-left"></i></span>
+            <div>
+              <h2>Attribution &amp; referencing</h2>
+              <p>Give clear credit whenever you refer to original portfolio material.</p>
+            </div>
+          </div>
+
+          <p>
+            If you discuss or reference an original item from this website,
+            identify the creator and link to the relevant page whenever
+            reasonably possible. Attribution does not automatically grant
+            permission to reproduce substantial material.
+          </p>
+
+          <div class="attribution-box">
+            <div class="attribution-copy">
+              <small>Suggested attribution</small>
+              <code id="attributionText">Source: Amit Mavinakatti — https://amit-mavinakatti.github.io/Amit-Portfolio-Website/</code>
+            </div>
+
+            <button class="copy-button" id="copyAttribution" type="button">
+              <i class="fa-regular fa-copy"></i>
+              <span>Copy credit</span>
+            </button>
+          </div>
+
+          <div class="notice">
+            <i class="fa-solid fa-circle-info"></i>
+            <p>
+            Without providing proper <strong>credit and source information</strong>, such use may be considered unauthorized and subject to applicable legal action.
+            </p>
+          </div>
+        </section>
+
+        <!-- Disclaimer -->
+        <section class="legal-card reveal" id="disclaimer">
+          <div class="card-heading">
+            <span class="card-icon amber"><i class="fa-solid fa-scale-balanced"></i></span>
+            <div>
+              <h2>Disclaimer</h2>
+              <p>Context about projects, opinions, demonstrations and information.</p>
+            </div>
+          </div>
+
+          <p>
+            This website is a personal portfolio intended to present learning,
+            projects, technical interests, experiences and professional
+            development. Content is provided for general informational and
+            educational purposes.
+          </p>
+
+          <p>
+            Some projects may be prototypes, academic exercises, simulations
+            or demonstrations. Unless a project page clearly states otherwise,
+            do not assume that a demonstration is a production-ready service,
+            independently validated system or commercial product.
+          </p>
+
+          <p>
+            Project descriptions reflect the scope and status represented on
+            the relevant page. Features, results and implementation details
+            may change as projects are improved.
+          </p>
+
+          <div class="notice">
+            <i class="fa-solid fa-lightbulb"></i>
+            <p>
+              Always review the project repository, documentation and
+              dependencies before relying on, deploying or adapting a project.
+            </p>
+          </div>
+        </section>
+
+        <!-- Third party -->
+        <section class="legal-card reveal" id="third-party">
+          <div class="card-heading">
+            <span class="card-icon purple"><i class="fa-solid fa-puzzle-piece"></i></span>
+            <div>
+              <h2>Third-party content &amp; trademarks</h2>
+              <p>Respect for external owners, licences and brand identities.</p>
+            </div>
+          </div>
+
+          <p>
+            This portfolio may refer to or display third-party products,
+            organisations, technologies, logos, icons, fonts, libraries,
+            frameworks, certificates or external websites. Such names and
+            marks belong to their respective owners.
+          </p>
+
+          <p>
+            Their appearance on this website is for identification,
+            educational, descriptive or attribution purposes where applicable.
+            It does not imply sponsorship, partnership, approval or
+            endorsement unless explicitly stated by the relevant organisation.
+          </p>
+
+          <p>
+            Third-party software and assets remain subject to their own
+            licences and terms. Where a library, asset or resource has a
+            separate licence, that licence—not this page—governs its use.
+          </p>
+        </section>
+
+        <!-- External links -->
+        <section class="legal-card reveal" id="external-links">
+          <div class="card-heading">
+            <span class="card-icon"><i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+            <div>
+              <h2>External links</h2>
+              <p>Links may lead to websites outside this portfolio.</p>
+            </div>
+          </div>
+
+          <p>
+            External links are provided for convenience or additional
+            information. Their content, availability, security practices and
+            privacy policies are controlled by their respective operators.
+          </p>
+
+          <p>
+            A link does not mean that the external website or its content is
+            owned, controlled or endorsed by this portfolio. Review the
+            destination's terms and privacy policy before using it.
+          </p>
+        </section>
+
+        <!-- Changes -->
+        <section class="legal-card reveal" id="changes">
+          <div class="card-heading">
+            <span class="card-icon"><i class="fa-solid fa-rotate"></i></span>
+            <div>
+              <h2>Updates to this page</h2>
+              <p>Legal information may be revised as the portfolio evolves.</p>
+            </div>
+          </div>
+
+          <p>
+            This page may be updated to clarify wording, reflect changes to
+            the website or describe new categories of content. The effective
+            date shown at the top should be updated whenever a material
+            revision is made.
+          </p>
+
+          <p>
+            Continued use of the website after an update means you can review
+            the revised page; it does not remove any rights or protections
+            provided by applicable law.
+          </p>
+        </section>
+
+        <!-- Contact -->
+        <section class="contact-panel reveal" id="contact">
+          <span class="eyebrow">Need clarification?</span>
+          <h2>Let's discuss permissions.</h2>
+          <p>
+            For permission requests, attribution questions, collaboration
+            enquiries or concerns about material displayed on this website,
+            contact me directly.
+          </p>
+
+          <div class="contact-actions">
+            <a class="action-button primary" href="mailto:amitmavinakatti1@gmail.com?subject=Copyright%20%26%20Permission%20Enquiry">
+              <i class="fa-regular fa-envelope"></i>
+              Email for permissions
+            </a>
+
+            <a class="action-button" href="index.html">
+              <i class="fa-solid fa-house"></i>
+              Return to portfolio
+            </a>
+          </div>
+        </section>
+
+        <!-- Document metadata -->
+        <div class="document-meta">
+          <span>DOCUMENT REF: AM-LEGAL-2026</span>
+          <span>LAST REVIEWED: NOVEMBER 2026</span>
+          <a class="back-to-top" href="#top">
+            Back to top
+            <i class="fa-solid fa-arrow-up"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="legal-footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="footer-brand-mark">&lt;/&gt;</span>
+          <span>
+            
+            <strong>Amit Mavinakatti</strong>
+            <small>Software engineering journey</small>
+          </span>
+        </div>
+
+        <div class="footer-status">
+          <span class="footer-status-dot"></span>
+          BUILT WITH CURIOSITY
+        </div>
+      </div>
+
+      <div class="footer-divider"></div>
+
+      <div class="footer-bottom">
+        <span>© <span id="currentYear">2026</span> Amit Mavinakatti. All rights reserved.</span>
+        <span>Designed, developed &amp; continuously improved.</span>
+        <a href="index.html"><i class="fa-solid fa-arrow-left"></i> Main portfolio</a>
+      </div>
+    </div>
   </footer>
 
+  <!-- Copy confirmation -->
+  <div class="toast" id="copyToast" role="status" aria-live="polite">
+    <i class="fa-solid fa-circle-check"></i>
+    Attribution copied to clipboard.
+  </div>
+
+  <script>
+    /* =========================================================
+       COPYRIGHT PAGE INTERACTIONS
+       1. Dynamic year
+       2. Reading progress
+       3. Reveal-on-scroll
+       4. Active section navigation
+       5. Copy attribution with fallback
+       ========================================================= */
+
+    (() => {
+      "use strict";
+
+      const page = document.body;
+      if (!page.classList.contains("legal-page")) return;
+
+      /* -------------------- Dynamic year -------------------- */
+
+      const yearElement = document.getElementById("currentYear");
+
+      if (yearElement) {
+        yearElement.textContent = String(new Date().getFullYear());
+      }
+
+      /* -------------------- Reading progress -------------------- */
+
+      const progressBar = document.getElementById("readingProgressBar");
+
+      const updateReadingProgress = () => {
+        if (!progressBar) return;
+
+        const scrollableHeight =
+          document.documentElement.scrollHeight - window.innerHeight;
+
+        const currentScroll =
+          window.scrollY || document.documentElement.scrollTop;
+
+        const progress =
+          scrollableHeight > 0
+            ? Math.min(100, Math.max(0, (currentScroll / scrollableHeight) * 100))
+            : 0;
+
+        progressBar.style.width = `${progress}%`;
+      };
+
+      window.addEventListener("scroll", updateReadingProgress, { passive: true });
+      window.addEventListener("resize", updateReadingProgress);
+      updateReadingProgress();
+
+      /* -------------------- Reveal on scroll -------------------- */
+
+      const revealElements = document.querySelectorAll(".legal-page .reveal");
+
+      const prefersReducedMotion =
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      if ("IntersectionObserver" in window && !prefersReducedMotion) {
+        const revealObserver = new IntersectionObserver(
+          (entries, observer) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("is-visible");
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          {
+            threshold: 0.12,
+            rootMargin: "0px 0px -35px 0px"
+          }
+        );
+
+        revealElements.forEach((element) => {
+          revealObserver.observe(element);
+        });
+      } else {
+        revealElements.forEach((element) => {
+          element.classList.add("is-visible");
+        });
+      }
+
+      /* -------------------- Active contents navigation -------------------- */
+
+      const sections = document.querySelectorAll(
+        ".legal-page #ownership, " +
+        ".legal-page #permissions, " +
+        ".legal-page #restricted, " +
+        ".legal-page #attribution, " +
+        ".legal-page #disclaimer, " +
+        ".legal-page #third-party, " +
+        ".legal-page #contact"
+      );
+
+      const indexLinks = document.querySelectorAll(
+        ".legal-page .index-link"
+      );
+
+      const setActiveLink = (sectionId) => {
+        indexLinks.forEach((link) => {
+          const isActive = link.getAttribute("href") === `#${sectionId}`;
+
+          link.classList.toggle("active", isActive);
+
+          if (isActive) {
+            link.setAttribute("aria-current", "location");
+          } else {
+            link.removeAttribute("aria-current");
+          }
+        });
+      };
+
+      if ("IntersectionObserver" in window) {
+        const sectionObserver = new IntersectionObserver(
+          (entries) => {
+            const visibleEntries = entries
+              .filter((entry) => entry.isIntersecting)
+              .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
+
+            if (visibleEntries.length > 0) {
+              setActiveLink(visibleEntries[0].target.id);
+            }
+          },
+          {
+            rootMargin: "-20% 0px -60% 0px",
+            threshold: [0.05, 0.2, 0.45]
+          }
+        );
+
+        sections.forEach((section) => {
+          sectionObserver.observe(section);
+        });
+      }
+
+      /* -------------------- Copy attribution -------------------- */
+
+      const copyButton = document.getElementById("copyAttribution");
+      const attributionText = document.getElementById("attributionText");
+      const copyToast = document.getElementById("copyToast");
+      let toastTimer;
+
+      const showToast = (message) => {
+        if (!copyToast) return;
+
+        copyToast.lastChild.textContent = ` ${message}`;
+        copyToast.classList.add("show");
+
+        window.clearTimeout(toastTimer);
+
+        toastTimer = window.setTimeout(() => {
+          copyToast.classList.remove("show");
+        }, 2600);
+      };
+
+      const fallbackCopy = (text) => {
+        const temporaryField = document.createElement("textarea");
+
+        temporaryField.value = text;
+        temporaryField.setAttribute("readonly", "");
+        temporaryField.style.position = "fixed";
+        temporaryField.style.opacity = "0";
+        temporaryField.style.pointerEvents = "none";
+
+        document.body.appendChild(temporaryField);
+        temporaryField.select();
+
+        let copied = false;
+
+        try {
+          copied = document.execCommand("copy");
+        } catch (error) {
+          copied = false;
+        }
+
+        temporaryField.remove();
+        return copied;
+      };
+
+      if (copyButton && attributionText) {
+        copyButton.addEventListener("click", async () => {
+          const text = attributionText.textContent.trim();
+
+          try {
+            if (navigator.clipboard && window.isSecureContext) {
+              await navigator.clipboard.writeText(text);
+              showToast("Attribution copied to clipboard.");
+            } else if (fallbackCopy(text)) {
+              showToast("Attribution copied to clipboard.");
+            } else {
+              showToast("Copy was unavailable. Please select the text.");
+            }
+          } catch (error) {
+            if (fallbackCopy(text)) {
+              showToast("Attribution copied to clipboard.");
+            } else {
+              showToast("Copy was unavailable. Please select the text.");
+            }
+          }
+        });
+      }
+
+      /* -------------------- Smooth anchor navigation -------------------- */
+
+      document.querySelectorAll('.legal-page a[href^="#"]').forEach((link) => {
+        link.addEventListener("click", (event) => {
+          const targetId = link.getAttribute("href").slice(1);
+          const target = document.getElementById(targetId);
+
+          if (!target) return;
+
+          event.preventDefault();
+
+          target.scrollIntoView({
+            behavior: prefersReducedMotion ? "auto" : "smooth",
+            block: "start"
+          });
+
+          history.replaceState(null, "", `#${targetId}`);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>

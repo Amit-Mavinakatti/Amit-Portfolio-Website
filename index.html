@@ -14332,124 +14332,700 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(link) {
 
 </section>
   
-  <section id="achievements">
-  <h2>Achievements, Badges & Awards</h2>
+  
+<style>
+/* =========================================
+   APS — ACHIEVEMENTS SHOWCASE
+========================================= */
+
+#achievements {
+  position: relative;
+  overflow: hidden;
+  padding: 90px 6%;
+  isolation: isolate;
+}
+
+/* Background atmosphere */
+#achievements::before {
+  content: "";
+  position: absolute;
+  width: 360px;
+  height: 360px;
+  top: 5%;
+  left: -180px;
+  border-radius: 50%;
+  background: rgba(66, 133, 244, 0.07);
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+#achievements::after {
+  content: "";
+  position: absolute;
+  width: 340px;
+  height: 340px;
+  right: -170px;
+  bottom: 0;
+  border-radius: 50%;
+  background: rgba(161, 116, 255, 0.07);
+  filter: blur(90px);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Section heading */
+#achievements > h2 {
+  text-align: center;
+  margin-bottom: 12px;
+  position: relative;
+}
+
+#achievements .achievement-intro {
+  max-width: 620px;
+  margin: 0 auto 42px;
+  text-align: center;
+  font-size: 14px;
+  line-height: 1.8;
+  opacity: 0.7;
+}
+
+/* Main grid */
+#achievements .achievements-container {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+/* Common card */
+#achievements .achievement-card {
+  position: relative;
+  display: flex;
+  gap: 18px;
+  align-items: flex-start;
+  min-width: 0;
+  padding: 25px;
+  border-radius: 18px;
+  border: 1px solid rgba(128, 128, 128, 0.17);
+  background: var(--card-bg, rgba(128, 128, 128, 0.035));
+  box-shadow: 0 5px 22px rgba(0, 0, 0, 0.035);
+  box-sizing: border-box;
+  transition:
+    transform 0.35s ease,
+    border-color 0.35s ease,
+    box-shadow 0.35s ease;
+  animation: achievementReveal 0.7s ease both;
+}
+
+#achievements .achievement-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(66, 133, 244, 0.38);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.09);
+}
+
+/* Card reveal animation */
+@keyframes achievementReveal {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Staggered entrance */
+#achievements .achievement-card:nth-child(1) {
+  animation-delay: 0.08s;
+}
+
+#achievements .achievement-card:nth-child(2) {
+  animation-delay: 0.16s;
+}
+
+#achievements .achievement-card:nth-child(3) {
+  animation-delay: 0.24s;
+}
+
+#achievements .achievement-card:nth-child(4) {
+  animation-delay: 0.32s;
+}
+
+/* Icons */
+#achievements .achievement-icon {
+  flex: 0 0 49px;
+  width: 49px;
+  height: 49px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14px;
+  font-size: 20px;
+  color: #4285F4;
+  background: rgba(66, 133, 244, 0.10);
+  transition: transform 0.35s ease;
+}
+
+#achievements .achievement-card:hover .achievement-icon {
+  transform: rotate(-7deg) scale(1.09);
+}
+
+#achievements .achievement-content {
+  flex: 1;
+  min-width: 0;
+}
+
+#achievements .achievement-content h3 {
+  margin: 0 0 9px;
+  font-size: 17px;
+  line-height: 1.45;
+  font-weight: 800;
+}
+
+#achievements .achievement-content p {
+  margin: 0 0 15px;
+  font-size: 13px;
+  line-height: 1.8;
+  opacity: 0.76;
+}
+
+/* Tags */
+#achievements .achievement-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 10px;
+  margin: 0 5px 7px 0;
+  border-radius: 7px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  color: inherit;
+  background: rgba(128, 128, 128, 0.09);
+  border: 1px solid rgba(128, 128, 128, 0.12);
+}
+
+/* Proof links */
+#achievements .achievement-proof {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-top: 13px;
+  padding: 9px 13px;
+  border-radius: 9px;
+  color: #4285F4;
+  background: rgba(66, 133, 244, 0.08);
+  border: 1px solid rgba(66, 133, 244, 0.17);
+  font-size: 11px;
+  font-weight: 750;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+#achievements .achievement-proof:hover {
+  background: #4285F4;
+  color: #ffffff;
+  border-color: #4285F4;
+  transform: translateY(-2px);
+}
+
+/* Footer */
+#achievements .achievement-card-footer {
+  margin-top: 14px;
+  padding-top: 13px;
+  border-top: 1px solid rgba(128, 128, 128, 0.13);
+  font-size: 11px;
+  opacity: 0.85;
+}
+
+/* Scholarship metadata */
+#achievements .achievement-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+/* =========================================
+   FEATURED GOOGLE STUDENT AMBASSADOR CARD
+========================================= */
+
+#achievements .achievement-featured {
+  grid-column: 1 / -1;
+  position: relative;
+  overflow: hidden;
+  padding: 30px;
+  border: 1px solid rgba(66, 133, 244, 0.30);
+  background: linear-gradient(
+    120deg,
+    rgba(66, 133, 244, 0.095),
+    rgba(161, 116, 255, 0.075),
+    rgba(52, 168, 83, 0.055)
+  );
+  box-shadow: 0 10px 35px rgba(66, 133, 244, 0.07);
+}
+
+/* Animated Google-colour top border */
+#achievements .achievement-featured::before {
+  content: "";
+  position: absolute;
+  height: 3px;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    #4285F4,
+    #34A853,
+    #FBBC05,
+    #EA4335,
+    #4285F4
+  );
+  background-size: 250% 100%;
+  animation: googleAccent 5s linear infinite;
+}
+
+@keyframes googleAccent {
+  from { background-position: 0% 50%; }
+  to { background-position: 250% 50%; }
+}
+
+/* Featured icon */
+#achievements .achievement-featured .achievement-icon {
+  width: 58px;
+  height: 58px;
+  flex-basis: 58px;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 5px 16px rgba(0, 0, 0, 0.09);
+}
+
+#achievements .achievement-featured .achievement-icon img {
+  width: 35px;
+  height: 35px;
+  object-fit: contain;
+}
+
+/* Featured header */
+#achievements .gsa-topline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+#achievements .gsa-label {
+  font-size: 10px;
+  font-weight: 850;
+  letter-spacing: 1.5px;
+  color: #4285F4;
+}
+
+#achievements .gsa-selected {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 30px;
+  color: #34A853;
+  background: rgba(52, 168, 83, 0.10);
+  border: 1px solid rgba(52, 168, 83, 0.23);
+  font-size: 10px;
+  font-weight: 800;
+}
+
+#achievements .gsa-headline {
+  font-size: 20px;
+  font-weight: 850;
+  line-height: 1.4;
+  margin: 0 0 9px;
+  background: linear-gradient(
+    90deg,
+    #4285F4,
+    #9B72E8,
+    #EA4335
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Featured details */
+#achievements .gsa-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 17px;
+}
+
+#achievements .gsa-details span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 700;
+  background: rgba(66, 133, 244, 0.08);
+  border: 1px solid rgba(66, 133, 244, 0.14);
+}
+
+#achievements .gsa-details i {
+  color: #4285F4;
+}
+
+/* More achievements footer */
+#achievements .achievements-more {
+  grid-column: 1 / -1;
+  margin: 15px 0 0;
+  padding: 19px;
+  border: 1px dashed rgba(128, 128, 128, 0.28);
+  border-radius: 13px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 1.7;
+  opacity: 0.72;
+}
+
+/* Mobile */
+@media (max-width: 700px) {
+  #achievements {
+    padding: 65px 5%;
+  }
+
+  #achievements .achievements-container {
+    grid-template-columns: 1fr;
+    gap: 17px;
+  }
+
+  #achievements .achievement-card,
+  #achievements .achievement-featured {
+    grid-column: auto;
+    padding: 21px 17px;
+    gap: 13px;
+  }
+
+  #achievements .achievement-icon {
+    flex-basis: 42px;
+    width: 42px;
+    height: 42px;
+    font-size: 17px;
+    border-radius: 12px;
+  }
+
+  #achievements .achievement-featured .achievement-icon {
+    flex-basis: 48px;
+    width: 48px;
+    height: 48px;
+  }
+
+  #achievements .achievement-content h3 {
+    font-size: 15px;
+  }
+
+  #achievements .achievement-content p {
+    font-size: 12px;
+  }
+
+  #achievements .gsa-headline {
+    font-size: 18px;
+  }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  #achievements *,
+  #achievements *::before,
+  #achievements *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+</style>
+
+<section id="achievements">
+
+  <h2>Achievements, Badges &amp; Awards</h2>
+
+  <p class="achievement-intro">
+    Milestones that reflect my journey of building, problem solving,
+    learning, and contributing to the technology community.
+  </p>
 
   <div class="achievements-container">
 
-    <!-- Achievement 1 -->
+    <!-- =================================
+         FEATURED: GOOGLE STUDENT AMBASSADOR
+    ================================== -->
+
+    <div class="achievement-card achievement-featured">
+
+      <div class="achievement-icon">
+        <img
+          src="https://www.gstatic.com/images/branding/product/1x/googleg_32dp.png"
+          alt="Google"
+        >
+      </div>
+
+      <div class="achievement-content">
+
+        <div class="gsa-topline">
+          <span class="gsa-label">
+            FEATURED RECOGNITION · GOOGLE
+          </span>
+
+          <span class="gsa-selected">
+            <i class="fas fa-check-circle"></i>
+            SELECTED · 2026
+          </span>
+        </div>
+
+        <h3>Google Student Ambassador</h3>
+
+        <p class="achievement-company">
+          Google · #TeamGemini · Semester 2, 2026
+        </p>
+
+        <div class="gsa-headline">
+          Ideas into Impact.
+        </div>
+
+        <p>
+          Selected as a Google Student Ambassador for Semester 2, 2026.
+          An opportunity to explore Google's AI ecosystem, engage with
+          student communities, and contribute to campus learning
+          experiences through Gemini.
+        </p>
+
+        <div class="gsa-details">
+          <span>
+            <i class="fas fa-robot"></i>
+            Gemini &amp; AI
+          </span>
+
+          <span>
+            <i class="fas fa-users"></i>
+            Student Community
+          </span>
+
+          <span>
+            <i class="fas fa-bullhorn"></i>
+            Campus Engagement
+          </span>
+
+          <span>
+            <i class="fas fa-lightbulb"></i>
+            Technology Exploration
+          </span>
+        </div>
+
+        <a
+          href="assets/gsa-selection-mail.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="achievement-proof"
+        >
+          <i class="fas fa-envelope-open-text"></i>
+          View Selection Mail
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+
+      </div>
+    </div>
+
+
+    <!-- =================================
+         ACHIEVEMENT 1: HACKARENA
+    ================================== -->
+
     <div class="achievement-card">
+
       <div class="achievement-icon">
         <i class="fas fa-trophy"></i>
       </div>
 
       <div class="achievement-content">
+
         <h3>HackArena 2K26</h3>
+
         <p>
-          Team Leader of Alpha Hackers at HackArena 2K26.
-          Selected for the offline hackathon and secured 7th place.
+          Served as Team Leader of Alpha Hackers at HackArena 2K26.
+          Earned selection for the offline hackathon and secured
+          7th place, gaining practical experience in teamwork,
+          technical problem solving, and presenting ideas under pressure.
         </p>
-        <span class="achievement-tag">Hackathon</span>
+
+        <div>
+          <span class="achievement-tag">Hackathon</span>
+          <span class="achievement-tag">7th Place</span>
+          <span class="achievement-tag">Team Leadership</span>
+          <span class="achievement-tag">Problem Solving</span>
+        </div>
+
         <a
-  href="assets/HackArena-Certificate.jpg"
-  target="_blank"
-  class="achievement-proof"
->
-  <i class="fas fa-file-pdf"></i>
-  View Certificate
+          href="assets/HackArena-Certificate.jpg"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="achievement-proof"
+        >
+          <i class="fas fa-image"></i>
+          View Certificate
+          <i class="fas fa-external-link-alt"></i>
         </a>
-        
+
       </div>
     </div>
 
-    <!-- Badge 1 -->
+
+    <!-- =================================
+         BADGE 1: CODEWARS
+    ================================== -->
+
     <div class="achievement-card">
+
       <div class="achievement-icon">
         <i class="fas fa-medal"></i>
       </div>
 
       <div class="achievement-content">
+
         <h3>Codewars — 3 kyu</h3>
+
         <p>
-          Reached 3 kyu on Codewars through consistent problem solving
-          and programming practice.
+          Reached 3 kyu on Codewars through consistent programming
+          practice and challenging problem-solving exercises.
+          This milestone reflects my commitment to improving
+          algorithmic thinking and coding skills.
         </p>
-        <span class="achievement-tag">Problem Solving</span>
+
+        <div>
+          <span class="achievement-tag">Problem Solving</span>
+          <span class="achievement-tag">Algorithms</span>
+          <span class="achievement-tag">Codewars</span>
+        </div>
+
         <a
-  href="https://www.codewars.com/users/AmitM8/badges/large"
-  target="_blank"
-  class="achievement-proof"
->
-  <i class="fas fa-external-link-alt"></i>
-  View Badge
+          href="https://www.codewars.com/users/AmitM8/badges/large"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="achievement-proof"
+        >
+          <i class="fas fa-external-link-alt"></i>
+          View Codewars Badge
         </a>
+
       </div>
     </div>
 
-    <!-- Credential 1 -->
+
+    <!-- =================================
+         CREDENTIAL: MICROSOFT
+    ================================== -->
+
     <div class="achievement-card">
+
       <div class="achievement-icon">
         <i class="fas fa-certificate"></i>
       </div>
 
       <div class="achievement-content">
+
         <h3>Microsoft Applied Skills</h3>
+
         <p>
           Earned the Microsoft Applied Skills credential
-          "Streamline business workflows with AI chat".
+          <strong>"Streamline business workflows with AI chat".</strong>
+          This credential recognizes demonstrated skills in applying
+          AI chat capabilities to business workflow scenarios.
         </p>
-        <span class="achievement-tag">Microsoft</span>
+
+        <div>
+          <span class="achievement-tag">Microsoft</span>
+          <span class="achievement-tag">Applied Skills</span>
+          <span class="achievement-tag">AI</span>
+          <span class="achievement-tag">Business Workflows</span>
+        </div>
+
         <a
-  href="https://learn.microsoft.com/en-us/users/amitmavinakatti-9947/credentials/a10808dcf347dd70"
-  target="_blank"
-  class="achievement-proof"
->
-  <i class="fas fa-file-pdf"></i>
-  View Credential
+          href="https://learn.microsoft.com/en-us/users/amitmavinakatti-9947/credentials/a10808dcf347dd70"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="achievement-proof"
+        >
+          <i class="fas fa-certificate"></i>
+          View Microsoft Credential
+          <i class="fas fa-external-link-alt"></i>
         </a>
+
       </div>
     </div>
 
-    <!-- HDFC Scholarship -->
-<div class="achievement-card">
-  <div class="achievement-icon">
-    <i class="fas fa-award"></i>
-  </div>
 
-  <div class="achievement-content">
-    <h3>HDFC Bank Parivartan ECSS Scholarship</h3>
+    <!-- =================================
+         SCHOLARSHIP: HDFC BANK
+    ================================== -->
 
-    <p>
-      Selected among 2,140 awardees nationwide for the HDFC Bank Parivartan
-      ECSS Scholarship a national-level
-      scholarship supporting students in higher education.
-    </p>
+    <div class="achievement-card">
 
-    <div class="achievement-meta">
-      <span class="achievement-tag">National-Level Scholarship</span>
-      <span class="achievement-tag">₹100,000+ Scholarship Amount</span>
-      <span class="achievement-tag">Among 2,140 Awardees</span>
+      <div class="achievement-icon">
+        <i class="fas fa-award"></i>
+      </div>
+
+      <div class="achievement-content">
+
+        <h3>HDFC Bank Parivartan ECSS Scholarship</h3>
+
+        <p>
+          Selected among 2,140 awardees nationwide for the HDFC Bank
+          Parivartan ECSS Scholarship, a national-level initiative
+          supporting students pursuing higher education.
+        </p>
+
+        <div class="achievement-meta">
+          <span class="achievement-tag">
+            National-Level Scholarship
+          </span>
+
+          <span class="achievement-tag">
+            ₹100,000+ Scholarship Amount
+          </span>
+
+          <span class="achievement-tag">
+            Among 2,140 Awardees
+          </span>
+        </div>
+
+        <a
+          href="assets/Hdfc-Scholarship.jpg"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="achievement-proof"
+        >
+          <i class="fas fa-image"></i>
+          View Scholarship Certificate
+          <i class="fas fa-external-link-alt"></i>
+        </a>
+
+      </div>
     </div>
-    <a
-  href="assets/Hdfc-Scholarship.jpg"
-  target="_blank"
-  class="achievement-proof"
->
-  <i class="fas fa-certificate"></i>
-  View Scholarship Certificate 
-    </a>
-  </div>
-</div>
 
-    <!-- Add more cards here -->
+
+    <!-- =================================
+         MORE MILESTONES
+    ================================== -->
 
     <p class="achievements-more">
-  And many more achievements, milestones, and recognitions not listed here.
+      <i class="fas fa-plus-circle"></i>
+      And many more achievements, milestones, and recognitions
+      that continue to shape my journey.
     </p>
-    
 
   </div>
-  </section>
+
+</section>
+
   
 <div class="section-divider"></div>
 

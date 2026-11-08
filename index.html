@@ -10374,6 +10374,498 @@ document.querySelectorAll('a[href="#contact"]').forEach(function(link) {
 <div class="section-divider"></div>
     
   </section>
+
+<br>
+<!-- ==========================================
+     APS — GALLERY INTRODUCTION
+=========================================== -->
+
+<section class="aps-gallery-section" id="gallery-preview">
+
+    <div class="aps-gallery-container">
+
+        <div class="aps-gallery-content">
+
+            <span class="aps-gallery-eyebrow">
+                <span class="aps-gallery-dot"></span>
+                BEYOND THE CODE
+            </span>
+
+            <h2 style="font-size: 38px; letter-spacing: -1.5px; color: #00d9f5;">
+              APS-Gallery 📸</h2>
+              <h2>Every Moment Has</h2> 
+              <h2><span>A Story.</span></h2>
+            
+
+            <p class="aps-gallery-description">
+                A collection of experiences that have shaped my journey —
+                from hackathons and technical events to achievements,
+                welcome kits, recognitions, and memorable milestones.
+            </p>
+
+            <div class="aps-gallery-highlights">
+                <span><i>✦</i> Hackathons</span>
+                <span><i>✦</i> Experiences</span>
+                <span><i>✦</i> Memories</span>
+                <span><i>✦</i> Milestones</span>
+            </div>
+
+            <a href="gallery.html" class="aps-gallery-button">
+                <span>Explore My Gallery</span>
+                <span class="aps-gallery-arrow">↗</span>
+            </a>
+
+            <span class="aps-gallery-footnote">
+                A visual collection of my journey, beyond the portfolio.
+            </span>
+
+        </div>
+
+        <div class="aps-gallery-decoration" aria-hidden="true">
+            <div class="aps-gallery-orbit orbit-one"></div>
+            <div class="aps-gallery-orbit orbit-two"></div>
+            <div class="aps-gallery-orbit orbit-three"></div>
+
+            <div class="aps-gallery-center">
+                <span class="aps-gallery-center-icon">✧</span>
+                <span class="aps-gallery-center-text">APS Gallery</span>
+            </div>
+
+            <span class="aps-gallery-star star-one">✦</span>
+            <span class="aps-gallery-star star-two">✧</span>
+            <span class="aps-gallery-star star-three">✦</span>
+        </div>
+
+    </div>
+
+</section>
+
+
+<style>
+
+/* ==========================================
+   APS GALLERY INTRO — INDEPENDENT SECTION
+=========================================== */
+
+.aps-gallery-section {
+    position: relative;
+    padding: 100px 7%;
+    overflow: hidden;
+    isolation: isolate;
+}
+
+.aps-gallery-section::before {
+    content: "";
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(0, 204, 255, 0.045);
+    filter: blur(110px);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.aps-gallery-container {
+    max-width: 1150px;
+    margin: 0 auto;
+    min-height: 370px;
+
+    display: grid;
+    grid-template-columns: 1.2fr 0.8fr;
+    align-items: center;
+    gap: 50px;
+
+    padding: 55px 60px;
+
+    position: relative;
+    overflow: hidden;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(13, 25, 37, 0.97),
+            rgba(8, 15, 27, 0.96)
+        );
+
+    border: 1px solid rgba(0, 220, 255, 0.15);
+    border-radius: 25px;
+
+    box-shadow:
+        0 25px 80px rgba(0, 0, 0, 0.2),
+        inset 0 1px 0 rgba(255, 255, 255, 0.035);
+}
+
+/* Content */
+
+.aps-gallery-content {
+    position: relative;
+    z-index: 2;
+}
+
+.aps-gallery-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    color: #65dff0;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 2.8px;
+
+    margin-bottom: 22px;
+}
+
+.aps-gallery-dot {
+    width: 7px;
+    height: 7px;
+    background: #00e5ff;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #00e5ff;
+
+    animation: apsGalleryPulse 2s infinite;
+}
+
+.aps-gallery-content h2 {
+    color: #f3f7ff;
+    font-size: clamp(34px, 4.5vw, 51px);
+    font-weight: 800;
+    letter-spacing: -1.8px;
+    line-height: 1.15;
+
+    margin: 0 0 20px;
+}
+
+.aps-gallery-content h2 span {
+    display: block;
+
+    background: linear-gradient(
+        90deg,
+        #00e5ff,
+        #69aaff,
+        #a58aff
+    );
+
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.aps-gallery-description {
+    max-width: 570px;
+
+    color: #a5b3c5;
+    font-size: 14px;
+    line-height: 1.9;
+
+    margin: 0 0 23px;
+}
+
+/* Highlights */
+
+.aps-gallery-highlights {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 19px;
+
+    margin-bottom: 29px;
+}
+
+.aps-gallery-highlights span {
+    color: #b8c6d7;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.aps-gallery-highlights i {
+    color: #00d9f5;
+    font-style: normal;
+    margin-right: 5px;
+}
+
+/* CTA */
+
+.aps-gallery-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 17px;
+
+    padding: 14px 22px;
+
+    background: linear-gradient(
+        110deg,
+        #00e5ff,
+        #72caff
+    );
+
+    color: #06151c;
+    text-decoration: none;
+
+    border-radius: 10px;
+
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.3px;
+
+    box-shadow: 0 8px 25px rgba(0, 210, 255, 0.15);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        filter 0.3s ease;
+}
+
+.aps-gallery-button:hover {
+    transform: translateY(-4px);
+    filter: brightness(1.08);
+
+    box-shadow: 0 12px 32px rgba(0, 210, 255, 0.28);
+}
+
+.aps-gallery-arrow {
+    font-size: 18px;
+    transition: transform 0.3s ease;
+}
+
+.aps-gallery-button:hover .aps-gallery-arrow {
+    transform: translate(4px, -4px);
+}
+
+.aps-gallery-footnote {
+    display: block;
+    margin-top: 16px;
+
+    color: #718196;
+    font-size: 10px;
+    letter-spacing: 0.3px;
+}
+
+/* Abstract decoration — CSS only, no photos */
+
+.aps-gallery-decoration {
+    position: relative;
+    min-height: 290px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.aps-gallery-orbit {
+    position: absolute;
+    border: 1px solid rgba(0, 220, 255, 0.16);
+    border-radius: 50%;
+}
+
+.aps-gallery-orbit.orbit-one {
+    width: 150px;
+    height: 150px;
+    animation: apsOrbit 18s linear infinite;
+}
+
+.aps-gallery-orbit.orbit-two {
+    width: 220px;
+    height: 220px;
+    border-color: rgba(104, 156, 255, 0.18);
+    animation: apsOrbit 25s linear infinite reverse;
+}
+
+.aps-gallery-orbit.orbit-three {
+    width: 285px;
+    height: 285px;
+    border-style: dashed;
+    border-color: rgba(165, 138, 255, 0.15);
+    animation: apsOrbit 35s linear infinite;
+}
+
+.aps-gallery-center {
+    width: 105px;
+    height: 105px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    border-radius: 50%;
+
+    background: radial-gradient(
+        circle,
+        rgba(0, 229, 255, 0.17),
+        rgba(11, 24, 38, 0.95) 72%
+    );
+
+    border: 1px solid rgba(0, 229, 255, 0.32);
+
+    box-shadow:
+        0 0 45px rgba(0, 210, 255, 0.12),
+        inset 0 0 25px rgba(0, 210, 255, 0.08);
+}
+
+.aps-gallery-center-icon {
+    color: #00e5ff;
+    font-size: 31px;
+}
+
+.aps-gallery-center-text {
+    color: #a8dce8;
+    font-size: 8px;
+    font-weight: 800;
+    letter-spacing: 1.7px;
+}
+
+.aps-gallery-star {
+    position: absolute;
+    color: #65dff0;
+    text-shadow: 0 0 15px #00dfff;
+}
+
+.aps-gallery-star.star-one {
+    top: 18%;
+    right: 25%;
+    font-size: 19px;
+}
+
+.aps-gallery-star.star-two {
+    bottom: 20%;
+    left: 19%;
+    font-size: 25px;
+    color: #a58aff;
+}
+
+.aps-gallery-star.star-three {
+    top: 35%;
+    left: 8%;
+    font-size: 13px;
+}
+
+/* Animations */
+
+@keyframes apsOrbit {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes apsGalleryPulse {
+    0%, 100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+    50% {
+        opacity: 0.45;
+        transform: scale(0.75);
+    }
+}
+
+/* Tablet */
+
+@media (max-width: 850px) {
+
+    .aps-gallery-section {
+        padding: 75px 5%;
+    }
+
+    .aps-gallery-container {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: 45px 35px;
+        gap: 15px;
+    }
+
+    .aps-gallery-description {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .aps-gallery-highlights {
+        justify-content: center;
+    }
+
+    .aps-gallery-decoration {
+        min-height: 260px;
+    }
+
+}
+
+/* Mobile */
+
+@media (max-width: 520px) {
+
+    .aps-gallery-section {
+        padding: 55px 5%;
+    }
+
+    .aps-gallery-container {
+        padding: 35px 20px;
+        border-radius: 19px;
+    }
+
+    .aps-gallery-content h2 {
+        font-size: 35px;
+        letter-spacing: -1.2px;
+    }
+
+    .aps-gallery-description {
+        font-size: 12px;
+    }
+
+    .aps-gallery-highlights {
+        gap: 12px;
+    }
+
+    .aps-gallery-decoration {
+        min-height: 220px;
+    }
+
+    .aps-gallery-orbit.orbit-one {
+        width: 115px;
+        height: 115px;
+    }
+
+    .aps-gallery-orbit.orbit-two {
+        width: 170px;
+        height: 170px;
+    }
+
+    .aps-gallery-orbit.orbit-three {
+        width: 215px;
+        height: 215px;
+    }
+
+}
+
+/* Accessibility */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .aps-gallery-dot,
+    .aps-gallery-orbit {
+        animation: none;
+    }
+
+    .aps-gallery-button,
+    .aps-gallery-arrow {
+        transition: none;
+    }
+
+}
+
+</style>
+
+<br>
+
+<div class="section-divider"></div>
   <section id="resume">
 
   <a href="#resume" class="btn">My Resume</a>

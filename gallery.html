@@ -1,0 +1,4414 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#07090e">
+<meta name="description" content="A visual collection of hackathons, achievements, events, experiences and milestones.">
+<title>Gallery — Amit's Personal Space</title>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+/* =========================================================
+   01. ROOT / DESIGN TOKENS
+========================================================= */
+
+:root {
+  --bg: #07090e;
+  --bg-soft: #0b1017;
+  --panel: #101720;
+  --panel-light: #151e29;
+
+  --text: #f3f7fa;
+  --muted: #8e9aa8;
+  --muted-light: #b5c0cb;
+
+  --cyan: #6be8df;
+  --cyan-bright: #8ffff5;
+  --cyan-dim: rgba(107,232,223,.12);
+  --blue: #729bff;
+  --violet: #a68aff;
+
+  --border: rgba(255,255,255,.09);
+  --border-bright: rgba(107,232,223,.25);
+
+  --font-heading: "Space Grotesk", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+  --font-mono: "DM Mono", monospace;
+
+  --container: 1240px;
+  --ease: cubic-bezier(.22,.68,0,1.02);
+  --ease-soft: cubic-bezier(.2,.7,.2,1);
+}
+
+/* =========================================================
+   02. RESET
+========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+body.locked {
+  overflow: hidden;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  color: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  color: #071012;
+  background: var(--cyan);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 4px;
+}
+
+/* =========================================================
+   03. GLOBAL BACKGROUND
+========================================================= */
+
+.background-scene {
+  position: fixed;
+  inset: 0;
+  z-index: -5;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse at 15% 8%, rgba(40,132,135,.14), transparent 36%),
+    radial-gradient(ellipse at 85% 35%, rgba(75,87,160,.11), transparent 38%),
+    radial-gradient(ellipse at 50% 100%, rgba(22,102,110,.09), transparent 45%),
+    var(--bg);
+}
+
+.background-grid {
+  position: absolute;
+  inset: 0;
+  opacity: .14;
+  background-image:
+    linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+  background-size: 55px 55px;
+  mask-image: linear-gradient(to bottom, black, transparent 85%);
+}
+
+.background-noise {
+  position: absolute;
+  inset: 0;
+  opacity: .035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.5'/%3E%3C/svg%3E");
+}
+
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(90px);
+  opacity: .12;
+  animation: orbFloat 18s ease-in-out infinite alternate;
+}
+
+.orb-one {
+  width: 350px;
+  height: 350px;
+  background: #21c9c1;
+  top: 5%;
+  left: -170px;
+}
+
+.orb-two {
+  width: 430px;
+  height: 430px;
+  background: #5368dc;
+  right: -220px;
+  top: 40%;
+  animation-delay: -8s;
+}
+
+.orb-three {
+  width: 260px;
+  height: 260px;
+  background: #3eafa4;
+  bottom: -140px;
+  left: 35%;
+  animation-delay: -4s;
+}
+
+@keyframes orbFloat {
+  from {
+    transform: translate3d(0,0,0) scale(1);
+  }
+  to {
+    transform: translate3d(60px,-45px,0) scale(1.2);
+  }
+}
+
+/* =========================================================
+   04. SCROLL PROGRESS
+========================================================= */
+
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  z-index: 1000;
+  background: linear-gradient(90deg,var(--cyan),var(--blue),var(--violet));
+  box-shadow: 0 0 15px rgba(107,232,223,.6);
+}
+
+/* =========================================================
+   05. CUSTOM CURSOR GLOW
+========================================================= */
+
+.cursor-glow {
+  position: fixed;
+  width: 320px;
+  height: 320px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  background: radial-gradient(circle,rgba(107,232,223,.045),transparent 70%);
+  transform: translate(-50%,-50%);
+  opacity: 0;
+  transition: opacity .3s;
+}
+
+@media (pointer:fine) {
+  .cursor-glow {
+    opacity: 1;
+  }
+}
+
+/* =========================================================
+   06. NAVIGATION
+========================================================= */
+
+.navbar {
+  height: 78px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  border-bottom: 1px solid rgba(255,255,255,.07);
+  background: rgba(7,9,14,.76);
+  backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px);
+}
+
+.nav-inner {
+  width: min(var(--container),calc(100% - 64px));
+  height: 100%;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  font-family: var(--font-heading);
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: -.5px;
+}
+
+.brand-mark {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 10px;
+  color: #071012;
+  background: var(--cyan);
+  font-size: 13px;
+  font-weight: 800;
+  box-shadow: 0 0 24px rgba(107,232,223,.2);
+}
+
+.brand-name span {
+  color: var(--cyan);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 31px;
+}
+
+.nav-links a {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  transition: color .25s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--cyan);
+}
+
+.nav-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  border: 1px solid var(--border);
+  padding: 11px 17px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+  transition: .3s;
+}
+
+.nav-back:hover {
+  color: var(--cyan);
+  border-color: var(--border-bright);
+  background: var(--cyan-dim);
+  transform: translateY(-2px);
+}
+
+.nav-mobile {
+  display: none;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--border);
+  border-radius: 11px;
+  background: var(--panel);
+  cursor: pointer;
+}
+
+/* =========================================================
+   07. HERO SECTION
+========================================================= */
+
+.hero {
+  width: min(var(--container),calc(100% - 64px));
+  margin: auto;
+  min-height: 610px;
+  padding: 105px 0 80px;
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  align-items: center;
+  gap: 45px;
+  position: relative;
+}
+
+.hero-copy {
+  position: relative;
+  z-index: 2;
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 15px;
+  border: 1px solid rgba(107,232,223,.2);
+  background: rgba(107,232,223,.07);
+  border-radius: 100px;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  animation: fadeUp .8s .1s both;
+}
+
+.live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 12px var(--cyan);
+  animation: pulseDot 2s infinite;
+}
+
+@keyframes pulseDot {
+  0%,100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .5; transform: scale(.7); }
+}
+
+.hero-title {
+  margin-top: 31px;
+  font-family: var(--font-heading);
+  font-size: clamp(55px,7.5vw,100px);
+  font-weight: 700;
+  line-height: .99;
+  letter-spacing: -6px;
+  animation: fadeUp .8s .2s both;
+}
+
+.hero-title .line-muted {
+  display: block;
+  color: #8793a1;
+}
+
+.hero-title .line-accent {
+  display: block;
+  color: var(--cyan);
+  text-shadow: 0 0 55px rgba(107,232,223,.15);
+}
+
+.hero-description {
+  max-width: 580px;
+  margin-top: 28px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.95;
+  animation: fadeUp .8s .35s both;
+}
+
+.hero-description strong {
+  color: var(--muted-light);
+  font-weight: 600;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  flex-wrap: wrap;
+  margin-top: 34px;
+  animation: fadeUp .8s .45s both;
+}
+
+.button-primary,
+.button-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 47px;
+  padding: 0 20px;
+  border-radius: 11px;
+  font-size: 11px;
+  font-weight: 700;
+  transition: .3s var(--ease);
+}
+
+.button-primary {
+  background: var(--cyan);
+  color: #071012;
+  border: 1px solid var(--cyan);
+  box-shadow: 0 5px 25px rgba(107,232,223,.13);
+}
+
+.button-primary:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(107,232,223,.24);
+}
+
+.button-secondary {
+  background: rgba(255,255,255,.035);
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.button-secondary:hover {
+  border-color: var(--border-bright);
+  background: var(--cyan-dim);
+  color: var(--cyan);
+  transform: translateY(-4px);
+}
+
+.hero-meta {
+  display: flex;
+  gap: 28px;
+  margin-top: 45px;
+  animation: fadeUp .8s .55s both;
+}
+
+.hero-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.hero-meta-number {
+  font-family: var(--font-heading);
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.hero-meta-label {
+  font-family: var(--font-mono);
+  color: var(--muted);
+  font-size: 9px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* =========================================================
+   08. HERO VISUAL ORBIT
+========================================================= */
+
+.hero-visual {
+  height: 440px;
+  display: grid;
+  place-items: center;
+  position: relative;
+  animation: fadeIn 1.2s .3s both;
+}
+
+.orbit {
+  position: absolute;
+  border: 1px solid rgba(107,232,223,.13);
+  border-radius: 50%;
+  animation: rotateOrbit 35s linear infinite;
+}
+
+.orbit-one {
+  width: 390px;
+  height: 390px;
+}
+
+.orbit-two {
+  width: 300px;
+  height: 300px;
+  border-color: rgba(114,155,255,.16);
+  animation-direction: reverse;
+  animation-duration: 28s;
+}
+
+.orbit-three {
+  width: 205px;
+  height: 205px;
+  border-style: dashed;
+  border-color: rgba(107,232,223,.18);
+  animation-duration: 45s;
+}
+
+@keyframes rotateOrbit {
+  to { transform: rotate(360deg); }
+}
+
+.orbit::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 20px var(--cyan);
+}
+
+.orbit-two::before {
+  background: var(--blue);
+  box-shadow: 0 0 18px var(--blue);
+}
+
+.orbit-three::before {
+  width: 6px;
+  height: 6px;
+}
+
+.orbit-core {
+  width: 165px;
+  height: 165px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 25%,rgba(107,232,223,.2),transparent 55%),
+    linear-gradient(145deg,#16232d,#0a1018);
+  border: 1px solid rgba(107,232,223,.3);
+  box-shadow:
+    0 0 70px rgba(107,232,223,.12),
+    inset 0 0 40px rgba(107,232,223,.06);
+  position: relative;
+  z-index: 2;
+}
+
+.orbit-core i {
+  font-size: 55px;
+  color: var(--cyan);
+  filter: drop-shadow(0 0 18px rgba(107,232,223,.35));
+}
+
+.floating-tag {
+  position: absolute;
+  z-index: 4;
+  padding: 11px 15px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: rgba(15,22,31,.86);
+  backdrop-filter: blur(12px);
+  color: var(--muted-light);
+  font-size: 10px;
+  font-weight: 600;
+  box-shadow: 0 12px 35px rgba(0,0,0,.2);
+  animation: floatTag 5s ease-in-out infinite;
+}
+
+.floating-tag i {
+  color: var(--cyan);
+  margin-right: 7px;
+}
+
+.tag-one {
+  top: 65px;
+  right: 10px;
+}
+
+.tag-two {
+  bottom: 80px;
+  left: 5px;
+  animation-delay: -2s;
+}
+
+.tag-three {
+  top: 45%;
+  right: -20px;
+  animation-delay: -3s;
+}
+
+@keyframes floatTag {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-13px); }
+}
+
+/* =========================================================
+   09. MARQUEE
+========================================================= */
+
+.marquee {
+  width: 100%;
+  overflow: hidden;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: rgba(255,255,255,.015);
+  padding: 17px 0;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marqueeMove 35s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+.marquee-group {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  padding-right: 35px;
+}
+
+.marquee-item {
+  color: #778493;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.marquee-item i {
+  color: var(--cyan);
+  margin-right: 10px;
+}
+
+.marquee-star {
+  color: var(--cyan);
+  font-size: 8px;
+}
+
+@keyframes marqueeMove {
+  to { transform: translateX(-50%); }
+}
+
+/* =========================================================
+   10. SECTION COMMON
+========================================================= */
+
+.section {
+  width: min(var(--container),calc(100% - 64px));
+  margin: auto;
+  padding: 100px 0;
+}
+
+.section-heading {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 25px;
+  margin-bottom: 42px;
+}
+
+.section-kicker {
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+.section-title {
+  font-family: var(--font-heading);
+  font-size: clamp(30px,4vw,47px);
+  line-height: 1.1;
+  letter-spacing: -1.9px;
+}
+
+.section-title span {
+  color: var(--cyan);
+}
+
+.section-subtitle {
+  max-width: 410px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+/* =========================================================
+   11. FEATURED MOMENT
+========================================================= */
+
+.featured-layout {
+  display: grid;
+  grid-template-columns: 1.35fr .65fr;
+  gap: 22px;
+  margin-bottom: 95px;
+}
+
+.featured-main {
+  position: relative;
+  min-height: 450px;
+  overflow: hidden;
+  border-radius: 22px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  isolation: isolate;
+}
+
+.featured-main img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 1s var(--ease-soft);
+}
+
+.featured-main:hover img {
+  transform: scale(1.06);
+}
+
+.featured-main::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(0deg,rgba(4,7,12,.95),transparent 75%),
+    linear-gradient(90deg,rgba(4,7,12,.35),transparent 70%);
+}
+
+.featured-content {
+  position: absolute;
+  left: 34px;
+  right: 30px;
+  bottom: 31px;
+  z-index: 2;
+}
+
+.featured-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cyan);
+  background: rgba(7,12,17,.65);
+  border: 1px solid rgba(107,232,223,.25);
+  padding: 8px 12px;
+  border-radius: 7px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  backdrop-filter: blur(8px);
+}
+
+.featured-content h3 {
+  margin-top: 18px;
+  font-family: var(--font-heading);
+  font-size: clamp(27px,4vw,42px);
+  letter-spacing: -1.5px;
+}
+
+.featured-content p {
+  max-width: 460px;
+  color: rgba(255,255,255,.72);
+  font-size: 12px;
+  line-height: 1.8;
+  margin-top: 10px;
+}
+
+.featured-side {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  gap: 22px;
+}
+
+.featured-small {
+  position: relative;
+  min-height: 205px;
+  overflow: hidden;
+  border-radius: 19px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  isolation: isolate;
+}
+
+.featured-small img {
+  width: 100%;
+  height: 100%;
+  min-height: 205px;
+  object-fit: cover;
+  position: absolute;
+  inset: 0;
+  transition: transform .8s var(--ease-soft);
+}
+
+.featured-small:hover img {
+  transform: scale(1.08);
+}
+
+.featured-small::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg,rgba(5,8,12,.9),transparent 75%);
+}
+
+.featured-small-content {
+  position: absolute;
+  z-index: 2;
+  left: 20px;
+  bottom: 19px;
+}
+
+.featured-small-content span {
+  display: block;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  margin-bottom: 7px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.featured-small-content h4 {
+  font-family: var(--font-heading);
+  font-size: 17px;
+}
+
+/* =========================================================
+   12. GALLERY TOOLBAR
+========================================================= */
+
+.gallery-section {
+  padding-top: 40px;
+}
+
+.gallery-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 27px;
+  flex-wrap: wrap;
+}
+
+.filters {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+}
+
+.filter-btn {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.025);
+  color: var(--muted);
+  border-radius: 100px;
+  padding: 11px 17px;
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: .3s;
+}
+
+.filter-btn:hover {
+  color: var(--text);
+  border-color: rgba(107,232,223,.35);
+}
+
+.filter-btn.active {
+  color: #071012;
+  background: var(--cyan);
+  border-color: var(--cyan);
+  box-shadow: 0 5px 20px rgba(107,232,223,.13);
+}
+
+.filter-count {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  margin-left: 5px;
+  opacity: .7;
+}
+
+.gallery-tools {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 190px;
+  height: 39px;
+  padding: 0 13px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(255,255,255,.025);
+  transition: .3s;
+}
+
+.search-box:focus-within {
+  border-color: var(--cyan);
+  background: var(--cyan-dim);
+}
+
+.search-box i {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.search-box input {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  outline: 0;
+  color: var(--text);
+  font-size: 10px;
+}
+
+.search-box input::placeholder {
+  color: #788494;
+}
+
+.view-toggle {
+  display: flex;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  overflow: hidden;
+}
+
+.view-toggle button {
+  width: 38px;
+  height: 38px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: .25s;
+}
+
+.view-toggle button.active,
+.view-toggle button:hover {
+  color: var(--cyan);
+  background: var(--cyan-dim);
+}
+
+/* =========================================================
+   13. GALLERY GRID
+========================================================= */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 23px;
+  transition: .3s;
+}
+
+.gallery-grid.list-view {
+  grid-template-columns: 1fr;
+}
+
+.gallery-card {
+  min-width: 0;
+  position: relative;
+  overflow: hidden;
+  border-radius: 17px;
+  background: linear-gradient(145deg,#111923,#0c121a);
+  border: 1px solid var(--border);
+  transition:
+    transform .45s var(--ease),
+    border-color .4s,
+    box-shadow .4s;
+  animation: cardEnter .65s both;
+}
+
+.gallery-card:hover {
+  transform: translateY(-8px);
+  border-color: rgba(107,232,223,.35);
+  box-shadow: 0 25px 55px rgba(0,0,0,.3);
+}
+
+.gallery-card.is-hidden {
+  display: none;
+}
+
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(25px) scale(.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.card-image {
+  aspect-ratio: 1.25 / 1;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 40% 30%,rgba(107,232,223,.1),transparent 50%),
+    #17212b;
+  cursor: pointer;
+}
+
+.card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .85s var(--ease-soft),filter .6s;
+}
+
+.gallery-card:hover .card-image img {
+  transform: scale(1.075);
+  filter: saturate(1.12);
+}
+
+.card-image::after {
+  content: "";
+  position: absolute;
+  inset: 45% 0 0;
+  background: linear-gradient(transparent,rgba(0,0,0,.3));
+  pointer-events: none;
+}
+
+.card-index {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  z-index: 3;
+  padding: 7px 10px;
+  border: 1px solid rgba(255,255,255,.17);
+  border-radius: 7px;
+  background: rgba(5,9,14,.65);
+  backdrop-filter: blur(10px);
+  color: white;
+  font-family: var(--font-mono);
+  font-size: 9px;
+}
+
+.card-category {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  z-index: 3;
+  padding: 7px 10px;
+  border-radius: 7px;
+  color: var(--cyan);
+  background: rgba(5,9,14,.7);
+  border: 1px solid rgba(107,232,223,.2);
+  backdrop-filter: blur(10px);
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: .7px;
+  text-transform: uppercase;
+}
+
+.card-open {
+  position: absolute;
+  z-index: 3;
+  right: 15px;
+  bottom: 15px;
+  width: 38px;
+  height: 38px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  color: #071012;
+  background: var(--cyan);
+  opacity: 0;
+  transform: translateY(9px) scale(.85);
+  transition: .3s var(--ease);
+}
+
+.gallery-card:hover .card-open {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.card-body {
+  padding: 20px 20px 18px;
+}
+
+.card-date {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #83909e;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .4px;
+}
+
+.card-date i {
+  color: var(--cyan);
+}
+
+.card-title {
+  margin-top: 11px;
+  font-family: var(--font-heading);
+  font-size: 19px;
+  font-weight: 600;
+  letter-spacing: -.5px;
+  line-height: 1.3;
+}
+
+.card-description {
+  margin-top: 9px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.85;
+}
+
+.card-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 19px;
+  padding-top: 13px;
+  border-top: 1px solid var(--border);
+}
+
+.card-tag {
+  color: #8d9aa8;
+  font-size: 9px;
+  font-weight: 600;
+}
+
+.card-tag i {
+  color: var(--cyan);
+  margin-right: 5px;
+}
+
+.card-view {
+  border: 0;
+  background: none;
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.card-view:hover {
+  letter-spacing: .6px;
+}
+
+/* =========================================================
+   14. LIST VIEW
+========================================================= */
+
+.gallery-grid.list-view .gallery-card {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  align-items: stretch;
+}
+
+.gallery-grid.list-view .card-image {
+  aspect-ratio: auto;
+  min-height: 190px;
+}
+
+.gallery-grid.list-view .card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 25px 30px;
+}
+
+.gallery-grid.list-view .card-title {
+  font-size: 22px;
+}
+
+.gallery-grid.list-view .card-bottom {
+  max-width: 350px;
+}
+
+/* =========================================================
+   15. EMPTY STATE
+========================================================= */
+
+.empty-state {
+  display: none;
+  padding: 90px 20px;
+  text-align: center;
+  border: 1px dashed var(--border);
+  border-radius: 20px;
+}
+
+.empty-state.visible {
+  display: block;
+  animation: fadeIn .4s both;
+}
+
+.empty-icon {
+  width: 65px;
+  height: 65px;
+  display: grid;
+  place-items: center;
+  margin: 0 auto 20px;
+  border-radius: 20px;
+  color: var(--cyan);
+  background: var(--cyan-dim);
+  font-size: 23px;
+}
+
+.empty-state h3 {
+  font-family: var(--font-heading);
+  font-size: 21px;
+}
+
+.empty-state p {
+  margin-top: 9px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.empty-reset {
+  margin-top: 20px;
+  border: 0;
+  border-radius: 9px;
+  padding: 11px 17px;
+  color: #071012;
+  background: var(--cyan);
+  font-size: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* =========================================================
+   16. COLLECTION COUNTER
+========================================================= */
+
+.collection-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 28px;
+  padding-top: 17px;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .7px;
+}
+
+.collection-footer strong {
+  color: var(--cyan);
+}
+
+/* =========================================================
+   17. STORY SECTION
+========================================================= */
+
+.story-section {
+  position: relative;
+  overflow: hidden;
+  padding: 90px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background:
+    radial-gradient(ellipse at 85% 50%,rgba(107,232,223,.07),transparent 45%),
+    rgba(255,255,255,.012);
+}
+
+.story-inner {
+  width: min(var(--container),calc(100% - 64px));
+  margin: auto;
+  display: grid;
+  grid-template-columns: .8fr 1.2fr;
+  align-items: center;
+  gap: 80px;
+}
+
+.story-symbol {
+  position: relative;
+  width: 290px;
+  height: 290px;
+  margin: auto;
+  display: grid;
+  place-items: center;
+}
+
+.story-symbol-ring {
+  position: absolute;
+  inset: 0;
+  border: 1px solid rgba(107,232,223,.22);
+  border-radius: 50%;
+  animation: rotateOrbit 35s linear infinite;
+}
+
+.story-symbol-ring::after {
+  content: "";
+  position: absolute;
+  top: 35px;
+  right: 30px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--cyan);
+  box-shadow: 0 0 20px var(--cyan);
+}
+
+.story-symbol-core {
+  width: 185px;
+  height: 185px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(107,232,223,.2);
+  background: linear-gradient(145deg,#14212a,#0b1017);
+  box-shadow: 0 0 80px rgba(107,232,223,.08);
+}
+
+.story-symbol-core i {
+  font-size: 55px;
+  color: var(--cyan);
+}
+
+.story-copy .section-title {
+  margin-bottom: 23px;
+}
+
+.story-copy p {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 2;
+  margin-bottom: 14px;
+}
+
+.story-copy p strong {
+  color: var(--muted-light);
+}
+
+/* =========================================================
+   18. TIMELINE STRIP
+========================================================= */
+
+.timeline-section {
+  padding: 100px 0;
+}
+
+.timeline-list {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  gap: 18px;
+  margin-top: 40px;
+}
+
+.timeline-item {
+  position: relative;
+  min-height: 180px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(255,255,255,.018);
+  transition: .35s;
+}
+
+.timeline-item:hover {
+  border-color: var(--border-bright);
+  transform: translateY(-6px);
+  background: rgba(107,232,223,.035);
+}
+
+.timeline-icon {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--cyan-dim);
+  color: var(--cyan);
+  margin-bottom: 20px;
+}
+
+.timeline-item h3 {
+  font-family: var(--font-heading);
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.timeline-item p {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.8;
+}
+
+/* =========================================================
+   19. CLOSING CTA
+========================================================= */
+
+.closing-section {
+  width: min(var(--container),calc(100% - 64px));
+  margin: 0 auto 100px;
+}
+
+.closing-panel {
+  position: relative;
+  overflow: hidden;
+  padding: 65px 50px;
+  border: 1px solid rgba(107,232,223,.2);
+  border-radius: 25px;
+  background:
+    radial-gradient(ellipse at 90% 15%,rgba(107,232,223,.13),transparent 45%),
+    radial-gradient(ellipse at 0% 100%,rgba(114,155,255,.08),transparent 45%),
+    linear-gradient(135deg,#111b25,#0b1119);
+  text-align: center;
+}
+
+.closing-panel::before {
+  content: "";
+  position: absolute;
+  width: 350px;
+  height: 350px;
+  border: 1px solid rgba(107,232,223,.09);
+  border-radius: 50%;
+  top: -260px;
+  left: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 0 35px rgba(107,232,223,.018),
+              0 0 0 70px rgba(107,232,223,.012);
+}
+
+.closing-panel .section-kicker {
+  position: relative;
+}
+
+.closing-panel h2 {
+  position: relative;
+  font-family: var(--font-heading);
+  font-size: clamp(29px,4vw,46px);
+  letter-spacing: -1.8px;
+}
+
+.closing-panel h2 span {
+  color: var(--cyan);
+}
+
+.closing-panel p {
+  position: relative;
+  max-width: 550px;
+  margin: 17px auto 27px;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.closing-panel .button-primary {
+  position: relative;
+}
+
+/* =========================================================
+   20. FOOTER
+========================================================= */
+
+.footer {
+  border-top: 1px solid var(--border);
+  background: rgba(255,255,255,.01);
+}
+
+.footer-inner {
+  width: min(var(--container),calc(100% - 64px));
+  margin: auto;
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.footer-brand {
+  font-family: var(--font-heading);
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.footer-brand span {
+  color: var(--cyan);
+}
+
+.footer-copy {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 10px;
+}
+
+.footer-links {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+}
+
+.footer-links a {
+  color: var(--muted);
+  font-size: 10px;
+  transition: color .2s;
+}
+
+.footer-links a:hover {
+  color: var(--cyan);
+}
+
+/* =========================================================
+   21. LIGHTBOX / VIEWER
+========================================================= */
+
+.viewer {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 35px;
+  background: rgba(3,5,9,.97);
+  backdrop-filter: blur(20px);
+}
+
+.viewer.open {
+  display: flex;
+  animation: fadeIn .3s both;
+}
+
+.viewer-inner {
+  width: min(1180px,100%);
+  height: 100%;
+  display: grid;
+  grid-template-rows: 50px minmax(0,1fr) 105px;
+  gap: 12px;
+}
+
+.viewer-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.viewer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 1px;
+}
+
+.viewer-brand i {
+  color: var(--cyan);
+}
+
+.viewer-top-actions {
+  display: flex;
+  gap: 9px;
+}
+
+.viewer-control {
+  width: 40px;
+  height: 40px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text);
+  background: rgba(255,255,255,.04);
+  cursor: pointer;
+  transition: .25s;
+}
+
+.viewer-control:hover {
+  color: #071012;
+  background: var(--cyan);
+  border-color: var(--cyan);
+}
+
+.viewer-stage {
+  min-height: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 16px;
+  background:
+    radial-gradient(circle at center,rgba(107,232,223,.04),transparent 60%),
+    rgba(255,255,255,.012);
+}
+
+.viewer-image {
+  max-width: calc(100% - 120px);
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: 9px;
+  box-shadow: 0 25px 90px rgba(0,0,0,.5);
+  transition: transform .3s;
+  transform-origin: center;
+  user-select: none;
+}
+
+.viewer-arrow {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  width: 47px;
+  height: 47px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(10,16,23,.83);
+  color: white;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.viewer-arrow:hover {
+  color: #071012;
+  background: var(--cyan);
+  border-color: var(--cyan);
+}
+
+.viewer-arrow.prev {
+  left: 17px;
+}
+
+.viewer-arrow.next {
+  right: 17px;
+}
+
+.viewer-bottom {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 25px;
+}
+
+.viewer-caption {
+  min-width: 0;
+}
+
+.viewer-counter {
+  color: var(--cyan);
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  margin-bottom: 7px;
+}
+
+.viewer-caption h3 {
+  font-family: var(--font-heading);
+  font-size: 18px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.viewer-caption p {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.viewer-thumbnails {
+  display: flex;
+  gap: 8px;
+  max-width: 390px;
+  overflow-x: auto;
+  padding: 5px;
+}
+
+.viewer-thumb {
+  flex: 0 0 55px;
+  width: 55px;
+  height: 49px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 7px;
+  overflow: hidden;
+  background: var(--panel);
+  opacity: .5;
+  cursor: pointer;
+  transition: .25s;
+}
+
+.viewer-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.viewer-thumb.active {
+  opacity: 1;
+  border-color: var(--cyan);
+  box-shadow: 0 0 16px rgba(107,232,223,.2);
+}
+
+/* =========================================================
+   22. VIEWER ZOOM
+========================================================= */
+
+.viewer-image.zoomed {
+  cursor: zoom-out;
+  transform: scale(1.65);
+}
+
+.viewer-image {
+  cursor: zoom-in;
+}
+
+/* =========================================================
+   23. TOAST
+========================================================= */
+
+.toast {
+  position: fixed;
+  bottom: 28px;
+  left: 50%;
+  z-index: 1200;
+  transform: translate(-50%,20px);
+  padding: 12px 19px;
+  border: 1px solid var(--border-bright);
+  border-radius: 100px;
+  background: #111c25;
+  color: var(--cyan);
+  font-size: 11px;
+  opacity: 0;
+  pointer-events: none;
+  transition: .3s;
+  box-shadow: 0 10px 35px rgba(0,0,0,.3);
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%,0);
+}
+
+/* =========================================================
+   24. BACK TO TOP
+========================================================= */
+
+.back-top {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 80;
+  width: 43px;
+  height: 43px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  border: 1px solid var(--border-bright);
+  color: var(--cyan);
+  background: rgba(12,20,28,.88);
+  backdrop-filter: blur(12px);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(10px);
+  cursor: pointer;
+  transition: .3s;
+}
+
+.back-top.visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-top:hover {
+  color: #071012;
+  background: var(--cyan);
+}
+
+/* =========================================================
+   25. REVEAL ANIMATION
+========================================================= */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity .8s var(--ease-soft),
+    transform .8s var(--ease-soft);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 {
+  transition-delay: .1s;
+}
+
+.reveal-delay-2 {
+  transition-delay: .2s;
+}
+
+.reveal-delay-3 {
+  transition-delay: .3s;
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* =========================================================
+   26. RESPONSIVE — LARGE TABLETS
+========================================================= */
+
+@media (max-width:1050px) {
+  .hero {
+    grid-template-columns: 1fr .75fr;
+    gap: 10px;
+  }
+
+  .hero-title {
+    font-size: clamp(52px,7vw,78px);
+  }
+
+  .hero-visual {
+    transform: scale(.85);
+  }
+
+  .featured-layout {
+    grid-template-columns: 1.1fr .9fr;
+  }
+
+  .gallery-grid {
+    gap: 17px;
+  }
+
+  .card-body {
+    padding: 17px;
+  }
+
+  .card-title {
+    font-size: 17px;
+  }
+
+  .story-inner {
+    gap: 40px;
+  }
+}
+
+/* =========================================================
+   27. RESPONSIVE — TABLETS
+========================================================= */
+
+@media (max-width:800px) {
+  .nav-inner,
+  .hero,
+  .section,
+  .story-inner,
+  .closing-section,
+  .footer-inner {
+    width: calc(100% - 42px);
+  }
+
+  .nav-links {
+    gap: 17px;
+  }
+
+  .nav-links a {
+    font-size: 10px;
+  }
+
+  .hero {
+    grid-template-columns: 1fr;
+    padding-top: 85px;
+    min-height: auto;
+  }
+
+  .hero-visual {
+    height: 330px;
+    transform: scale(.8);
+    margin-top: 5px;
+  }
+
+  .hero-title {
+    font-size: clamp(60px,11vw,90px);
+  }
+
+  .featured-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-main {
+    min-height: 410px;
+  }
+
+  .featured-side {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+  }
+
+  .featured-small {
+    min-height: 200px;
+  }
+
+  .gallery-grid {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+
+  .story-inner {
+    grid-template-columns: 1fr;
+    gap: 45px;
+  }
+
+  .story-symbol {
+    width: 230px;
+    height: 230px;
+  }
+
+  .story-symbol-core {
+    width: 145px;
+    height: 145px;
+  }
+
+  .story-symbol-core i {
+    font-size: 43px;
+  }
+
+  .timeline-list {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* =========================================================
+   28. RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width:580px) {
+  .navbar {
+    height: 68px;
+  }
+
+  .nav-inner,
+  .hero,
+  .section,
+  .story-inner,
+  .closing-section,
+  .footer-inner {
+    width: calc(100% - 32px);
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav-back {
+    padding: 10px 12px;
+    font-size: 9px;
+  }
+
+  .hero {
+    padding: 72px 0 55px;
+  }
+
+  .hero-title {
+    font-size: clamp(49px,12.2vw,70px);
+    letter-spacing: -3.8px;
+  }
+
+  .hero-description {
+    font-size: 12px;
+  }
+
+  .hero-meta {
+    gap: 20px;
+    margin-top: 32px;
+  }
+
+  .hero-meta-number {
+    font-size: 20px;
+  }
+
+  .hero-meta-label {
+    font-size: 8px;
+  }
+
+  .hero-visual {
+    height: 280px;
+    transform: scale(.67);
+    margin: -10px 0;
+  }
+
+  .section {
+    padding: 75px 0;
+  }
+
+  .section-heading {
+    display: block;
+    margin-bottom: 30px;
+  }
+
+  .section-subtitle {
+    margin-top: 14px;
+  }
+
+  .featured-layout {
+    margin-bottom: 65px;
+  }
+
+  .featured-main {
+    min-height: 330px;
+  }
+
+  .featured-content {
+    left: 20px;
+    right: 20px;
+    bottom: 22px;
+  }
+
+  .featured-content h3 {
+    font-size: 28px;
+  }
+
+  .featured-side {
+    grid-template-columns: 1fr;
+  }
+
+  .featured-small {
+    min-height: 190px;
+  }
+
+  .featured-small img {
+    min-height: 190px;
+  }
+
+  .gallery-toolbar {
+    align-items: stretch;
+  }
+
+  .filters {
+    gap: 7px;
+  }
+
+  .filter-btn {
+    padding: 9px 12px;
+    font-size: 9px;
+  }
+
+  .gallery-tools {
+    justify-content: space-between;
+  }
+
+  .search-box {
+    flex: 1;
+  }
+
+  .gallery-grid {
+    grid-template-columns: 1fr;
+    gap: 17px;
+  }
+
+  .card-image {
+    aspect-ratio: 1.3 / 1;
+  }
+
+  .card-open {
+    opacity: 1;
+    transform: none;
+  }
+
+  .gallery-grid.list-view .gallery-card {
+    grid-template-columns: 115px 1fr;
+  }
+
+  .gallery-grid.list-view .card-image {
+    min-height: 150px;
+  }
+
+  .gallery-grid.list-view .card-body {
+    padding: 14px;
+  }
+
+  .gallery-grid.list-view .card-title {
+    font-size: 15px;
+  }
+
+  .gallery-grid.list-view .card-description {
+    display: none;
+  }
+
+  .story-section {
+    padding: 70px 0;
+  }
+
+  .story-copy .section-title {
+    font-size: 34px;
+  }
+
+  .timeline-list {
+    grid-template-columns: 1fr;
+  }
+
+  .closing-section {
+    margin-bottom: 70px;
+  }
+
+  .closing-panel {
+    padding: 48px 22px;
+  }
+
+  .footer-inner {
+    flex-direction: column;
+    padding: 28px 0;
+    text-align: center;
+  }
+
+  .footer-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 15px;
+  }
+
+  .viewer {
+    padding: 12px;
+  }
+
+  .viewer-inner {
+    grid-template-rows: 45px minmax(0,1fr) 120px;
+    gap: 8px;
+  }
+
+  .viewer-image {
+    max-width: calc(100% - 55px);
+  }
+
+  .viewer-arrow {
+    width: 36px;
+    height: 36px;
+  }
+
+  .viewer-arrow.prev {
+    left: 5px;
+  }
+
+  .viewer-arrow.next {
+    right: 5px;
+  }
+
+  .viewer-bottom {
+    grid-template-columns: 1fr;
+    gap: 9px;
+  }
+
+  .viewer-thumbnails {
+    max-width: 100%;
+    justify-content: center;
+  }
+
+  .viewer-caption h3 {
+    font-size: 15px;
+  }
+
+  .back-top {
+    bottom: 15px;
+    right: 15px;
+  }
+}
+
+/* =========================================================
+   29. REDUCED MOTION ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion:reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =======================================================
+     BACKGROUND EFFECTS
+======================================================= -->
+
+<div class="background-scene" aria-hidden="true">
+  <div class="background-grid"></div>
+  <div class="background-noise"></div>
+  <div class="orb orb-one"></div>
+  <div class="orb orb-two"></div>
+  <div class="orb orb-three"></div>
+</div>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+
+
+<!-- =======================================================
+     NAVIGATION
+======================================================= -->
+
+<nav class="navbar">
+  <div class="nav-inner">
+
+    <a href="index.html" class="brand">
+      <span class="brand-mark">APS.</span>
+      <span class="brand-name">APS - Gallery<span>.</span></span>
+    </a>
+
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#journey">Journey</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="gallery.html" class="active">Gallery</a>
+    </div>
+
+    <a href="index.html" class="nav-back">
+      <i class="fa-solid fa-arrow-left"></i>
+      BACK TO APS
+    </a>
+
+  </div>
+</nav>
+
+
+<!-- =======================================================
+     HERO
+======================================================= -->
+
+<header class="hero">
+
+  <div class="hero-copy">
+
+    <div class="hero-eyebrow">
+      <span class="live-dot"></span>
+      A VISUAL JOURNEY · EST. 2026
+    </div>
+
+    <h1 class="hero-title">
+      <span class="line-muted">Not just</span>
+      <span class="line-muted">moments.</span>
+      <span class="line-accent">Milestones.</span>
+    </h1>
+
+    <p class="hero-description">
+      A visual archive of the experiences behind the journey.
+      <strong>Hackathons, events, recognitions, community experiences
+      and the little things worth remembering.</strong>
+      Every image represents a moment of learning, effort or growth.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#gallery" class="button-primary">
+        Explore the collection
+        <i class="fa-solid fa-arrow-down"></i>
+      </a>
+
+      <a href="index.html#journey" class="button-secondary">
+        <i class="fa-solid fa-route"></i>
+        My journey
+      </a>
+    </div>
+
+    <div class="hero-meta">
+
+      <div class="hero-meta-item">
+        <span class="hero-meta-number" id="heroTotal">09</span>
+        <span class="hero-meta-label">Moments</span>
+      </div>
+
+      <div class="hero-meta-item">
+        <span class="hero-meta-number">03</span>
+        <span class="hero-meta-label">Collections</span>
+      </div>
+
+      <div class="hero-meta-item">
+        <span class="hero-meta-number">∞</span>
+        <span class="hero-meta-label">More to come</span>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ORBIT VISUAL -->
+
+  <div class="hero-visual" aria-hidden="true">
+
+    <div class="orbit orbit-one"></div>
+    <div class="orbit orbit-two"></div>
+    <div class="orbit orbit-three"></div>
+
+    <div class="orbit-core">
+      <i class="fa-solid fa-camera-retro"></i>
+    </div>
+
+    <div class="floating-tag tag-one">
+      <i class="fa-solid fa-code"></i>
+      Building
+    </div>
+
+    <div class="floating-tag tag-two">
+      <i class="fa-solid fa-trophy"></i>
+      Achieving
+    </div>
+
+    <div class="floating-tag tag-three">
+      <i class="fa-solid fa-lightbulb"></i>
+      Learning
+    </div>
+
+  </div>
+
+</header>
+
+
+<!-- =======================================================
+     MOVING MARQUEE
+======================================================= -->
+
+<div class="marquee">
+  <div class="marquee-track">
+
+    <div class="marquee-group">
+      <span class="marquee-item"><i class="fa-solid fa-code"></i> Hackathons</span>
+      <span class="marquee-star">✦</span>
+      <span class="marquee-item"><i class="fa-solid fa-gift"></i> Swags & Goodies</span>
+      <span class="marquee-star">✦</span>
+      <span class="marquee-item"><i class="fa-solid fa-users"></i> Community</span>
+      <span class="marquee-star">✦</span>
+      <span class="marquee-item"><i class="fa-solid fa-award"></i> Achievements</span>
+      <span class="marquee-star">✦</span>
+      <span class="marquee-item"><i class="fa-solid fa-camera"></i> Memories</span>
+      <span class="marquee-star">✦</span>
+    </div>
+
+    <div class="marquee-group" aria-hidden="true">
+      <span class="marquee-item"><i class="fa-solid fa-code"></i> Hackathons</span>
+      <span class="marquee-star">✦</span>
+      <span class="marquee-item"><i class="fa-solid fa-gift"></i> Swags & Goodies</span>
+      <span class="marquee-star">✦</span>
+      <span class="marquee-item"><i class="fa-solid fa-users"></i> Community</span>
+      <span class="marquee-star">✦</span>
+      <span class="marquee-item"><i class="fa-solid fa-award"></i> Achievements</span>
+      <span class="marquee-star">✦</span>
+      <span class="marquee-item"><i class="fa-solid fa-camera"></i> Memories</span>
+      <span class="marquee-star">✦</span>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- =======================================================
+     FEATURED COLLECTION
+======================================================= -->
+
+<section class="section">
+
+  <div class="section-heading reveal">
+
+    <div>
+      <div class="section-kicker">01 / THE HIGHLIGHTS</div>
+      <h2 class="section-title">
+        A few moments.<br>
+        <span>Many stories.</span>
+      </h2>
+    </div>
+
+    <p class="section-subtitle">
+      Some experiences deserve more than a place in a timeline.
+      Here's a closer look at a few highlights from the journey.
+    </p>
+
+  </div>
+
+
+  <div class="featured-layout">
+
+    <!-- FEATURED IMAGE 1 -->
+
+    <div class="featured-main reveal" data-featured="true">
+
+      <img
+        src="assets/HackaThon_1.jpg"
+        alt="Technology event and conference"
+        loading="lazy">
+
+      <div class="featured-content">
+
+        <span class="featured-label">
+          <i class="fa-solid fa-star"></i>
+          FEATURED EXPERIENCE
+        </span>
+      
+
+        <h3>Where ideas meet execution.</h3>
+
+        <p>
+          From brainstorming and building to presenting solutions —
+          every challenge becomes an opportunity to learn something new.
+        </p>
+
+      </div>
+
+    </div>
+
+
+    <!-- FEATURED SIDE -->
+
+    <div class="featured-side">
+
+      <div class="featured-small reveal reveal-delay-1">
+
+        <img
+          src="assets/Hackthon2c.jpeg"
+          alt="Collaborative learning experience"
+          loading="lazy">
+
+          
+
+        <div class="featured-small-content">
+          <span>01 · COLLABORATION</span>
+          <h4>Better together.</h4>
+          
+        </div>
+
+      </div>
+
+      <div class="featured-small reveal reveal-delay-2">
+
+        <img
+          src="assets/Hackthon2a.jpg"
+          alt="Public speaking event"
+          loading="lazy">
+
+        <div class="featured-small-content">
+          <span>02 · PARTICIPATION</span>
+          <h4>Beyond the classroom.</h4>
+           
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     MAIN GALLERY
+======================================================= -->
+
+<section class="section gallery-section" id="gallery">
+
+  <div class="section-heading reveal">
+
+    <div>
+      <div class="section-kicker">02 / THE ARCHIVE</div>
+      <h2 class="section-title">
+        Explore the <span>collection.</span>
+      </h2>
+    </div>
+
+    <p class="section-subtitle">
+      Browse through different chapters of the journey.
+      Select a category, search for a moment, and explore each image.
+    </p>
+
+  </div>
+
+
+  <!-- FILTERS AND SEARCH -->
+
+  <div class="gallery-toolbar reveal">
+
+    <div class="filters">
+
+      <button class="filter-btn active" data-filter="all">
+        All moments <span class="filter-count">09</span>
+      </button>
+
+      <button class="filter-btn" data-filter="hackathons">
+        Hackathons <span class="filter-count">03</span>
+      </button>
+
+      <button class="filter-btn" data-filter="swags">
+        Swags <span class="filter-count">03</span>
+      </button>
+
+      <button class="filter-btn" data-filter="events">
+        Events <span class="filter-count">03</span>
+      </button>
+
+    </div>
+
+
+    <div class="gallery-tools">
+
+      <label class="search-box">
+        <i class="fa-solid fa-magnifying-glass"></i>
+        <input
+          type="search"
+          id="gallerySearch"
+          placeholder="Search moments..."
+          autocomplete="off">
+      </label>
+
+      <div class="view-toggle" aria-label="Gallery layout">
+
+        <button class="active" id="gridView" aria-label="Grid view">
+          <i class="fa-solid fa-grip"></i>
+        </button>
+
+        <button id="listView" aria-label="List view">
+          <i class="fa-solid fa-list"></i>
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <!-- GALLERY CARDS -->
+
+  <div class="gallery-grid" id="galleryGrid">
+
+
+    <!-- =========================================
+         HACKATHON COLLECTION
+    ========================================== -->
+
+
+    <!-- 01 -->
+
+    <article class="gallery-card reveal"
+      data-category="hackathons"
+      data-title="Building under pressure"
+      data-description="Ideas, teamwork, problem-solving and the energy of a hackathon.">
+
+      <div class="card-image">
+
+        <img
+          src="assets/HackThon2.jpg"
+          alt="Hackathon conference gathering"
+          loading="lazy">
+           <h2 style="color: darkcyan;">To Be Added</h2>
+
+        <span class="card-index">01 / 09</span>
+        <span class="card-category">HACKATHON</span>
+
+        <span class="card-open">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </span>
+
+      </div>
+
+      <div class="card-body">
+
+        <div class="card-date">
+          <i class="fa-regular fa-calendar"></i>
+          HACKATHON EXPERIENCE
+        </div>
+
+        <h3 class="card-title">Building under pressure</h3>
+
+        <p class="card-description">
+          Ideas, teamwork, problem-solving and the energy of a
+          hackathon — where concepts are transformed into solutions.
+        </p>
+
+        <div class="card-bottom">
+          <span class="card-tag">
+            <i class="fa-solid fa-code"></i>
+            Innovation
+          </span>
+
+          <button class="card-view" type="button">EXPLORE ↗</button>
+        </div>
+
+      </div>
+    </article>
+
+
+    <!-- 02 -->
+
+    <article class="gallery-card reveal reveal-delay-1"
+      data-category="hackathons"
+      data-title="Teamwork in action"
+      data-description="Working together, sharing ideas and turning concepts into solutions.">
+
+      <div class="card-image">
+
+        <img
+          src="assets/HackaThon_1.jpg"
+          alt="Team working together"
+          loading="lazy">
+
+        <span class="card-index">02 / 09</span>
+        <span class="card-category">HACKATHON</span>
+
+        <span class="card-open">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </span>
+
+      </div>
+
+      <div class="card-body">
+
+        <div class="card-date">
+          <i class="fa-regular fa-calendar"></i>
+          TEAM EXPERIENCE
+        </div>
+
+        <h3 class="card-title">Teamwork in action</h3>
+
+        <p class="card-description">
+          Working together, exchanging ideas, tackling challenges
+          and learning how collaboration makes a difference.
+        </p>
+
+        <div class="card-bottom">
+          <span class="card-tag">
+            <i class="fa-solid fa-people-group"></i>
+            Collaboration
+          </span>
+
+          <button class="card-view" type="button">EXPLORE ↗</button>
+        </div>
+
+      </div>
+    </article>
+
+
+    <!-- 03 -->
+
+    <article class="gallery-card reveal reveal-delay-2"
+      data-category="hackathons"
+      data-title="Ideas on the stage"
+      data-description="Presenting solutions, communicating ideas and learning through feedback.">
+
+      <div class="card-image">
+
+        <img
+          src="assets/Me_on_stage.jpeg"
+          alt="Conference presentation"
+          loading="lazy">
+
+        <span class="card-index">03 / 09</span>
+        <span class="card-category">HACKATHON</span>
+
+        <span class="card-open">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </span>
+
+      </div>
+
+      <div class="card-body">
+
+        <div class="card-date">
+          <i class="fa-regular fa-calendar"></i>
+          PRESENTATION
+        </div>
+
+        <h3 class="card-title">Ideas on the stage</h3>
+
+        <p class="card-description">
+          Presenting solutions, communicating ideas and learning
+          to explain technical work with confidence.
+        </p>
+
+        <div class="card-bottom">
+          <span class="card-tag">
+            <i class="fa-solid fa-microphone"></i>
+            Presentation
+          </span>
+
+          <button class="card-view" type="button">EXPLORE ↗</button>
+        </div>
+
+      </div>
+    </article>
+
+
+    <!-- =========================================
+         SWAGS COLLECTION
+    ========================================== -->
+
+
+    <!-- 04 -->
+
+    <article class="gallery-card reveal"
+      data-category="swags"
+      data-title="A package of memories"
+      data-description="Welcome kits, goodies and little reminders of meaningful experiences.">
+
+      <div class="card-image">
+
+        <img
+          src="assets/GSA_KIT_a.jpg"
+          alt="Bottle and accessories"
+          loading="lazy">
+
+        <span class="card-index">04 / 09</span>
+        <span class="card-category">SWAGS</span>
+
+        <span class="card-open">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </span>
+
+      </div>
+
+      <div class="card-body">
+
+        <div class="card-date">
+          <i class="fa-regular fa-calendar"></i>
+          WELCOME KIT
+        </div>
+
+        <h3 class="card-title">A package of memories</h3>
+
+        <p class="card-description">
+          Welcome kits, goodies and small reminders of experiences
+          that made the journey special.
+        </p>
+
+        <div class="card-bottom">
+          <span class="card-tag">
+            <i class="fa-solid fa-gift"></i>
+            Goodies
+          </span>
+
+          <button class="card-view" type="button">EXPLORE ↗</button>
+        </div>
+
+      </div>
+    </article>
+
+
+    <!-- 05 -->
+
+    <article class="gallery-card reveal reveal-delay-1"
+      data-category="swags"
+      data-title="Little things, big memories"
+      data-description="Collectibles, stationery and things that make the experience memorable.">
+
+      <div class="card-image">
+
+        <img
+          src="assets/Lapy.png"
+          alt="Notebook and stationery"
+          loading="lazy">
+
+        <span class="card-index">05 / 09</span>
+        <span class="card-category">SWAGS</span>
+
+        <span class="card-open">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </span>
+
+      </div>
+
+      <div class="card-body">
+
+        <div class="card-date">
+          <i class="fa-regular fa-calendar"></i>
+          COLLECTIBLES
+        </div>
+
+        <h3 class="card-title">Little things, big memories</h3>
+
+        <p class="card-description">
+          Collectibles, stationery and meaningful items that
+          remind me of the opportunities behind them.
+        </p>
+
+        <div class="card-bottom">
+          <span class="card-tag">
+            <i class="fa-solid fa-box-open"></i>
+            Collection
+          </span>
+
+          <button class="card-view" type="button">EXPLORE ↗</button>
+        </div>
+
+      </div>
+    </article>
+
+
+    <!-- 06 -->
+
+    <article class="gallery-card reveal reveal-delay-2"
+      data-category="swags"
+      data-title="Milestones worth keeping"
+      data-description="Small rewards and keepsakes that represent bigger efforts.">
+
+      <div class="card-image">
+
+        <img
+          src="assets/Hdfc-Scholarship.jpg"
+          alt="Personal keepsake"
+          loading="lazy">
+
+        <span class="card-index">06 / 09</span>
+        <span class="card-category">SWAGS</span>
+
+        <span class="card-open">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </span>
+
+      </div>
+
+      <div class="card-body">
+
+        <div class="card-date">
+          <i class="fa-regular fa-calendar"></i>
+          MILESTONES
+        </div>
+
+        <h3 class="card-title">Milestones worth keeping</h3>
+
+        <p class="card-description">
+          Small rewards and keepsakes that represent bigger efforts,
+          participation and progress.
+        </p>
+
+        <div class="card-bottom">
+          <span class="card-tag">
+            <i class="fa-solid fa-award"></i>
+            Memories
+          </span>
+
+          <button class="card-view" type="button">EXPLORE ↗</button>
+        </div>
+
+      </div>
+    </article>
+
+
+    <!-- =========================================
+         EVENTS COLLECTION
+    ========================================== -->
+
+
+    <!-- 07 -->
+
+    <article class="gallery-card reveal"
+      data-category="events"
+      data-title="Learning with a community"
+      data-description="Meeting people, exchanging perspectives and learning beyond the classroom.">
+
+      <div class="card-image">
+
+        <img
+          src="assets/HackThon2b.jpeg"
+          alt="Community event"
+          loading="lazy">
+
+        <span class="card-index">07 / 09</span>
+        <span class="card-category">EVENTS</span>
+
+        <span class="card-open">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </span>
+
+      </div>
+
+      <div class="card-body">
+
+        <div class="card-date">
+          <i class="fa-regular fa-calendar"></i>
+          COMMUNITY
+        </div>
+
+        <h3 class="card-title">Learning with a community</h3>
+
+        <p class="card-description">
+          Meeting people, exchanging perspectives and discovering
+          opportunities beyond the classroom.
+        </p>
+
+        <div class="card-bottom">
+          <span class="card-tag">
+            <i class="fa-solid fa-users"></i>
+            Networking
+          </span>
+
+          <button class="card-view" type="button">EXPLORE ↗</button>
+        </div>
+
+      </div>
+    </article>
+
+
+    <!-- 08 -->
+
+    <article class="gallery-card reveal reveal-delay-1"
+      data-category="events"
+      data-title="Curiosity in the room"
+      data-description="Discovering new ideas through sessions, talks and discussions.">
+
+      <div class="card-image">
+
+        <img
+          src="assets/Hackthon_1a.jpg"
+          alt="Speaker at a conference"
+          loading="lazy">
+
+        <span class="card-index">08 / 09</span>
+        <span class="card-category">EVENTS</span>
+
+        <span class="card-open">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </span>
+
+      </div>
+
+      <div class="card-body">
+
+        <div class="card-date">
+          <i class="fa-regular fa-calendar"></i>
+          LEARNING SESSION
+        </div>
+
+        <h3 class="card-title">Curiosity in the room</h3>
+
+        <p class="card-description">
+          Discovering new perspectives through sessions, talks,
+          technical discussions and shared experiences.
+        </p>
+
+        <div class="card-bottom">
+          <span class="card-tag">
+            <i class="fa-solid fa-lightbulb"></i>
+            Learning
+          </span>
+
+          <button class="card-view" type="button">EXPLORE ↗</button>
+        </div>
+
+      </div>
+    </article>
+
+
+    <!-- 09 -->
+
+    <article class="gallery-card reveal reveal-delay-2"
+      data-category="events"
+      data-title="Beyond the code"
+      data-description="Experiences, participation and moments that shape personal growth.">
+
+      <div class="card-image">
+
+        <img
+          src=""
+          alt="Students at an event"
+          loading="lazy">
+
+        <span class="card-index">09 / 09</span>
+        <span class="card-category">EVENTS</span>
+
+        <span class="card-open">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+        </span>
+
+      </div>
+
+      <div class="card-body">
+
+        <div class="card-date">
+          <i class="fa-regular fa-calendar"></i>
+          PARTICIPATION
+        </div>
+
+        <h3 class="card-title">Beyond the code</h3>
+
+        <p class="card-description">
+          Experiences, participation and moments that shape
+          the person behind the projects.
+        </p>
+
+        <div class="card-bottom">
+          <span class="card-tag">
+            <i class="fa-solid fa-compass"></i>
+            Growth
+          </span>
+
+          <button class="card-view" type="button">EXPLORE ↗</button>
+        </div>
+
+      </div>
+    </article>
+
+  </div>
+
+
+  <!-- EMPTY STATE -->
+
+  <div class="empty-state" id="emptyState">
+
+    <div class="empty-icon">
+      <i class="fa-solid fa-magnifying-glass"></i>
+    </div>
+
+    <h3>No moments found.</h3>
+
+    <p>Try another search term or category.</p>
+
+    <button class="empty-reset" id="resetGallery">
+      Reset gallery
+    </button>
+
+  </div>
+
+  <div class="collection-footer">
+    <span>SHOWING <strong id="visibleCount">09</strong> MOMENTS</span>
+    <span>THE COLLECTION IS ALWAYS GROWING ✦</span>
+  </div>
+
+</section>
+
+<!-- ==========================================
+     GALLERY — MORE MOMENTS COMING SOON
+=========================================== -->
+<section class="gallery-future-card">
+
+    <style>
+        .gallery-future-card {
+            --future-cyan: #00e5ff;
+            position: relative;
+            isolation: isolate;
+            max-width: 1100px;
+            min-height: 310px;
+            margin: 85px auto 45px;
+            padding: 65px 55px;
+            box-sizing: border-box;
+            overflow: hidden;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            background:
+                radial-gradient(ellipse at 50% 120%, rgba(0, 210, 255, .13), transparent 55%),
+                radial-gradient(ellipse at 5% 0%, rgba(102, 110, 255, .10), transparent 45%),
+                linear-gradient(135deg, #101c2b 0%, #09121f 55%, #101827 100%);
+
+            border: 1px solid rgba(0, 225, 255, .19);
+            border-radius: 26px;
+
+            box-shadow:
+                0 30px 80px rgba(0, 0, 0, .3),
+                inset 0 1px 0 rgba(255, 255, 255, .055);
+        }
+
+        /* Animated border glow */
+        .gallery-future-card::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            padding: 1px;
+            border-radius: inherit;
+            background: linear-gradient(
+                120deg,
+                transparent 10%,
+                rgba(0, 229, 255, .5),
+                rgba(144, 125, 255, .35),
+                transparent 85%
+            );
+            -webkit-mask:
+                linear-gradient(#fff 0 0) content-box,
+                linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: .55;
+        }
+
+        /* Ambient light */
+        .gallery-future-card::after {
+            content: "";
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            background: rgba(0, 210, 255, .055);
+            filter: blur(100px);
+            border-radius: 50%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .gallery-future-content {
+            position: relative;
+            z-index: 2;
+            max-width: 780px;
+        }
+
+        /* Top label */
+        .gallery-future-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 11px;
+            padding: 9px 17px;
+            margin-bottom: 25px;
+
+            color: #8ceafa;
+            background: rgba(0, 225, 255, .065);
+            border: 1px solid rgba(0, 225, 255, .16);
+            border-radius: 50px;
+
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 2.8px;
+        }
+
+        .gallery-future-label span {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--future-cyan);
+            box-shadow: 0 0 13px var(--future-cyan);
+            animation: futurePulse 2s infinite;
+        }
+
+        /* Main heading */
+        .gallery-future-title {
+            margin: 0;
+            color: #f3f8ff;
+            font-size: clamp(34px, 5vw, 55px);
+            line-height: 1.15;
+            font-weight: 850;
+            letter-spacing: -2px;
+        }
+
+        .gallery-future-title em {
+            display: block;
+            margin-top: 5px;
+            font-style: normal;
+
+            background: linear-gradient(
+                95deg,
+                #00e5ff,
+                #70baff 50%,
+                #b39aff
+            );
+
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Description */
+        .gallery-future-description {
+            max-width: 680px;
+            margin: 23px auto 0;
+
+            color: #a9b8ca;
+            font-size: 14px;
+            line-height: 2;
+            font-weight: 400;
+        }
+
+        .gallery-future-description strong {
+            color: #e6f7ff;
+            font-weight: 650;
+        }
+
+        /* Decorative divider */
+        .gallery-future-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 13px;
+            margin: 28px 0 20px;
+        }
+
+        .gallery-future-divider span {
+            width: 55px;
+            height: 1px;
+            background: linear-gradient(
+                90deg,
+                transparent,
+                rgba(0, 225, 255, .5)
+            );
+        }
+
+        .gallery-future-divider span:last-child {
+            transform: rotate(180deg);
+        }
+
+        .gallery-future-divider i {
+            color: var(--future-cyan);
+            font-size: 13px;
+            font-style: normal;
+            text-shadow: 0 0 12px rgba(0, 225, 255, .6);
+        }
+
+        /* Bottom note */
+        .gallery-future-bottom {
+            color: #6f849c;
+            font-size: 9px;
+            font-weight: 800;
+            letter-spacing: 2.5px;
+        }
+
+        /* Corner decorations */
+        .gallery-future-corner {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border-color: rgba(0, 225, 255, .22);
+            border-style: solid;
+            pointer-events: none;
+        }
+
+        .gallery-future-corner.top-left {
+            top: 19px;
+            left: 19px;
+            border-width: 1px 0 0 1px;
+            border-radius: 10px 0 0 0;
+        }
+
+        .gallery-future-corner.bottom-right {
+            bottom: 19px;
+            right: 19px;
+            border-width: 0 1px 1px 0;
+            border-radius: 0 0 10px 0;
+        }
+
+        /* Floating decorative stars */
+        .gallery-future-star {
+            position: absolute;
+            color: rgba(0, 225, 255, .65);
+            pointer-events: none;
+            animation: futureFloat 4s ease-in-out infinite;
+        }
+
+        .gallery-future-star.star-a {
+            top: 23%;
+            left: 13%;
+            font-size: 19px;
+        }
+
+        .gallery-future-star.star-b {
+            right: 14%;
+            top: 28%;
+            font-size: 13px;
+            color: #a995ff;
+            animation-delay: 1s;
+        }
+
+        .gallery-future-star.star-c {
+            bottom: 23%;
+            left: 19%;
+            font-size: 12px;
+            animation-delay: 2s;
+        }
+
+        .gallery-future-star.star-d {
+            bottom: 25%;
+            right: 18%;
+            font-size: 20px;
+            color: #a995ff;
+            animation-delay: 1.5s;
+        }
+
+        /* Animations */
+        @keyframes futurePulse {
+            0%, 100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: .4;
+                transform: scale(.7);
+            }
+        }
+
+        @keyframes futureFloat {
+            0%, 100% {
+                transform: translateY(0);
+                opacity: .55;
+            }
+            50% {
+                transform: translateY(-9px);
+                opacity: 1;
+            }
+        }
+
+        /* Tablet */
+        @media (max-width: 768px) {
+            .gallery-future-card {
+                min-height: 300px;
+                padding: 55px 32px;
+                margin: 65px 15px 35px;
+            }
+
+            .gallery-future-title {
+                letter-spacing: -1.3px;
+            }
+
+            .gallery-future-description {
+                font-size: 13px;
+            }
+
+            .gallery-future-star.star-a {
+                left: 6%;
+            }
+
+            .gallery-future-star.star-b {
+                right: 6%;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+            .gallery-future-card {
+                min-height: 340px;
+                padding: 45px 21px;
+                border-radius: 19px;
+                margin: 50px 10px 30px;
+            }
+
+            .gallery-future-label {
+                font-size: 8px;
+                letter-spacing: 1.8px;
+                padding: 8px 12px;
+            }
+
+            .gallery-future-title {
+                font-size: 35px;
+            }
+
+            .gallery-future-description {
+                font-size: 12px;
+                line-height: 1.9;
+            }
+
+            .gallery-future-corner {
+                width: 45px;
+                height: 45px;
+            }
+
+            .gallery-future-corner.top-left {
+                top: 12px;
+                left: 12px;
+            }
+
+            .gallery-future-corner.bottom-right {
+                bottom: 12px;
+                right: 12px;
+            }
+
+            .gallery-future-bottom {
+                font-size: 8px;
+                letter-spacing: 1.7px;
+            }
+
+            .gallery-future-star.star-a,
+            .gallery-future-star.star-c {
+                left: 5%;
+            }
+
+            .gallery-future-star.star-b,
+            .gallery-future-star.star-d {
+                right: 5%;
+            }
+        }
+
+        /* Accessibility */
+        @media (prefers-reduced-motion: reduce) {
+            .gallery-future-label span,
+            .gallery-future-star {
+                animation: none;
+            }
+        }
+    </style>
+
+    <div class="gallery-future-corner top-left"></div>
+    <div class="gallery-future-corner bottom-right"></div>
+
+    <span class="gallery-future-star star-a">✦</span>
+    <span class="gallery-future-star star-b">✧</span>
+    <span class="gallery-future-star star-c">✦</span>
+    <span class="gallery-future-star star-d">✧</span>
+
+    <div class="gallery-future-content">
+
+        <div class="gallery-future-label">
+            <span></span>
+            THE JOURNEY CONTINUES
+        </div>
+
+        <h2 class="gallery-future-title">
+            Just a Glimpse
+            <em>of the Journey.</em>
+        </h2>
+
+        <p class="gallery-future-description">
+            What you see here is only a selection of the
+            <strong>major moments, experiences, and milestones</strong>
+            that have shaped my journey so far.
+            There are many more stories worth capturing —
+            and this collection will continue to grow with every new experience.
+        </p>
+
+        <div class="gallery-future-divider">
+            <span></span>
+            <i>✧</i>
+            <span></span>
+        </div>
+
+        <div class="gallery-future-bottom">
+            MORE MEMORIES · MORE EXPERIENCES · MORE TO COME
+        </div>
+
+    </div>
+
+</section>
+
+
+
+
+
+
+
+
+
+<!-- =======================================================
+     CLOSING SECTION
+======================================================= -->
+
+<section class="closing-section">
+
+  <div class="closing-panel reveal">
+
+    <div class="section-kicker">THE NEXT CHAPTER</div>
+
+    <h2>
+      This is only <span>the beginning.</span>
+    </h2>
+
+    <p>
+      More challenges to take on. More things to build.
+      More communities to learn from. More memories to create.
+      The collection will keep growing, just like the journey.
+    </p>
+
+    <a href="index.html" class="button-primary">
+      Back to my portfolio
+      <i class="fa-solid fa-arrow-right"></i>
+    </a>
+
+  </div>
+
+</section>
+
+
+<!-- =======================================================
+     FOOTER
+======================================================= -->
+
+<footer class="footer">
+
+  <div class="footer-inner">
+
+    <div>
+      <div class="footer-brand">AMIT MAVINAKATTI<span>.</span></div>
+      <p class="footer-copy">
+        &copy; <span id="currentYear"></span>
+        Amit's Personal Space. All rights reserved.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#projects">Projects</a>
+      <a href="copyright.html">Copyright</a>
+      <a href="index.html#contact">Contact</a>
+    </div>
+
+  </div>
+
+</footer>
+
+
+<!-- =======================================================
+     IMAGE VIEWER
+======================================================= -->
+
+<div class="viewer" id="viewer"
+  role="dialog"
+  aria-modal="true"
+  aria-label="Gallery image viewer">
+
+  <div class="viewer-inner">
+
+    <div class="viewer-top">
+
+      <div class="viewer-brand">
+        <i class="fa-solid fa-camera-retro"></i>
+        APS / VISUAL ARCHIVE
+      </div>
+
+      <div class="viewer-top-actions">
+
+        <button class="viewer-control" id="zoomButton"
+          aria-label="Zoom image">
+          <i class="fa-solid fa-magnifying-glass-plus"></i>
+        </button>
+
+        <button class="viewer-control" id="closeViewer"
+          aria-label="Close viewer">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <div class="viewer-stage" id="viewerStage">
+
+      <button class="viewer-arrow prev" id="viewerPrev"
+        aria-label="Previous image">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <img class="viewer-image" id="viewerImage" src="" alt="">
+
+      <button class="viewer-arrow next" id="viewerNext"
+        aria-label="Next image">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+
+    </div>
+
+
+    <div class="viewer-bottom">
+
+      <div class="viewer-caption">
+
+        <div class="viewer-counter" id="viewerCounter">
+          01 / 09
+        </div>
+
+        <h3 id="viewerTitle">Image title</h3>
+
+        <p id="viewerDescription">
+          Image description
+        </p>
+
+      </div>
+
+      <div class="viewer-thumbnails" id="viewerThumbnails"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- TOAST -->
+
+<div class="toast" id="toast" role="status" aria-live="polite">
+  Image opened
+</div>
+
+
+<!-- BACK TO TOP -->
+
+<button class="back-top" id="backTop" aria-label="Back to top">
+  <i class="fa-solid fa-arrow-up"></i>
+</button>
+
+
+<!-- =======================================================
+     JAVASCRIPT
+======================================================= -->
+
+<script>
+
+/* =========================================================
+   01. SELECT ELEMENTS
+========================================================= */
+
+const galleryGrid = document.getElementById("galleryGrid");
+const galleryCards = [...document.querySelectorAll(".gallery-card")];
+
+const filterButtons = [...document.querySelectorAll(".filter-btn")];
+
+const gallerySearch = document.getElementById("gallerySearch");
+
+const emptyState = document.getElementById("emptyState");
+const resetGallery = document.getElementById("resetGallery");
+
+const visibleCount = document.getElementById("visibleCount");
+
+const viewer = document.getElementById("viewer");
+const viewerImage = document.getElementById("viewerImage");
+const viewerTitle = document.getElementById("viewerTitle");
+const viewerDescription = document.getElementById("viewerDescription");
+const viewerCounter = document.getElementById("viewerCounter");
+const viewerThumbnails = document.getElementById("viewerThumbnails");
+
+const viewerPrev = document.getElementById("viewerPrev");
+const viewerNext = document.getElementById("viewerNext");
+const closeViewer = document.getElementById("closeViewer");
+const zoomButton = document.getElementById("zoomButton");
+
+const backTop = document.getElementById("backTop");
+const toast = document.getElementById("toast");
+
+
+/* =========================================================
+   02. GENERAL STATE
+========================================================= */
+
+let activeFilter = "all";
+let activeSearch = "";
+let currentImageIndex = 0;
+let visibleCards = [];
+let previousFocus = null;
+let toastTimeout = null;
+
+const reducedMotion =
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+
+/* =========================================================
+   03. DYNAMIC YEAR AND COUNTS
+========================================================= */
+
+document.getElementById("currentYear").textContent =
+  new Date().getFullYear();
+
+document.getElementById("heroTotal").textContent =
+  String(galleryCards.length).padStart(2,"0");
+
+
+/* =========================================================
+   04. FILTER AND SEARCH ENGINE
+========================================================= */
+
+function updateGallery() {
+
+  let count = 0;
+
+  galleryCards.forEach(card => {
+
+    const category = card.dataset.category;
+    const title = card.dataset.title || "";
+    const description = card.dataset.description || "";
+
+    const searchableText =
+      `${title} ${description} ${category}`.toLowerCase();
+
+    const categoryMatches =
+      activeFilter === "all" ||
+      category === activeFilter;
+
+    const searchMatches =
+      searchableText.includes(activeSearch);
+
+    const shouldShow =
+      categoryMatches && searchMatches;
+
+    card.classList.toggle("is-hidden",!shouldShow);
+
+    if (shouldShow) {
+      count++;
+    }
+
+  });
+
+  visibleCount.textContent =
+    String(count).padStart(2,"0");
+
+  emptyState.classList.toggle("visible",count === 0);
+
+  updateVisibleCards();
+
+}
+
+
+/* =========================================================
+   05. CATEGORY FILTER BUTTONS
+========================================================= */
+
+filterButtons.forEach(button => {
+
+  button.addEventListener("click",() => {
+
+    activeFilter = button.dataset.filter;
+
+    filterButtons.forEach(item => {
+      item.classList.toggle("active",item === button);
+    });
+
+    updateGallery();
+
+  });
+
+});
+
+
+/* =========================================================
+   06. LIVE SEARCH
+========================================================= */
+
+gallerySearch.addEventListener("input",event => {
+
+  activeSearch = event.target.value.trim().toLowerCase();
+
+  updateGallery();
+
+});
+
+
+/* =========================================================
+   07. RESET FILTERS
+========================================================= */
+
+resetGallery.addEventListener("click",() => {
+
+  activeFilter = "all";
+  activeSearch = "";
+
+  gallerySearch.value = "";
+
+  filterButtons.forEach(button => {
+    button.classList.toggle(
+      "active",
+      button.dataset.filter === "all"
+    );
+  });
+
+  updateGallery();
+
+});
+
+
+/* =========================================================
+   08. GRID AND LIST VIEW
+========================================================= */
+
+const gridView = document.getElementById("gridView");
+const listView = document.getElementById("listView");
+
+gridView.addEventListener("click",() => {
+
+  galleryGrid.classList.remove("list-view");
+
+  gridView.classList.add("active");
+  listView.classList.remove("active");
+
+});
+
+listView.addEventListener("click",() => {
+
+  galleryGrid.classList.add("list-view");
+
+  listView.classList.add("active");
+  gridView.classList.remove("active");
+
+});
+
+
+/* =========================================================
+   09. GET VISIBLE IMAGES
+========================================================= */
+
+function updateVisibleCards() {
+
+  visibleCards = galleryCards.filter(card =>
+    !card.classList.contains("is-hidden")
+  );
+
+}
+
+
+/* =========================================================
+   10. GET IMAGE INFORMATION
+========================================================= */
+
+function getImageData(card) {
+
+  const image = card.querySelector(".card-image img");
+
+  return {
+    src: image.currentSrc || image.src,
+    alt: image.alt,
+    title: card.dataset.title,
+    description: card.dataset.description
+  };
+
+}
+
+
+/* =========================================================
+   11. BUILD VIEWER THUMBNAILS
+========================================================= */
+
+function buildThumbnails() {
+
+  viewerThumbnails.innerHTML = "";
+
+  visibleCards.forEach((card,index) => {
+
+    const data = getImageData(card);
+
+    const button = document.createElement("button");
+
+    button.className = "viewer-thumb";
+    button.type = "button";
+
+    button.setAttribute(
+      "aria-label",
+      `View image ${index + 1}: ${data.title}`
+    );
+
+    const image = document.createElement("img");
+
+    image.src = data.src;
+    image.alt = "";
+
+    button.appendChild(image);
+
+    button.addEventListener("click",() => {
+      showImage(index);
+    });
+
+    viewerThumbnails.appendChild(button);
+
+  });
+
+}
+
+
+/* =========================================================
+   12. OPEN VIEWER
+========================================================= */
+
+function openViewer(card) {
+
+  updateVisibleCards();
+
+  currentImageIndex = visibleCards.indexOf(card);
+
+  if (currentImageIndex < 0) return;
+
+  previousFocus = document.activeElement;
+
+  buildThumbnails();
+
+  viewer.classList.add("open");
+
+  document.body.classList.add("locked");
+
+  showImage(currentImageIndex);
+
+  closeViewer.focus();
+
+}
+
+
+/* =========================================================
+   13. SHOW IMAGE
+========================================================= */
+
+function showImage(index) {
+
+  if (!visibleCards.length) return;
+
+  currentImageIndex =
+    (index + visibleCards.length) % visibleCards.length;
+
+  const card = visibleCards[currentImageIndex];
+
+  const data = getImageData(card);
+
+  viewerImage.classList.remove("zoomed");
+
+  viewerImage.src = data.src;
+  viewerImage.alt = data.alt;
+
+  viewerTitle.textContent = data.title;
+  viewerDescription.textContent = data.description;
+
+  viewerCounter.textContent =
+    `${String(currentImageIndex + 1).padStart(2,"0")} / ${String(visibleCards.length).padStart(2,"0")}`;
+
+  const thumbs = [...viewerThumbnails.children];
+
+  thumbs.forEach((thumb,index) => {
+
+    thumb.classList.toggle(
+      "active",
+      index === currentImageIndex
+    );
+
+  });
+
+  const activeThumb = thumbs[currentImageIndex];
+
+  if (activeThumb) {
+    activeThumb.scrollIntoView({
+      behavior: reducedMotion ? "auto" : "smooth",
+      block: "nearest",
+      inline: "center"
+    });
+  }
+
+}
+
+
+/* =========================================================
+   14. NEXT IMAGE
+========================================================= */
+
+function nextImage() {
+
+  showImage(currentImageIndex + 1);
+
+}
+
+
+/* =========================================================
+   15. PREVIOUS IMAGE
+========================================================= */
+
+function previousImage() {
+
+  showImage(currentImageIndex - 1);
+
+}
+
+
+/* =========================================================
+   16. CLOSE VIEWER
+========================================================= */
+
+function hideViewer() {
+
+  viewer.classList.remove("open");
+
+  document.body.classList.remove("locked");
+
+  viewerImage.classList.remove("zoomed");
+
+  if (previousFocus && previousFocus.focus) {
+    previousFocus.focus();
+  }
+
+}
+
+
+/* =========================================================
+   17. CARD CLICK EVENTS
+========================================================= */
+
+galleryCards.forEach(card => {
+
+  card.querySelector(".card-image").addEventListener("click",() => {
+    openViewer(card);
+  });
+
+  card.querySelector(".card-view").addEventListener("click",() => {
+    openViewer(card);
+  });
+
+});
+
+
+/* =========================================================
+   18. FEATURED IMAGE VIEWER
+========================================================= */
+
+document.querySelectorAll("[data-featured]").forEach(card => {
+
+  card.addEventListener("click",() => {
+
+    showToast("Featured image preview");
+
+  });
+
+});
+
+
+/* =========================================================
+   19. VIEWER BUTTON EVENTS
+========================================================= */
+
+viewerNext.addEventListener("click",nextImage);
+
+viewerPrev.addEventListener("click",previousImage);
+
+closeViewer.addEventListener("click",hideViewer);
+
+
+/* =========================================================
+   20. CLOSE BY CLICKING BACKDROP
+========================================================= */
+
+viewer.addEventListener("click",event => {
+
+  if (event.target === viewer) {
+    hideViewer();
+  }
+
+});
+
+
+/* =========================================================
+   21. KEYBOARD NAVIGATION
+========================================================= */
+
+document.addEventListener("keydown",event => {
+
+  if (!viewer.classList.contains("open")) return;
+
+  if (event.key === "Escape") {
+    hideViewer();
+  }
+
+  if (event.key === "ArrowRight") {
+    nextImage();
+  }
+
+  if (event.key === "ArrowLeft") {
+    previousImage();
+  }
+
+  if (event.key === "+" || event.key === "=") {
+    toggleZoom(true);
+  }
+
+  if (event.key === "-") {
+    toggleZoom(false);
+  }
+
+});
+
+
+/* =========================================================
+   22. ZOOM
+========================================================= */
+
+function toggleZoom(forceOn) {
+
+  const isZoomed =
+    viewerImage.classList.contains("zoomed");
+
+  const shouldZoom =
+    typeof forceOn === "boolean" ? forceOn : !isZoomed;
+
+  viewerImage.classList.toggle("zoomed",shouldZoom);
+
+  zoomButton.innerHTML = shouldZoom
+    ? '<i class="fa-solid fa-magnifying-glass-minus"></i>'
+    : '<i class="fa-solid fa-magnifying-glass-plus"></i>';
+
+}
+
+zoomButton.addEventListener("click",() => {
+  toggleZoom();
+});
+
+viewerImage.addEventListener("click",() => {
+  toggleZoom();
+});
+
+
+/* =========================================================
+   23. TOUCH SWIPE NAVIGATION
+========================================================= */
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+viewerImage.addEventListener("touchstart",event => {
+
+  touchStartX = event.changedTouches[0].screenX;
+  touchStartY = event.changedTouches[0].screenY;
+
+},{passive:true});
+
+
+viewerImage.addEventListener("touchend",event => {
+
+  const endX = event.changedTouches[0].screenX;
+  const endY = event.changedTouches[0].screenY;
+
+  const differenceX = endX - touchStartX;
+  const differenceY = endY - touchStartY;
+
+  if (Math.abs(differenceX) > 55 &&
+      Math.abs(differenceX) > Math.abs(differenceY)) {
+
+    differenceX < 0 ? nextImage() : previousImage();
+
+  }
+
+},{passive:true});
+
+
+/* =========================================================
+   24. TOAST NOTIFICATIONS
+========================================================= */
+
+function showToast(message) {
+
+  toast.textContent = message;
+
+  toast.classList.add("show");
+
+  clearTimeout(toastTimeout);
+
+  toastTimeout = setTimeout(() => {
+
+    toast.classList.remove("show");
+
+  },2400);
+
+}
+
+
+/* =========================================================
+   25. SCROLL REVEAL
+========================================================= */
+
+const revealElements =
+  document.querySelectorAll(".reveal");
+
+if ("IntersectionObserver" in window && !reducedMotion) {
+
+  const revealObserver = new IntersectionObserver(entries => {
+
+    entries.forEach(entry => {
+
+      if (entry.isIntersecting) {
+
+        entry.target.classList.add("visible");
+
+        revealObserver.unobserve(entry.target);
+
+      }
+
+    });
+
+  },{
+
+    threshold:.08,
+    rootMargin:"0px 0px -35px 0px"
+
+  });
+
+  revealElements.forEach(element => {
+    revealObserver.observe(element);
+  });
+
+} else {
+
+  revealElements.forEach(element => {
+    element.classList.add("visible");
+  });
+
+}
+
+
+/* =========================================================
+   26. SCROLL PROGRESS
+========================================================= */
+
+const scrollProgress =
+  document.getElementById("scrollProgress");
+
+function updateScrollProgress() {
+
+  const scrollable =
+    document.documentElement.scrollHeight - window.innerHeight;
+
+  const progress =
+    scrollable > 0
+      ? (window.scrollY / scrollable) * 100
+      : 0;
+
+  scrollProgress.style.width =
+    `${Math.min(100,progress)}%`;
+
+}
+
+window.addEventListener(
+  "scroll",
+  updateScrollProgress,
+  {passive:true}
+);
+
+
+/* =========================================================
+   27. BACK TO TOP VISIBILITY
+========================================================= */
+
+window.addEventListener("scroll",() => {
+
+  backTop.classList.toggle(
+    "visible",
+    window.scrollY > 500
+  );
+
+},{passive:true});
+
+
+/* =========================================================
+   28. BACK TO TOP ACTION
+========================================================= */
+
+backTop.addEventListener("click",() => {
+
+  window.scrollTo({
+    top:0,
+    behavior:reducedMotion ? "auto" : "smooth"
+  });
+
+});
+
+
+/* =========================================================
+   29. CURSOR GLOW
+========================================================= */
+
+const cursorGlow =
+  document.getElementById("cursorGlow");
+
+if (window.matchMedia("(pointer:fine)").matches &&
+    !reducedMotion) {
+
+  window.addEventListener("mousemove",event => {
+
+    cursorGlow.style.left = `${event.clientX}px`;
+    cursorGlow.style.top = `${event.clientY}px`;
+
+  },{passive:true});
+
+}
+
+
+/* =========================================================
+   30. IMAGE LOADING FALLBACK
+========================================================= */
+
+document.querySelectorAll(".card-image img").forEach(image => {
+
+  image.addEventListener("error",() => {
+
+    image.style.opacity = "0";
+
+    image.parentElement.style.background =
+      "linear-gradient(145deg,#172a32,#101923)";
+
+    const fallback =
+      document.createElement("div");
+
+    fallback.style.position = "absolute";
+    fallback.style.inset = "0";
+    fallback.style.display = "grid";
+    fallback.style.placeItems = "center";
+    fallback.style.color = "#6be8df";
+    fallback.style.fontSize = "35px";
+
+    fallback.innerHTML =
+      '<i class="fa-regular fa-image"></i>';
+
+    image.parentElement.appendChild(fallback);
+
+  });
+
+});
+
+
+/* =========================================================
+   31. PRELOAD NEXT IMAGE
+========================================================= */
+
+function preloadNextImage() {
+
+  if (!visibleCards.length) return;
+
+  const nextIndex =
+    (currentImageIndex + 1) % visibleCards.length;
+
+  const nextData =
+    getImageData(visibleCards[nextIndex]);
+
+  const preload = new Image();
+
+  preload.src = nextData.src;
+
+}
+
+viewerNext.addEventListener("click",preloadNextImage);
+
+
+/* =========================================================
+   32. INITIALIZE GALLERY
+========================================================= */
+
+updateGallery();
+
+updateScrollProgress();
+
+
+/* =========================================================
+   33. HANDLE PAGE VISIBILITY
+========================================================= */
+
+document.addEventListener("visibilitychange",() => {
+
+  if (document.hidden && viewer.classList.contains("open")) {
+
+    // Keep the viewer open, but do not trigger extra animations.
+
+    viewerImage.style.transition = "none";
+
+  } else {
+
+    viewerImage.style.transition = "";
+
+  }
+
+});
+
+
+/* =========================================================
+   34. CLEANUP ON PAGE EXIT
+========================================================= */
+
+window.addEventListener("pagehide",() => {
+
+  clearTimeout(toastTimeout);
+
+});
+
+
+</script>
+
+</body>
+</html>
